@@ -2,6 +2,9 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { FixedPlugin, Layout } from "@/components";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import Hero from "./hero";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -33,10 +36,14 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/favicon.png" type="image/png" />
       </head>
       <body className={roboto.className}>
-        <Layout>
-          {children}
-          <FixedPlugin />
-        </Layout>
+        <Navbar />
+        <Hero />
+        <main className="min-h-screen">
+          <Layout>
+            {children}
+          </Layout>
+        </main>
+        <Footer />
       </body>
     </html>
   );

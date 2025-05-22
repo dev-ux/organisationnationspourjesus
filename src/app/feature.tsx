@@ -49,7 +49,7 @@ export function Features() {
           Why Choose Us
         </h1>
         <p className="mx-auto w-full px-4 text-gray-500 lg:w-11/12 lg:px-8 text-lg leading-relaxed">
-          Access your learning materials on the go. Whether you&apos;re
+          Access your learning materials on the go. Whether you're
           commuting, waiting for a friend, or just have a few minutes to spare,
           our app fits seamlessly into your busy life.
         </p>
