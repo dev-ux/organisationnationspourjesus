@@ -20,8 +20,8 @@ const blogPosts: BlogPost[] = [
     date: "22 Mai 2025",
     images: [
       "/image/blog/campagne1.jpg",
-      "/image/blog/campagne2.jpg",
-      "/image/blog/campagne3.jpg"
+      "/image/blog/campagne.jpg",
+      "/image/blog/campagne.jpg"
     ],
     excerpt: "ACTIONS SOCIALES - Des canaux de Réveil... C'est ce que nous avons été sur le terrain, hier mercredi.",
     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
@@ -32,8 +32,8 @@ const blogPosts: BlogPost[] = [
     date: "17 Mai 2025",
     images: [
       "/image/blog/info1.jpg",
-      "/image/blog/info2.jpg",
-      "/image/blog/info3.jpg"
+      "/image/blog/information.jpg",
+      "/image/blog/information.jpg"
     ],
     excerpt: "Programme prophétique de réveil et d'évangélisation en cours.",
     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
@@ -43,9 +43,9 @@ const blogPosts: BlogPost[] = [
     title: "CAMPAGNE DE RÉVEIL",
     date: "15 Mai 2025",
     images: [
-      "/image/blog/revival1.jpg",
-      "/image/blog/revival2.jpg",
-      "/image/blog/revival3.jpg"
+      "/image/blog/revival.jpg",
+      "/image/blog/revival.jpg",
+      "/image/blog/revival.jpg"
     ],
     excerpt: "Campagne de réveil en cours avec des actions sociales et évangélisation.",
     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
@@ -55,9 +55,9 @@ const blogPosts: BlogPost[] = [
     title: "GRANDE CAMPAGNE D'ÉVANGÉLISATION",
     date: "10 Mai 2025",
     images: [
-      "/image/blog/evan1.jpg",
-      "/image/blog/evan2.jpg",
-      "/image/blog/evan3.jpg"
+      "/image/blog/evangelisation.jpg",
+      "/image/blog/evangelisation.jpg",
+      "/image/blog/evangelisation.jpg"
     ],
     excerpt: "Campagne d'évangélisation et d'actions sociales en cours.",
     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
@@ -67,9 +67,9 @@ const blogPosts: BlogPost[] = [
     title: "FORMATION SPIRITUELLE",
     date: "5 Mai 2025",
     images: [
-      "/image/blog/formation1.jpg",
-      "/image/blog/formation2.jpg",
-      "/image/blog/formation3.jpg"
+      "/image/blog/formation.jpg",
+      "/image/blog/formation.jpg",
+      "/image/blog/formation.jpg"
     ],
     excerpt: "Sessions de formation spirituelle pour les disciples.",
     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
@@ -79,9 +79,9 @@ const blogPosts: BlogPost[] = [
     title: "RÉUNIONS DE PRIÈRE",
     date: "1 Mai 2025",
     images: [
-      "/image/blog/priere1.jpg",
-      "/image/blog/priere2.jpg",
-      "/image/blog/priere3.jpg"
+      "/image/blog/priere.jpg",
+      "/image/blog/priere.jpg",
+      "/image/blog/priere.jpg"
     ],
     excerpt: "Réunions de prière et intercession pour la communauté.",
     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."

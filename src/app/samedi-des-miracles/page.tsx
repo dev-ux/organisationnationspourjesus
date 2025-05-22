@@ -1,8 +1,16 @@
+"use client";
+
 import React from 'react';
+import Header from '@/components/header';
+import Footer from '@/components/footer';
+import SamediMiraclesHero from './hero';
 
 export default function SamediDesMiraclesPage() {
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="min-h-screen bg-white">
+      <Header />
+      <SamediMiraclesHero />
+      <main className="container mx-auto px-4 py-16">
       <h1 className="text-4xl font-bold mb-8">Samedi des Miracles</h1>
       <div className="bg-white rounded-lg shadow-md p-8 mb-8">
         <h2 className="text-2xl font-semibold mb-4">Programme Spécial</h2>
@@ -43,6 +51,8 @@ export default function SamediDesMiraclesPage() {
           </div>
         </div>
       </div>
+      </main>
+      <Footer />
     </div>
   );
 }

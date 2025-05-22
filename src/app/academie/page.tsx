@@ -1,10 +1,12 @@
 import React from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
+import AcademieHero from './hero';
 
 export default function AcademiePage() {
   return (
     <div className="min-h-screen bg-white">
+      <AcademieHero />
       <Header />
       <main className="container mx-auto px-4 py-16">
         <h1 className="text-4xl font-bold mb-8">L'Académie</h1>

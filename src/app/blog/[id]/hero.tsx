@@ -7,7 +7,7 @@ export default function BlogDetailHero({ post }: { post: { title: string; image?
     <div className="relative h-[400px] w-full">
       <div className="absolute inset-0">
         <Image
-          src={post.image || '/image/blog/default-hero.jpg'}
+          src={post.image || '/image/blog/formation.jpg'}
           alt={post.title}
           fill
           className="object-cover"

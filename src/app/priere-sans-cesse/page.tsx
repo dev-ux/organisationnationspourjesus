@@ -1,8 +1,16 @@
+"use client";
+
 import React from 'react';
+import Header from '@/components/header';
+import Footer from '@/components/footer';
+import PriereSansCesseHero from './hero';
 
 export default function PriereSansCessePage() {
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="min-h-screen bg-white">
+      <Header />
+      <PriereSansCesseHero />
+      <main className="container mx-auto px-4 py-16">
       <h1 className="text-4xl font-bold mb-8">Prière sans Cesse</h1>
       <div className="bg-white rounded-lg shadow-md p-8 mb-8">
         <h2 className="text-2xl font-semibold mb-4">Notre Engagement</h2>
@@ -41,6 +49,8 @@ export default function PriereSansCessePage() {
           </div>
         </div>
       </div>
+      </main>
+      <Footer />
     </div>
   );
 }
