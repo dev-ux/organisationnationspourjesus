@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export function FixedPlugin() {
   return (
-    <a href="https://www.material-tailwind.com" target="_blank">
+    <a href="https://www.material-tailwind.com" target="_blank" rel="noopener noreferrer">
       <button
         className="!fixed bottom-4 right-4 flex gap-1 pl-2 items-center border border-blue-gray-50 bg-white text-gray-900 hover:bg-gray-50 transition-colors"
       >
@@ -14,8 +14,8 @@ export function FixedPlugin() {
           className="w-5 h-5"
           alt="Material Tailwind"
           src="https://www.material-tailwind.com/favicon.png"
-        />{" "}
-        Made With Material Tailwind
+        />
+        <span>Made With Material Tailwind</span>
       </button>
     </a>
   );

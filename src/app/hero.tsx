@@ -5,10 +5,10 @@ import { Button } from "@material-tailwind/react";
 import Carousel from '@/components/carousel';
 
 const images = [
-  'image/onj5.jpg',
-  'image/onj6.jpg',
-  'image/onj7.jpg',
-  'image/onj8.jpg',
+  '/image/onj5.jpg',
+  '/image/onj6.jpg',
+  '/image/onj7.jpg',
+  '/image/onj8.jpg',
 ];
 
 export default function Hero() {

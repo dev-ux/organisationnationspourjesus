@@ -1,17 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: 'export',
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "**",
+        protocol: 'https',
+        hostname: 'www.material-tailwind.com',
+        pathname: '/**',
       },
     ],
-    domains: ['localhost'],
-    unoptimized: true,
   },
-};
+  output: 'standalone',
+  experimental: {
+    appDir: true,
+  },
+}
 
 module.exports = nextConfig;
