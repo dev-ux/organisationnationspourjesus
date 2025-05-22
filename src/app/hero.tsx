@@ -1,57 +1,86 @@
 "use client";
 
 import Image from "next/image";
-import { Button, Typography } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
+import React from 'react';
+import Carousel from '@/components/carousel';
 
+const images = [
+  '/image/eglise.jpg',
+  '/image/culte.jpg',
+  '/image/priere.jpg',
+  '/image/communaute.jpg'
+];
 
 function Hero() {
   return (
     <div className="relative min-h-screen w-full">
-      <header className="grid !min-h-[49rem] bg-gray-900 px-8">
-        <div className="container mx-auto mt-32 grid h-full w-full grid-cols-1 place-items-center lg:mt-14 lg:grid-cols-2">
-          <div className="col-span-1">
-            <Typography variant="h1" color="white" className="mb-4">
-              Your Perfect <br /> Learning App
-            </Typography>
-            <Typography
-              variant="lead"
-              className="mb-7 !text-white md:pr-16 xl:pr-28"
-            >
-              Our app is here to empower you on your quest for knowledge,
-              anytime and anywhere.
-            </Typography>
-            <Typography className="mb-4" color="white" variant="h6">
-              Get the app
-            </Typography>
+      <Carousel images={images} />
+      <div className="absolute inset-0 bg-black/30"></div>
+      <div className="relative">
+        <header className="grid !min-h-[49rem] bg-gray-900 px-8">
+          <div className="container mx-auto mt-32 grid h-full w-full grid-cols-1 place-items-center lg:mt-14 lg:grid-cols-2">
+            <div className="col-span-1">
+              <h1 className="text-white mb-4">
+                Eglise des Disciples Accomplis <br /> EDA
+              </h1>
+              <p className="text-white mb-7 md:pr-16 xl:pr-28">
+                Rejoignez notre communauté de disciples dévoués, où la foi et
+                l'accomplissement spirituel sont notre priorité.
+              </p>
+              <h6 className="text-white mb-4">
+                Découvrez notre communauté
+              </h6>
+              <div className="flex flex-col gap-2 md:mb-2 md:w-10/12 md:flex-row">
+                <button
+                  className="flex items-center justify-center gap-3 px-6 py-3 bg-white rounded-lg text-gray-900 hover:bg-gray-100 transition-colors"
+            <p className="text-white mb-7 md:pr-16 xl:pr-28">
+              Rejoignez notre communauté de disciples dévoués, où la foi et
+              l'accomplissement spirituel sont notre priorité.
+            </p>
+            <h6 className="text-white mb-4">
+              Découvrez notre communauté
+            </h6>
             <div className="flex flex-col gap-2 md:mb-2 md:w-10/12 md:flex-row">
-              <Button
-                size="lg"
-                color="white"
-                className="flex justify-center items-center gap-3"
+              <button
+                className="flex items-center justify-center gap-3 px-6 py-3 bg-white rounded-lg text-gray-900 hover:bg-gray-100 transition-colors"
               >
-                <Image
-                  width={256}
-                  height={256}
-                  src="/logos/logo-apple.png"
-                  alt="metamask"
-                  className="w-6 h-6"
-                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
                 App Store
-              </Button>
-              <Button
-                size="lg"
-                color="white"
-                className="flex justify-center items-center gap-3"
+              </button>
+              <button
+                className="flex items-center justify-center gap-3 px-6 py-3 bg-white rounded-lg text-gray-900 hover:bg-gray-100 transition-colors"
               >
-                <Image
-                  width={256}
-                  height={256}
-                  src="/logos/logo-google.png"
-                  alt="metamask"
-                  className="w-6 h-6"
-                />
-                Google Play
-              </Button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+                Play Store
+              </button>
             </div>
           </div>
           <Image
@@ -65,17 +94,14 @@ function Hero() {
       </header>
       <div className="mx-8 lg:mx-16 -mt-24 rounded-xl bg-white p-5 md:p-14 shadow-md">
         <div>
-          <Typography variant="h3" color="blue-gray" className="mb-3">
+          <h2 className="text-blue-gray-700 text-2xl font-bold mb-3">
             Learning App
-          </Typography>
-          <Typography
-            variant="paragraph"
-            className="font-normal !text-gray-500 lg:w-5/12"
-          >
+          </h2>
+          <p className="text-gray-500 font-normal lg:w-5/12">
             Download our app to dive into a vast library of courses, tutorials,
             and study materials on a wide range of subjects - from programming
             and language learning to personal development and beyond
-          </Typography>
+          </p>
         </div>
       </div>
     </div>

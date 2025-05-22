@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { Typography } from "@material-tailwind/react";
 
 import {
   CursorArrowRaysIcon,
@@ -14,28 +13,28 @@ import FeatureCard from "../components/feature-card";
 
 const FEATURES = [
   {
-    icon: CursorArrowRaysIcon,
-    title: "Expert Instructors",
-    children:
-      "Learn from the best. Our instructors are industry experts, academics, and seasoned professionals dedicated to helping you.",
-  },
-  {
     icon: HeartIcon,
-    title: "Interactive Learning",
+    title: "Communauté Chrétienne",
     children:
-      "Engage with interactive quizzes, hands-on exercises, and discussion forums to reinforce your understanding and connect.",
+      "Une communauté de croyants engagés qui s'entraident et se soutiennent mutuellement dans leur foi.",
   },
   {
     icon: LockClosedIcon,
-    title: "Achievement Unlocked",
+    title: "Enseignement Biblique",
     children:
-      "Earn certificates and badges as you complete courses, showcasing your newfound skills to the world.",
+      "Des études bibliques approfondies et des enseignements spirituels réguliers pour nourrir votre foi.",
   },
   {
     icon: LightBulbIcon,
-    title: "Personalized Progress Tracking",
+    title: "Ministères Actifs",
     children:
-      "Stay on top of your learning journey with progress tracking and personalized recommendations to keep you motivated.",
+      "Des ministères variés qui touchent toutes les facettes de la vie chrétienne et servent la communauté.",
+  },
+  {
+    icon: CursorArrowRaysIcon,
+    title: "Jeunesse et Famille",
+    children:
+      "Des programmes spécifiques pour les enfants, les jeunes et les familles pour grandir ensemble dans la foi.",
   },
 ];
 
@@ -43,20 +42,17 @@ export function Features() {
   return (
     <section className="py-28 px-4">
       <div className="container mx-auto mb-20 text-center">
-        <Typography color="blue-gray" className="mb-2 font-bold uppercase">
-          Your Learning App
-        </Typography>
-        <Typography variant="h1" color="blue-gray" className="mb-4">
-          Diverse Learning Resources
-        </Typography>
-        <Typography
-          variant="lead"
-          className="mx-auto w-full px-4 !text-gray-500 lg:w-11/12 lg:px-8 "
-        >
+        <h2 className="text-blue-gray-900 mb-2 font-bold uppercase">
+          Features
+        </h2>
+        <h1 className="text-blue-gray-900 mb-4">
+          Why Choose Us
+        </h1>
+        <p className="mx-auto w-full px-4 text-gray-500 lg:w-11/12 lg:px-8 text-lg leading-relaxed">
           Access your learning materials on the go. Whether you&apos;re
           commuting, waiting for a friend, or just have a few minutes to spare,
           our app fits seamlessly into your busy life.
-        </Typography>
+        </p>
       </div>
       <div className="container mx-auto grid max-w-6xl grid-cols-1 gap-4 gap-y-12 md:grid-cols-2">
         {FEATURES.map((props, idx) => (

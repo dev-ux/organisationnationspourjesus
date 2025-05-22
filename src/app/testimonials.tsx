@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Typography, Card, CardBody, Avatar } from "@material-tailwind/react";
+import { Card, CardBody, Avatar } from "@material-tailwind/react";
 import { UserIcon } from "@heroicons/react/24/solid";
 import TestimonialCard from "../components/testimonial-card";
 
@@ -9,23 +9,23 @@ import TestimonialCard from "../components/testimonial-card";
 const TESTIMONIALS = [
   {
     feedback:
-      "It has been a game-changer for my business. Their dedication, expertise, and attention to detail have truly set them apart. I highly recommend their services!",
-    client: "Jessica Devis",
-    title: "CEO @ MARKETING DIGITAL LTD.",
+      "L'EDA a transformé ma vie spirituelle. Les enseignements approfondis et la communauté de soutien m'ont aidé à grandir dans ma foi.",
+    client: "Marie Dupont",
+    title: "Membre depuis 5 ans",
     img: "/image/avatar1.jpg",
   },
   {
     feedback:
-      "It understood my unique needs and delivered a tailored solution promptly. Their customer support is top-notch, and I appreciate their commitment.",
-    client: "Mary Joshiash",
-    title: "MARKETING @ APPLE INC.",
+      "Les ministères de l'EDA ont touché profondément ma famille. Nous avons trouvé un véritable refuge spirituel ici.",
+    client: "Jean Martin",
+    title: "Chef de famille",
     img: "/image/avatar2.jpg",
   },
   {
     feedback:
-      "They not only met but exceeded our expectations. Their innovative approach and technical proficiency have been instrumental in our success.",
-    client: "Marcell Glock",
-    title: "CFO @ APPLE INC..",
+      "Les jeunes de l'EDA sont inspirants. Le programme de jeunesse offre un excellent cadre pour grandir dans la foi.",
+    client: "Sophie Bernard",
+    title: "Jeune adulte",
     img: "/image/avatar3.jpg",
   },
 ];
@@ -38,17 +38,14 @@ export function Testimonials() {
           <div className="mb-10 flex h-12 w-12 items-center justify-center rounded-lg bg-gray-900 text-white ">
             <UserIcon className="h-6 w-6" />
           </div>
-          <Typography variant="h2" color="blue-gray" className="mb-2">
+          <h2 className="text-blue-gray-900 mb-2">
             What Clients Say
-          </Typography>
-          <Typography
-            variant="lead"
-            className="mb-10 max-w-3xl text-center !text-gray-600"
-          >
+          </h2>
+          <p className="mb-10 max-w-3xl text-center text-gray-600">
             Discover what our valued clients have to say about their experiences
             with our services. We take pride in delivering exceptional results
             and fostering lasting partnerships.
-          </Typography>
+          </p>
         </div>
         <div className="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-3 lg:px-20">
           {TESTIMONIALS.map((props, key) => (

@@ -1,163 +1,127 @@
 import React from "react";
-import {
-  Navbar as MTNavbar,
-  Collapse,
-  IconButton,
-  Typography,
-  Button,
-} from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Collapse } from "@material-tailwind/react";
 
 interface NavItemProps {
   children: React.ReactNode;
   href?: string;
 }
+
 function NavItem({ children, href }: NavItemProps) {
   return (
     <li>
-      <Typography
-        as="a"
-        href={href || "#"}
-        target={href ? "_blank" : "_self"}
-        variant="small"
-        className="font-medium"
-      >
+      <a href={href || "#"} className="hover:opacity-75 transition">
         {children}
-      </Typography>
+      </a>
     </li>
   );
 }
 
 export function Navbar() {
-  const [open, setOpen] = React.useState(false);
   const [isScrolling, setIsScrolling] = React.useState(false);
-
-  function handleOpen() {
-    setOpen((cur) => !cur);
-  }
+  const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => window.innerWidth >= 960 && setOpen(false)
-    );
-  }, []);
-
-  React.useEffect(() => {
-    function handleScroll() {
+    const handleScroll = () => {
       if (window.scrollY > 0) {
         setIsScrolling(true);
       } else {
         setIsScrolling(false);
       }
-    }
+    };
 
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleOpen = () => setOpen(!open);
+
   return (
-    <MTNavbar
-      fullWidth
-      shadow={false}
-      blurred={false}
-      color={isScrolling ? "white" : "transparent"}
-      className="fixed top-0 z-50 border-0"
+    <nav
+      className={`fixed top-0 z-50 border-0 ${
+        isScrolling
+          ? "bg-white shadow-lg backdrop-blur-sm"
+          : "bg-transparent"
+      }`}
     >
       <div className="container mx-auto flex items-center justify-between">
-        <Typography
-          as="a"
-          href="https://www.material-tailwind.com"
-          target="_blank"
-          variant="h6"
-          color={isScrolling ? "gray" : "white"}
-        >
-          Material Tailwind
-        </Typography>
-        <ul
-          className={`ml-10 hidden items-center gap-6 lg:flex ${
-            isScrolling ? "text-gray-900" : "text-white"
-          }`}
-        >
-          <NavItem>Home</NavItem>
-          <NavItem>About Us</NavItem>
-          <NavItem>Contact Us</NavItem>
-          <NavItem href="https://www.material-tailwind.com/docs/react/installation">
-            Docs
-          </NavItem>
-        </ul>
-        <div className="hidden gap-2 lg:flex lg:items-center">
-          <IconButton
-            variant="text"
-            color={isScrolling ? "gray" : "white"}
-            size="sm"
+        <div className="flex items-center gap-4">
+          <button
+            onClick={handleOpen}
+            className={`p-2 rounded-lg ${isScrolling ? 'text-gray-700' : 'text-white'}`}
           >
-            <i className="fa-brands fa-twitter text-base" />
-          </IconButton>
-          <IconButton
-            variant="text"
-            color={isScrolling ? "gray" : "white"}
-            size="sm"
-          >
-            <i className="fa-brands fa-facebook text-base" />
-          </IconButton>
-          <IconButton
-            variant="text"
-            color={isScrolling ? "gray" : "white"}
-            size="sm"
-          >
-            <i className="fa-brands fa-instagram text-base" />
-          </IconButton>
-          <a href="https://www.material-tailwind.com/blocks" target="_blank">
-            <Button color={isScrolling ? "gray" : "white"} size="sm">
-              Blocks
-            </Button>
-          </a>
-        </div>
-        <IconButton
-          variant="text"
-          color={isScrolling ? "gray" : "white"}
-          onClick={handleOpen}
-          className="ml-auto inline-block lg:hidden"
-        >
-          {open ? (
-            <XMarkIcon strokeWidth={2} className="h-6 w-6" />
-          ) : (
-            <Bars3Icon strokeWidth={2} className="h-6 w-6" />
-          )}
-        </IconButton>
-      </div>
-      <Collapse open={open}>
-        <div className="container mx-auto mt-4 rounded-lg border-t border-blue-gray-50 bg-white px-6 py-5">
-          <ul className="flex flex-col gap-4 text-blue-gray-900">
-            <NavItem>Home</NavItem>
-            <NavItem>About Us</NavItem>
-            <NavItem>Contact Us</NavItem>
-            <NavItem href="https://www.material-tailwind.com/docs/react/installation">
-              Docs
-            </NavItem>
-          </ul>
-          <div className="mt-4 flex items-center gap-2">
-            <IconButton variant="text" color="gray" size="sm">
-              <i className="fa-brands fa-twitter text-base" />
-            </IconButton>
-            <IconButton variant="text" color="gray" size="sm">
-              <i className="fa-brands fa-facebook text-base" />
-            </IconButton>
-            <IconButton variant="text" color="gray" size="sm">
-              <i className="fa-brands fa-instagram text-base" />
-            </IconButton>
-            <a href="https://www.material-tailwind.com/blocks" target="_blank">
-              <Button color="gray" size="sm" className="ml-auto">
-                Blocks
-              </Button>
-            </a>
+            {open ? (
+              <XMarkIcon className="h-6 w-6" />
+            ) : (
+              <Bars3Icon className="h-6 w-6" />
+            )}
+          </button>
+          <div className="flex items-center gap-4">
+            <img 
+              src="/image/logo-eda.png" 
+              alt="Logo EDA" 
+              className="h-12 w-auto"
+            />
+            <h1 className={`text-xl font-bold ${isScrolling ? 'text-gray-900' : 'text-white'}`}>
+              EDA
+            </h1>
           </div>
         </div>
+        <div className="flex items-center gap-8">
+          <ul
+            className={`hidden items-center gap-6 lg:flex ${
+              isScrolling ? "text-gray-900" : "text-white"
+            }`}
+          >
+            <NavItem href="/accueil">Accueil</NavItem>
+            <NavItem href="/academie">Académie</NavItem>
+            <NavItem href="/samedi-des-miracles">Samedi des Miracles</NavItem>
+            <NavItem href="/priere-sans-cesse">Prière sans cesse</NavItem>
+            <NavItem href="/offrandes">Offrandes</NavItem>
+          </ul>
+          <div className="hidden gap-2 lg:flex lg:items-center">
+            <button
+              className={`p-2 rounded-lg ${isScrolling ? 'text-gray-700' : 'text-white'}`}
+            >
+              <i className="fa-brands fa-twitter text-base" />
+            </button>
+            <button
+              className={`p-2 rounded-lg ${isScrolling ? 'text-gray-700' : 'text-white'}`}
+            >
+              <i className="fa-brands fa-facebook-f text-base" />
+            </button>
+            <button
+              className={`p-2 rounded-lg ${isScrolling ? 'text-gray-700' : 'text-white'}`}
+            >
+              <i className="fa-brands fa-instagram text-base" />
+            </button>
+            <button
+              className={`text-sm font-medium ${isScrolling ? 'text-gray-700' : 'text-white'} hidden lg:inline-block`}
+            >
+              Connexion
+            </button>
+            <button
+              className={`bg-blue-600 text-white px-4 py-2 rounded-lg hidden lg:inline-block ${isScrolling ? 'hover:bg-blue-700' : ''}`}
+            >
+              Inscription
+            </button>
+          </div>
+        </div>
+      </div>
+      <Collapse open={open}>
+        <ul className="mt-8 flex flex-col gap-8 lg:hidden">
+          <NavItem>Accueil</NavItem>
+          <NavItem>Académie</NavItem>
+          <NavItem>Samedi des Miracles</NavItem>
+          <NavItem>Prière sans cesse</NavItem>
+          <NavItem>Offrandes</NavItem>
+          <button
+            className={`w-full bg-blue-600 text-white py-2 rounded-lg ${isScrolling ? 'hover:bg-blue-700' : ''}`}
+          >
+            Inscription
+          </button>
+        </ul>
       </Collapse>
-    </MTNavbar>
+    </nav>
   );
 }
-
-export default Navbar;

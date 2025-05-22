@@ -1,112 +1,101 @@
 "use client";
-import Image from "next/image";
-import { Typography, IconButton, Button } from "@material-tailwind/react";
-
-const LINKS = ["About Us", "Careers", "Press", "Blog", "Pricing"];
-const CURRENT_YEAR = new Date().getFullYear();
+import React from "react";
 
 export function Footer() {
   return (
-    <footer className="mt-10 bg-gray-900 px-8 pt-12">
-      <div className="container mx-auto">
-        <div className="flex flex-wrap justify-center gap-8 md:justify-between">
-          <div className="text-center md:text-left">
-            <Typography
-              as="a"
-              href="https://www.material-tailwind.com"
-              target="_blank"
-              variant="h5"
-              color="white"
-              className="mb-4"
-            >
-              Material Tailwind
-            </Typography>
-            <Typography color="white" className="mb-12 font-normal">
-              The reward for getting on the stage is fame.
-            </Typography>
-            <ul className="flex flex-wrap items-center justify-center md:justify-start">
-              {LINKS.map((link, idx) => (
-                <li key={link}>
-                  <Typography
-                    as="a"
-                    href="#"
-                    color="white"
-                    className={`py-1 font-medium transition-colors ${
-                      idx === 0 ? "pr-3" : "px-3"
-                    }`}
-                  >
-                    {link}
-                  </Typography>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="mt-8 w-full md:mt-0 md:w-auto">
-            <Typography variant="h6" color="white" className="mb-3">
-              Get the app
-            </Typography>
-            <div className="flex flex-col gap-2">
-              <Button
-                color="white"
-                className="flex items-center justify-center"
-              >
-                <Image
-                  width={256}
-                  height={256}
-                  src="/logos/logo-apple.png"
-                  className="-mt-0.5 mr-2 h-6 w-6"
-                  alt="ios"
-                />
-                App Store
-              </Button>
-              <Button
-                color="white"
-                className="flex items-center justify-center"
-              >
-                <Image
-                  width={256}
-                  height={256}
-                  src="/logos/logo-google.png"
-                  className="-mt-0.5 mr-2 h-6 w-6"
-                  alt="ios"
-                />
-                Google Play
-              </Button>
+    <footer className="bg-gray-50">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div>
+            <h3 className="text-xl font-bold mb-4">Eglise des Disciples Accomplis</h3>
+            <p className="text-gray-600 mb-4">
+              Une communauté chrétienne dédiée à l'enseignement biblique et au service.
+            </p>
+            <div className="flex gap-4">
+              <a href="#" className="text-gray-600 hover:text-blue-600">
+                <i className="fa-brands fa-facebook-f text-xl" />
+              </a>
+              <a href="#" className="text-gray-600 hover:text-blue-600">
+                <i className="fa-brands fa-twitter text-xl" />
+              </a>
+              <a href="#" className="text-gray-600 hover:text-blue-600">
+                <i className="fa-brands fa-instagram text-xl" />
+              </a>
+              <a href="#" className="text-gray-600 hover:text-blue-600">
+                <i className="fa-brands fa-youtube text-xl" />
+              </a>
             </div>
           </div>
+          <div>
+            <h3 className="text-xl font-bold mb-4">Navigation</h3>
+            <ul className="space-y-2">
+              <li>
+                <a href="/accueil" className="text-gray-600 hover:text-blue-600">Accueil</a>
+              </li>
+              <li>
+                <a href="/academie" className="text-gray-600 hover:text-blue-600">Académie</a>
+              </li>
+              <li>
+                <a href="/samedi-des-miracles" className="text-gray-600 hover:text-blue-600">Samedi des Miracles</a>
+              </li>
+              <li>
+                <a href="/priere-sans-cesse" className="text-gray-600 hover:text-blue-600">Prière sans Cesse</a>
+              </li>
+              <li>
+                <a href="/offrandes" className="text-gray-600 hover:text-blue-600">Offrandes</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-xl font-bold mb-4">Contact</h3>
+            <ul className="space-y-2">
+              <li>
+                <a href="tel:+33123456789" className="text-gray-600 hover:text-blue-600">
+                  <i className="fa-solid fa-phone me-2" />+33 1 23 45 67 89
+                </a>
+              </li>
+              <li>
+                <a href="mailto:contact@eglisedsa.fr" className="text-gray-600 hover:text-blue-600">
+                  <i className="fa-solid fa-envelope me-2" />contact@eglisedsa.fr
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-600 hover:text-blue-600">
+                  <i className="fa-solid fa-location-dot me-2" />123 Rue de l'Église, 75000 Paris
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-xl font-bold mb-4">Horaires</h3>
+            <ul className="space-y-2">
+              <li>
+                <p className="text-gray-600">
+                  <i className="fa-solid fa-clock me-2" />Culte du Dimanche : 10h00 - 12h00
+                </p>
+              </li>
+              <li>
+                <p className="text-gray-600">
+                  <i className="fa-solid fa-clock me-2" />Groupe de Prière : 19h00 - 21h00
+                </p>
+              </li>
+              <li>
+                <p className="text-gray-600">
+                  <i className="fa-solid fa-clock me-2" />Samedi des Miracles : 14h00 - 20h00
+                </p>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div className="mt-16 flex flex-wrap items-center justify-center gap-y-4 gap-x-8 border-t border-gray-700 py-7 md:justify-between">
-          <Typography
-            color="white"
-            className="text-center font-normal opacity-75"
-          >
-            &copy; {CURRENT_YEAR} Made with{" "}
-            <a href="https://www.material-tailwind.com" target="_blank">
-              Material Tailwind
-            </a>{" "}
-            by{" "}
-            <a href="https://www.creative-tim.com" target="_blank">
-              Creative Tim
-            </a>
-            .
-          </Typography>
-
-          <div className="flex gap-2">
-            <IconButton variant="text" color="white">
-              <i className="fa-brands fa-twitter text-2xl not-italic opacity-75"></i>
-            </IconButton>
-            <IconButton variant="text" color="white">
-              <i className="fa-brands fa-linkedin text-2xl not-italic opacity-75"></i>
-            </IconButton>
-            <IconButton variant="text" color="white">
-              <i className="fa-brands fa-facebook text-2xl not-italic opacity-75"></i>
-            </IconButton>
-            <IconButton variant="text" color="white">
-              <i className="fa-brands fa-github text-2xl not-italic opacity-75"></i>
-            </IconButton>
-            <IconButton variant="text" color="white">
-              <i className="fa-brands fa-dribbble text-2xl not-italic opacity-75"></i>
-            </IconButton>
+        <div className="pt-12 border-t border-gray-100">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-gray-600">
+              &copy; {new Date().getFullYear()} Eglise des Disciples Accomplis. Tous droits réservés.
+            </p>
+            <div className="flex gap-4">
+              <a href="/mentions-legales" className="text-gray-600 hover:text-blue-600">Mentions légales</a>
+              <a href="/politique-confidentialite" className="text-gray-600 hover:text-blue-600">Politique de confidentialité</a>
+            </div>
           </div>
         </div>
       </div>

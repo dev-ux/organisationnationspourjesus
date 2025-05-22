@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { IconButton } from "@material-tailwind/react";
+
 import { PlayIcon } from "@heroicons/react/24/outline";
 
 
@@ -14,14 +14,14 @@ export function VideoIntro() {
         <Image
           width={768}
           height={400}
-          src="/image/Background.png"
+          src="/image/eglise.jpg"
           className="w-full object-cover scale-110 rounded-xl h-full"
-          alt=""
+          alt="Eglise des Disciples Accomplis"
         />
         <div className="absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 z-10">
-          <IconButton color="white" className="rounded-full" size="lg">
-            <PlayIcon className="h-6 w-6" />
-          </IconButton>
+          <button className="bg-white p-3 rounded-full hover:bg-gray-100 transition-colors">
+            <PlayIcon className="h-6 w-6 text-black" />
+          </button>
         </div>
       </div>
     </div>
