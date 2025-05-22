@@ -3,11 +3,11 @@ import React from "react";
 
 export function Footer() {
   return (
-    <footer className="bg-gray-50">
-      <div className="container mx-auto px-4 py-12">
+    <footer className="bg-gray-50 border-t border-gray-200">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">Eglise des Disciples Accomplis</h3>
+            <h3 className="text-xl font-bold mb-4 text-gray-900">Eglise des Disciples Accomplis</h3>
             <p className="text-gray-600 mb-4">
               Une communauté chrétienne dédiée à l'enseignement biblique et au service.
             </p>
@@ -27,10 +27,10 @@ export function Footer() {
             </div>
           </div>
           <div>
-            <h3 className="text-xl font-bold mb-4">Navigation</h3>
+            <h3 className="text-xl font-bold mb-4 text-gray-900">Navigation</h3>
             <ul className="space-y-2">
               <li>
-                <a href="/accueil" className="text-gray-600 hover:text-blue-600">Accueil</a>
+                <a href="/accueil" className="text-gray-600 hover:text-blue-600 transition-colors duration-200">Accueil</a>
               </li>
               <li>
                 <a href="/academie" className="text-gray-600 hover:text-blue-600">Académie</a>
@@ -47,27 +47,27 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="text-xl font-bold mb-4">Contact</h3>
+            <h3 className="text-xl font-bold mb-4 text-gray-900">Contact</h3>
             <ul className="space-y-2">
               <li>
-                <a href="tel:+33123456789" className="text-gray-600 hover:text-blue-600">
+                <a href="tel:+33123456789" className="text-gray-600 hover:text-blue-600 transition-colors duration-200 flex items-center">
                   <i className="fa-solid fa-phone me-2" />+33 1 23 45 67 89
                 </a>
               </li>
               <li>
-                <a href="mailto:contact@eglisedsa.fr" className="text-gray-600 hover:text-blue-600">
+                <a href="mailto:contact@eglisedsa.fr" className="text-gray-600 hover:text-blue-600 transition-colors duration-200 flex items-center">
                   <i className="fa-solid fa-envelope me-2" />contact@eglisedsa.fr
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-600 hover:text-blue-600">
+                <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors duration-200">
                   <i className="fa-solid fa-location-dot me-2" />123 Rue de l'Église, 75000 Paris
                 </a>
               </li>
             </ul>
           </div>
           <div>
-            <h3 className="text-xl font-bold mb-4">Horaires</h3>
+            <h3 className="text-xl font-bold mb-4 text-gray-900">Horaires</h3>
             <ul className="space-y-2">
               <li>
                 <p className="text-gray-600">
@@ -87,13 +87,13 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        <div className="pt-12 border-t border-gray-100">
+        <div className="pt-12 border-t border-gray-200">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-gray-600">
               &copy; {new Date().getFullYear()} Eglise des Disciples Accomplis. Tous droits réservés.
             </p>
             <div className="flex gap-4">
-              <a href="/mentions-legales" className="text-gray-600 hover:text-blue-600">Mentions légales</a>
+              <a href="/mentions-legales" className="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-sm">Mentions légales</a>
               <a href="/politique-confidentialite" className="text-gray-600 hover:text-blue-600">Politique de confidentialité</a>
             </div>
           </div>

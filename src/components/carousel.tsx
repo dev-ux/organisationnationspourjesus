@@ -29,10 +29,12 @@ export default function Carousel({ images, interval = 5000 }: CarouselProps) {
           <Image
             src={image}
             alt={`Slide ${index + 1}`}
-            fill
-            className="object-cover"
+            width={1920}
+            height={1080}
+            className="object-cover w-full h-full blur-sm"
             priority={index === 0}
           />
+          <div className="absolute inset-0 bg-black/50"></div>
         </div>
       ))}
       

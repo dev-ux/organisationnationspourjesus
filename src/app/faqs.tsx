@@ -38,8 +38,8 @@ export function Faqs() {
             Frequently asked questions
           </h1>
           <p className="mx-auto mb-24 text-gray-500 lg:w-3/5">
-            A lot of people don&apos;t appreciate the moment until it&apos;s
-            passed. I&apos;m not trying my hardest, and I&apos;m not trying to
+            A lot of people don't appreciate the moment until it's
+            passed. I'm not trying my hardest, and I'm not trying to
             do
           </p>
         </div>

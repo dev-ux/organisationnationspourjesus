@@ -51,7 +51,6 @@ export default function AcademiePage() {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

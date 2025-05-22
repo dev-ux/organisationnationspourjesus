@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Collapse } from "@material-tailwind/react";
@@ -38,13 +40,13 @@ export function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 z-50 border-0 ${
+      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
         isScrolling
-          ? "bg-white shadow-lg backdrop-blur-sm"
+          ? "bg-white/95 shadow-lg backdrop-blur-sm"
           : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
         <div className="flex items-center gap-4">
           <button
             onClick={handleOpen}
@@ -58,20 +60,20 @@ export function Navbar() {
           </button>
           <div className="flex items-center gap-4">
             <img 
-              src="/image/logo-eda.png" 
+              src="/image/logos/logo.jpg" 
               alt="Logo EDA" 
-              className="h-12 w-auto"
+              className="h-10 w-auto"
             />
-            <h1 className={`text-xl font-bold ${isScrolling ? 'text-gray-900' : 'text-white'}`}>
-              EDA
+            <h1 className={`text-xl font-bold ${isScrolling ? 'text-gray-900' : 'text-white'} ml-2`}>
+            <NavItem href="/">EDA</NavItem>
             </h1>
           </div>
         </div>
         <div className="flex items-center gap-8">
           <ul
-            className={`hidden items-center gap-6 lg:flex ${
+            className={`hidden items-center gap-8 lg:flex ${
               isScrolling ? "text-gray-900" : "text-white"
-            }`}
+            } font-medium`}
           >
             <NavItem href="/accueil">Accueil</NavItem>
             <NavItem href="/academie">Académie</NavItem>
