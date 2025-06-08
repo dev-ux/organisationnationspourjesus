@@ -13,7 +13,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "ONJ",
+  title: "Organisation Nations pour Jésus",
   description:
     "..Faites de Toutes Les Nations des Disciples! Tel est L'Ultime Mot d'Ordre DU SEIGNEUR JÉSUS à SES Envoyés. Notre But est de L'Accomplir!",
 };
@@ -33,7 +33,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
-        <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+        <link rel="shortcut icon" href="/logos/logo.jpg" type="image/jpg" />
       </head>
       <body className={roboto.className}>
         <Navbar />

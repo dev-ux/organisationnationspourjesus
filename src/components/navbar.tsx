@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
-
 interface NavItemProps {
   children: React.ReactNode;
   href?: string;
@@ -38,26 +37,33 @@ export function Navbar() {
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-    // Empêche le défilement de la page lorsque le menu est ouvert
     document.body.style.overflow = isOpen ? 'auto' : 'hidden';
   };
 
-  // Ferme le menu lorsqu'on clique sur un lien
   const closeMenu = () => {
     setIsOpen(false);
     document.body.style.overflow = 'auto';
   };
 
   return (
-    <nav
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
-        isScrolling
-          ? "bg-white/95 shadow-lg backdrop-blur-sm"
-          : "bg-transparent"
-      }`}
-    >
+    <nav className={`fixed top-0 z-50 w-full transition-all duration-300 ${
+      isScrolling
+        ? "bg-white/95 shadow-lg backdrop-blur-sm"
+        : "bg-transparent"
+    }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center">
+          <h1 className={`text-xl font-bold ${isScrolling ? 'text-gray-900' : 'text-white'} ml-2`}>
+            <a href="/" className="block">
+              <img 
+                src="/logos/logo.jpg" 
+                alt="Logo EDA" 
+                className="h-16 w-auto rounded-full"
+              />
+            </a>
+          </h1>
+        </div>
+        <div className="flex items-center justify-end flex-1">
           <button
             onClick={toggleMenu}
             className={`p-2 rounded-lg lg:hidden ${isScrolling ? 'text-gray-700' : 'text-white'}`}
@@ -69,19 +75,6 @@ export function Navbar() {
               <Bars3Icon className="h-6 w-6" />
             )}
           </button>
-          <div className="flex items-center gap-4">
-           
-            <h1 className={`text-xl font-bold ${isScrolling ? 'text-gray-900' : 'text-white'} ml-2`}>
-              <a href="/" className="block">
-                <img 
-                  src="/logos/logo.jpg" 
-                  alt="Logo EDA" 
-                  className="h-16 w-auto rounded-full"
-                />
-              </a>
-
-            </h1>
-          </div>
         </div>
         <div className="flex items-center gap-8">
           <ul

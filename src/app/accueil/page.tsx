@@ -51,8 +51,32 @@ export default function AccueilPage() {
             </Link>
           </div>
         </div>
+        <div className="mt-12 bg-blue-50 rounded-lg p-6">
+          <h2 className="text-3xl font-bold mb-8">Lives Zoom</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white rounded-lg shadow-lg p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold">Mercredi</h3>
+                <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">18h30 GMT</span>
+              </div>
+              <p className="text-gray-600 mb-4">Rejoignez-nous chaque mercredi pour nos sessions en direct via Zoom.</p>
+              <a href="https://us06web.zoom.us/u/kyuL1pLlv " target="_blank" rel="noopener noreferrer" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                Rejoindre le Live
+              </a>
+            </div>
+            <div className="bg-white rounded-lg shadow-lg p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold">Dimanche</h3>
+                <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">17h00 GMT</span>
+              </div>
+              <p className="text-gray-600 mb-4">Participez à nos cultes dominicaux en direct depuis votre domicile.</p>
+              <a href="https://us06web.zoom.us/u/kdGKBzwtZV " target="_blank" rel="noopener noreferrer" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                Rejoindre le Live
+              </a>
+            </div>
+          </div>
+        </div>
       </main>
-      <Footer />
     </div>
   );
 }
