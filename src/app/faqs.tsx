@@ -18,31 +18,14 @@ const FAQS = [
   {
     title: "Comment participer aux études bibliques ?",
     desc: "Les études bibliques sont ouvertes à tous les membres.",
-  },
-  {
-    title: "How can I upgrade my account to paid?",
-    desc: "To upgrade your account, log in and navigate to the [Upgrade Account] section in your dashboard. Follow the prompts to select your preferred plan.",
-  },
-  {
-    title: "What if I need help or have technical issues?",
-    desc: "Our dedicated support team is here to assist you. Reach out via [mention preferred support channels, e.g., live chat, email, or phone], and we'll get back to you promptly.",
-  },
+  }
 ];
 
 export function Faqs() {
   return (
     <section className="px-8 py-20">
       <div className="container max-w-6xl mx-auto">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-blue-gray-900 mb-4">
-            Frequently asked questions
-          </h1>
-          <p className="mx-auto mb-24 text-gray-500 lg:w-3/5">
-            A lot of people don't appreciate the moment until it's
-            passed. I'm not trying my hardest, and I'm not trying to
-            do
-          </p>
-        </div>
+       
 
         <div className="grid gap-20 md:grid-cols-1 lg:grid-cols-3">
           {FAQS.map((item) => (

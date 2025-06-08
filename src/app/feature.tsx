@@ -43,15 +43,10 @@ export function Features() {
     <section className="py-28 px-4">
       <div className="container mx-auto mb-20 text-center">
         <h2 className="text-blue-gray-900 mb-2 font-bold uppercase">
-          Features
+          Mission
         </h2>
-        <h1 className="text-blue-gray-900 mb-4">
-          Why Choose Us
-        </h1>
         <p className="mx-auto w-full px-4 text-gray-500 lg:w-11/12 lg:px-8 text-lg leading-relaxed">
-          Access your learning materials on the go. Whether you're
-          commuting, waiting for a friend, or just have a few minutes to spare,
-          our app fits seamlessly into your busy life.
+        "...Faites de Toutes Les Nations des Disciples!" Tel est L'Ultime Mot d'Ordre DU SEIGNEUR JÉSUS à SES Envoyés. Notre But est de L'Accomplir!
         </p>
       </div>
       <div className="container mx-auto grid max-w-6xl grid-cols-1 gap-4 gap-y-12 md:grid-cols-2">

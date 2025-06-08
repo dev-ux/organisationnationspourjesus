@@ -49,7 +49,6 @@ export default function PriereSansCessePage() {
         </div>
       </div>
       </main>
-      <Footer />
     </div>
   );
 }

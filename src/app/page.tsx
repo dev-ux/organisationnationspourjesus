@@ -29,7 +29,6 @@ export default function Campaign() {
       <VideoIntro />
       <Feature />
       <ChurchSection />
-      <Testimonials />
       <Departments />
       <BlogSection />
       <Faqs />
