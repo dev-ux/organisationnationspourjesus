@@ -73,7 +73,7 @@ export function Footer() {
               </li>
               <li>
                 <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors duration-200">
-                  <i className="fa-solid fa-location-dot me-2" />123 Rue de l'Église, 75000 Paris
+                  <i className="fa-solid fa-location-dot me-2" />Cocody boulevard latrille, Abidjan Côte d'Ivoire
                 </a>
               </li>
             </ul>

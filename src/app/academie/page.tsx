@@ -7,7 +7,6 @@ export default function AcademiePage() {
   return (
     <div className="min-h-screen bg-white">
       <AcademieHero />
-      <Header />
       <main className="container mx-auto px-4 py-16">
         <h1 className="text-4xl font-bold mb-8">L'Académie</h1>
         <div className="bg-white rounded-lg shadow-md p-8 mb-8">
