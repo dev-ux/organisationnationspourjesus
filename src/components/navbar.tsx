@@ -70,13 +70,16 @@ export function Navbar() {
             )}
           </button>
           <div className="flex items-center gap-4">
-            <img 
-              src="/image/logos/logo.jpg" 
-              alt="Logo EDA" 
-              className="h-10 w-auto"
-            />
+           
             <h1 className={`text-xl font-bold ${isScrolling ? 'text-gray-900' : 'text-white'} ml-2`}>
-              <NavItem href="/">EDA</NavItem>
+              <a href="/" className="block">
+                <img 
+                  src="/logos/logo.jpg" 
+                  alt="Logo EDA" 
+                  className="h-16 w-auto rounded-full"
+                />
+              </a>
+
             </h1>
           </div>
         </div>

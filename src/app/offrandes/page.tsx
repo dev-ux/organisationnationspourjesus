@@ -8,7 +8,6 @@ import OffrandesHero from './hero';
 export default function OffrandesPage() {
   return (
     <div className="min-h-screen bg-white">
-      <Header />
       <OffrandesHero />
       <main className="container mx-auto px-4 py-16">
         <h1 className="text-4xl font-bold mb-8">Offrandes</h1>
@@ -56,7 +55,6 @@ export default function OffrandesPage() {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

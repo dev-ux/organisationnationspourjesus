@@ -9,7 +9,6 @@ import Link from 'next/link';
 export default function AccueilPage() {
   return (
     <div className="min-h-screen bg-white">
-      <Header />
       <AccueilHero />
       <main className="container mx-auto px-4 py-16">
         <h1 className="text-4xl font-bold mb-8">Bienvenue à l'Eglise des Disciples Accomplis</h1>

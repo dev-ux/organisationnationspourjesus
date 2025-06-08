@@ -8,7 +8,6 @@ import SamediMiraclesHero from './hero';
 export default function SamediDesMiraclesPage() {
   return (
     <div className="min-h-screen bg-white">
-      <Header />
       <SamediMiraclesHero />
       <main className="container mx-auto px-4 py-16">
       <h1 className="text-4xl font-bold mb-8">Samedi des Miracles</h1>
@@ -52,7 +51,6 @@ export default function SamediDesMiraclesPage() {
         </div>
       </div>
       </main>
-      <Footer />
     </div>
   );
 }
