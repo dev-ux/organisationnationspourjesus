@@ -15,11 +15,13 @@ interface Image {
 
 export default function GalleryPage() {
   const [images, setImages] = useState<Image[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Récupérer les images depuis l'API
     const fetchImages = async () => {
       try {
+        setLoading(true);
         const response = await fetch('/api/upload');
         const data = await response.json();
         setImages(data);
@@ -53,6 +55,8 @@ export default function GalleryPage() {
           }
         ];
         setImages(defaultImages);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -73,7 +77,7 @@ export default function GalleryPage() {
         </div>
 
         {/* Galerie */}
-        <Gallery images={images} />
+        <Gallery images={images}  />
       </div>
     </div>
   );
