@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function AddPicturePage() {
   const router = useRouter();
@@ -10,11 +11,26 @@ export default function AddPicturePage() {
     title: string;
     description: string;
     files: File[];
+    previews: string[];
   }>({
     title: '',
     description: '',
-    files: []
+    files: [],
+    previews: []
   });
+
+  useEffect(() => {
+    // Créer des URLs d'aperçu pour chaque fichier
+    if (newImages.files.length > 0) {
+      const previews = newImages.files.map(file => 
+        URL.createObjectURL(file)
+      );
+      setNewImages(prev => ({
+        ...prev,
+        previews
+      }));
+    }
+  }, [newImages.files]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -22,6 +38,16 @@ export default function AddPicturePage() {
       ...newImages,
       files
     });
+  };
+
+  const handleRemoveImage = (index: number) => {
+    const newFiles = newImages.files.filter((_, i) => i !== index);
+    const newPreviews = newImages.previews.filter((_, i) => i !== index);
+    setNewImages(prev => ({
+      ...prev,
+      files: newFiles,
+      previews: newPreviews
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -96,6 +122,23 @@ export default function AddPicturePage() {
                 onChange={handleFileChange}
                 className="mt-1 block w-full"
               />
+            </div>
+            <div className="flex flex-wrap gap-4 mt-4">
+              {newImages.files.map((file, index) => (
+                <div key={index} className="relative w-32 h-32 bg-gray-100 rounded">
+                  <img
+                    src={newImages.previews[index]}
+                    alt={file.name}
+                    className="w-full h-full object-cover rounded"
+                  />
+                  <button
+                    onClick={() => handleRemoveImage(index)}
+                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600"
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
             </div>
             <button
               type="submit"
