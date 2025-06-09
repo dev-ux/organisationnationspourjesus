@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import ImageList from '@/components/ImageList';
 
 export default function AddPicturePage() {
   const router = useRouter();
@@ -18,6 +19,11 @@ export default function AddPicturePage() {
     files: [],
     previews: []
   });
+
+  // Rafraîchir la liste des images après l'upload
+  const handleUploadSuccess = () => {
+    router.refresh();
+  };
 
   useEffect(() => {
     // Créer des URLs d'aperçu pour chaque fichier
@@ -83,35 +89,34 @@ export default function AddPicturePage() {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-center mb-8">Ajouter des Images</h1>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-md mx-auto mb-8 p-6 bg-white rounded-lg shadow-lg"
-        >
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
+        <div className="space-y-8">
+          <form onSubmit={handleSubmit} className="max-w-2xl mx-auto">
+            <div className="mb-4">
+              <label htmlFor="title" className="block text-sm font-medium text-gray-700">
                 Titre
               </label>
               <input
                 type="text"
+                id="title"
                 value={newImages.title}
-                onChange={(e) => setNewImages({ ...newImages, title: e.target.value })}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                onChange={(e) => setNewImages(prev => ({ ...prev, title: e.target.value }))}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                required
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
+            <div className="mb-4">
+              <label htmlFor="description" className="block text-sm font-medium text-gray-700">
                 Description
               </label>
               <textarea
+                id="description"
                 value={newImages.description}
-                onChange={(e) => setNewImages({ ...newImages, description: e.target.value })}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                onChange={(e) => setNewImages(prev => ({ ...prev, description: e.target.value }))}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                required
               />
             </div>
-            <div>
+            <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700">
                 Images
               </label>
@@ -122,23 +127,23 @@ export default function AddPicturePage() {
                 onChange={handleFileChange}
                 className="mt-1 block w-full"
               />
-            </div>
-            <div className="flex flex-wrap gap-4 mt-4">
-              {newImages.files.map((file, index) => (
-                <div key={index} className="relative w-32 h-32 bg-gray-100 rounded">
-                  <img
-                    src={newImages.previews[index]}
-                    alt={file.name}
-                    className="w-full h-full object-cover rounded"
-                  />
-                  <button
-                    onClick={() => handleRemoveImage(index)}
-                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600"
-                  >
-                    ×
-                  </button>
-                </div>
-              ))}
+              <div className="flex flex-wrap gap-4 mt-4">
+                {newImages.files.map((file, index) => (
+                  <div key={index} className="relative w-32 h-32 bg-gray-100 rounded">
+                    <img
+                      src={newImages.previews[index]}
+                      alt={file.name}
+                      className="w-full h-full object-cover rounded"
+                    />
+                    <button
+                      onClick={() => handleRemoveImage(index)}
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
             </div>
             <button
               type="submit"
@@ -147,7 +152,8 @@ export default function AddPicturePage() {
               Ajouter les images
             </button>
           </form>
-        </motion.div>
+          <ImageList />
+        </div>
       </div>
     </div>
   );
