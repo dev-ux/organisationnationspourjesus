@@ -56,6 +56,9 @@ export function Footer() {
               <li>
                 <a href="/offrandes" className="text-gray-600 hover:text-blue-600">Offrandes</a>
               </li>
+              <li>
+                <a href="/galerie" className="text-gray-600 hover:text-blue-600">Galerie</a>
+              </li>
             </ul>
           </div>
           <div>

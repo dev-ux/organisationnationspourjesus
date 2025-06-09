@@ -4,7 +4,6 @@ import { Roboto } from "next/font/google";
 import { FixedPlugin, Layout } from "@/components";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import Hero from "./hero";
 
 const roboto = Roboto({
   subsets: ["latin"],
