@@ -3,6 +3,13 @@ import * as fs from 'fs';
 import path from 'path';
 import { createHash } from 'crypto';
 
+interface Image {
+  id: number;
+  url: string;
+  title: string;
+  description: string;
+}
+
 // Créer un dossier pour stocker les images si nécessaire
 const imagesDir = path.join(process.cwd(), 'public', 'images');
 if (!fs.existsSync(imagesDir)) {
@@ -70,7 +77,6 @@ export async function POST(request: Request) {
     // Sauvegarder les images mises à jour
     await fs.promises.writeFile(imagesFile, JSON.stringify(allImages, null, 2));
 
-    // Retourner les informations de toutes les images
     return NextResponse.json({
       success: true,
       data: uploadedImages
@@ -81,7 +87,6 @@ export async function POST(request: Request) {
   }
 }
 
-// Endpoint pour récupérer toutes les images
 export async function GET() {
   try {
     const imagesFile = path.join(process.cwd(), 'src/app/api/upload/images.json');

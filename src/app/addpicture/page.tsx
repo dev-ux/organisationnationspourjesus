@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import ImagePreview from '@/components/ImagePreview';
+import Gallery from '@/components/Gallery';
 
 export default function AddPicturePage() {
   const router = useRouter();
@@ -89,17 +91,32 @@ export default function AddPicturePage() {
           animate={{ opacity: 1, y: 0 }}
           className="max-w-md mx-auto mb-8 p-6 bg-white rounded-lg shadow-lg"
         >
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Titre
-              </label>
-              <input
-                type="text"
-                value={newImages.title}
-                onChange={(e) => setNewImages({ ...newImages, title: e.target.value })}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
-              />
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-6">
+              {/* Zone de prévisualisation des images */}
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6">
+                {newImages.previews.map((preview, index) => (
+                  <ImagePreview
+                    key={index}
+                    id={index}
+                    url={preview}
+                    title="Image à prévisualiser"
+                    onDelete={() => handleRemoveImage(index)}
+                  />
+                ))}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Titre
+                </label>
+                <input
+                  type="text"
+                  value={newImages.title}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewImages({ ...newImages, title: e.target.value })}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                />
+              </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">
@@ -147,6 +164,22 @@ export default function AddPicturePage() {
               Ajouter les images
             </button>
           </form>
+        </motion.div>
+
+        {/* Section pour afficher les images existantes */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-8"
+        >
+          <Gallery
+            images={newImages.files.map((file, index) => ({
+              id: index,
+              url: newImages.previews[index],
+              title: newImages.title,
+              description: newImages.description
+            }))}
+          />
         </motion.div>
       </div>
     </div>
