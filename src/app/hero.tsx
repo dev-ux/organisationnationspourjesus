@@ -4,21 +4,43 @@ import Image from "next/image";
 import { Button } from "@material-tailwind/react";
 import Carousel from '@/components/carousel';
 
-const images = [
-  '/image/onj5.jpg',
-  '/image/onj6.jpg',
-  '/image/onj7.jpg',
-  '/image/onj8.jpg',
+const slides = [
+  {
+    image: '/image/onj5.jpg',
+    title: 'Eglise des Disciples Accomplis',
+    description: 'Rejoignez notre communauté de disciples dévoués, où la foi et l\'accomplissement spirituel sont notre priorité.'
+  },
+  {
+    image: '/image/onj6.jpg',
+    title: 'Servir et Aimer',
+    description: 'Notre mission est de servir notre communauté avec amour et dévouement, en suivant les enseignements de Christ.'
+  },
+  {
+    image: '/image/onj7.jpg',
+    title: 'Croissance Spirituelle',
+    description: 'Découvrez notre programme d\'enseignement biblique et rejoignez-nous dans notre parcours spirituel.'
+  },
+  {
+    image: '/image/onj8.jpg',
+    title: 'Communauté Active',
+    description: 'Participez à nos activités régulières et faites partie d\'une communauté engagée et dynamique.'
+  }
 ];
 
 export default function Hero() {
   return (
     <div className="relative min-h-screen w-full" style={{ backgroundImage: `url('/image/hero/home1.jpg')` }}>
       <div className="absolute inset-0">
-        <Carousel images={images} />
+        <Carousel
+          images={slides.map(slide => slide.image)}
+          texts={slides.map(slide => ({
+            title: slide.title,
+            description: slide.description
+          }))}
+        />
       </div>
       <div className="absolute inset-0 bg-black/10"></div>
-      <div className="relative">
+      {/* <div className="relative">
         <div className="container mx-auto px-8 py-32">
           <div className="max-w-4xl">
             <h1 className="text-4xl font-bold text-white mb-6">
@@ -47,7 +69,7 @@ export default function Hero() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

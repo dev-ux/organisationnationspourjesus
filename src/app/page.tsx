@@ -11,6 +11,7 @@ import Testimonials from "./testimonials";
 import Faqs from "./faqs";
 import Departments from "./departments";
 import BlogSection from "./blog-section";
+import PastorMessage from "@/components/pastor-message";
 
 export default function Campaign() {
   return (
@@ -25,7 +26,9 @@ export default function Campaign() {
         "https://www.facebook.com/pasteurhermanntano/videos/725174849362205"
       ]} />
       <Navbar />
+
       <Hero />
+      <PastorMessage />
       <VideoIntro />
       <Feature />
       <ChurchSection />
