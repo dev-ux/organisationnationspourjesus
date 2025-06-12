@@ -3,12 +3,12 @@ import Image from 'next/image';
 
 interface CarouselProps {
   images: string[];
-  texts: Array<{
+  texts?: Array<{
     title: string;
     description: string;
   }>;
   interval?: number;
-};
+};;
 
 export default function Carousel({ images, texts, interval = 5000 }: CarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -39,10 +39,12 @@ export default function Carousel({ images, texts, interval = 5000 }: CarouselPro
             priority={index === 0}
           />
           <div className="absolute inset-0 bg-black/50"></div>
-          <div className="absolute inset-0 flex flex-col justify-center items-center text-white h-full px-8">
-            <h1 className="text-7xl font-bold mb-4">{texts[index].title}</h1>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl text-center">{texts[index].description}</p>
-          </div>
+          {texts && (
+            <div className="absolute inset-0 flex flex-col justify-center items-center text-white h-full px-8">
+              <h1 className="text-7xl font-bold mb-4">{texts[index].title}</h1>
+              <p className="text-xl text-white/90 mb-8 max-w-2xl text-center">{texts[index].description}</p>
+            </div>
+          )}
         </div>
       ))}
       

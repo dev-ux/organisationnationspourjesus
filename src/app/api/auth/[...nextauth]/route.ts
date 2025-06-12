@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { users } from "@/data/users";
-import bcrypt from 'bcryptjs';
 import type { NextAuthOptions } from "next-auth";
 import type { DefaultSession } from "next-auth";
 import type { JWT } from "next-auth/jwt";
@@ -48,8 +47,8 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        // Vérification du mot de passe
-        const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
+        // Vérification simple du mot de passe
+        const isPasswordValid = credentials.password === user.password;
         console.log('Password valid:', isPasswordValid);
         
         if (!isPasswordValid) {
@@ -77,7 +76,6 @@ export const authOptions: NextAuthOptions = {
     },
     async jwt({ token, user }: { token: JWT; user: any }) {
       if (user) {
-        token.id = user.id;
         token.email = user.email;
         token.name = user.name;
       }
@@ -85,7 +83,6 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }: { session: DefaultSession; token: JWT }) {
       if (session.user) {
-        session.user.id = token.id;
         session.user.email = token.email;
         session.user.name = token.name;
       }

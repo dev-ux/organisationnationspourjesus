@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@material-tailwind/react";
 import { motion } from "framer-motion";
-import { useSession, SessionStatus } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { ChangeEvent } from "react";
 import ImageUpload from "./ImageUpload";
 
