@@ -53,7 +53,7 @@ export async function POST(request: Request) {
 
       // Ajouter les informations de l'image à la liste
       uploadedImages.push({
-        url: `/images/${fileName}`,
+        url: `/image/${fileName}`,
         title,
         description,
         id: Date.now(),

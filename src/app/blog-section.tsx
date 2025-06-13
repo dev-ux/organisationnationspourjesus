@@ -52,7 +52,7 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: "4",
-    title: "GRANDE CAMPAGNE D'ÉVANGÉLISATION",
+    title: "CAMPAGNE D'ÉVANGÉLISATION",
     date: "10 Mai 2025",
     images: [
       "/image/blog/evangelisation.jpg",

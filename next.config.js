@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
+    domains: ['localhost', '127.0.0.1'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -12,6 +13,16 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'www.organisationnationspourjesus.com',
         pathname: '/**',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        pathname: '/image/**',
+      },
+      {
+        protocol: 'http',
+        hostname: '127.0.0.1',
+        pathname: '/image/**',
       },
     ],
   },
