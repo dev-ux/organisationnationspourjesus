@@ -18,7 +18,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     </div>;
   }
 
-  if (session.user?.email !== "admin@example.com") {
+  // Check if user has admin role
+  if (session.user?.role !== 'admin') {
     return <div className="flex items-center justify-center h-screen">
       <p className="text-red-500">Accès réservé aux administrateurs</p>
     </div>;
