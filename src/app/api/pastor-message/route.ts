@@ -64,7 +64,7 @@ export async function POST(request: Request) {
         }
 
         // Copier le fichier de l'upload vers le dossier images
-        const sourcePath = path.join(process.cwd(), 'public', 'images', fileName);
+        const sourcePath = path.join(process.cwd(), 'public', 'image', fileName);
         const destPath = path.join(process.cwd(), 'public', 'image', 'past.jpg');
         
         try {
