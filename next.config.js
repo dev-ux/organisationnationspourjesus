@@ -8,11 +8,15 @@ const nextConfig = {
         hostname: 'www.material-tailwind.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.organisationnationspourjesus.com',
+        pathname: '/**',
+      },
     ],
   },
-  output: 'standalone',
   experimental: {
-    appDir: true,
+    serverActions: false,
   },
 }
 

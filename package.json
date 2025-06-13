@@ -5,13 +5,11 @@
   "author": "Creative Tim",
   "license": "See license in https://www.creative-tim.com/license",
   "homepage": "https://demos.creative-tim.com/nextjs-tailwind-app-presentation-page",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "deploy": "npm run build && vercel deploy"
-  },
+ "scripts": {
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start"
+},
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",

@@ -13,7 +13,7 @@ export function FixedPlugin() {
           height={128}
           className="w-5 h-5"
           alt="Organisation Nations pour Jésus"
-          src="https://www.organisationnationspourjesus.com/favicon.png"
+          src="/favicon.png"
         />
         <span>Organisation Nations pour Jésus</span>
       </button>
