@@ -132,7 +132,7 @@ export default function PastorMessagePage() {
         
         // Mettre à jour l'URL de l'image
         const fileName = uploadData.data[0].url.split('/').pop() || 'past.jpg';
-newImageUrl = `/images/${fileName}`; // ✅ CORRECT
+        newImageUrl = `/image/${fileName}`; // ✅ CORRECT
 
       }
 
