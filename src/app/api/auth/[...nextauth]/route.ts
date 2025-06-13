@@ -42,7 +42,7 @@ export const authOptions: NextAuthOptions = {
     },
     async redirect({ url, baseUrl }) {
       // Redirect to admin page after successful login
-      if (url === '/auth/login' && baseUrl === 'http://localhost:3000') {
+      if (url === '/auth/login') {
         return '/admin';
       }
       return url.startsWith(baseUrl) ? url : baseUrl;
