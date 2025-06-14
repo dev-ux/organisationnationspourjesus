@@ -4,6 +4,7 @@ import { users } from "@/data/users";
 import type { NextAuthOptions, Session } from "next-auth";
 import type { DefaultSession } from "next-auth";
 import type { JWT } from "next-auth/jwt";
+import type { User } from "@/types/user";
 
 // Extend the default Session type to include our custom properties
 declare module "next-auth" {
@@ -72,12 +73,14 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" }
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
 
-        const user = users.find(u => u.email === credentials.email);
+        const user = users.find((u: User) => 
+          u.email === credentials.email
+        );
         if (!user || credentials.password !== user.password) {
           return null;
         }
