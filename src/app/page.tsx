@@ -1,6 +1,6 @@
 // components
 import { Navbar, Footer } from "@/components";
-import FirstVisitModal from "@/components/FirstVisitModal";
+import { ClientFirstVisitModal } from "./client-components";
 
 // sections
 import Hero from "./hero";
@@ -11,30 +11,25 @@ import Testimonials from "./testimonials";
 import Faqs from "./faqs";
 import Departments from "./departments";
 import BlogSection from "./blog-section";
-import PastorMessage from "@/components/pastor-message";
+import { ClientPastorMessage } from "./client-components";
 
 export default function Campaign() {
   return (
     <>
-      <FirstVisitModal videoUrls={[
-        "https://www.facebook.com/pasteurhermanntano/videos/651434039959985",
-        "https://www.facebook.com/pasteurhermanntano/videos/725174849362205",
-        "https://www.facebook.com/pasteurhermanntano/videos/670268458970941",
-        "https://www.facebook.com/pasteurhermanntano/videos/725174849362205",
-        "https://www.facebook.com/pasteurhermanntano/videos/651434039959985",
-        "https://www.facebook.com/pasteurhermanntano/videos/670268458970941",
-        "https://www.facebook.com/pasteurhermanntano/videos/725174849362205"
-      ]} />
+      <ClientFirstVisitModal />
+      <Navbar />
+
       <Navbar />
 
       <Hero />
-      <PastorMessage />
+      <ClientPastorMessage />
       <VideoIntro />
       <Feature />
       <ChurchSection />
+      <Testimonials />
+      <Faqs />
       <Departments />
       <BlogSection />
-      <Faqs />
     </>
   );
 }
