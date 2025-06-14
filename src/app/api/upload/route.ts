@@ -62,7 +62,7 @@ export async function POST(request: Request) {
     }
 
     // Lire les images existantes
-    const imagesFile = path.join(process.cwd(), 'src/app/api/upload/images.json');
+    const imagesFile = path.join(process.cwd(), 'public', 'images.json');
     
     // Créer le fichier JSON s'il n'existe pas
     if (!fs.existsSync(imagesFile)) {
@@ -89,7 +89,7 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
-    const imagesFile = path.join(process.cwd(), 'src/app/api/upload/images.json');
+    const imagesFile = path.join(process.cwd(), 'public', 'images.json');
     
     // Vérifier si le fichier existe
     if (!fs.existsSync(imagesFile)) {
