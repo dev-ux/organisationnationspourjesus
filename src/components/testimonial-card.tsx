@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 
 interface TestimonialCardProps {
@@ -17,10 +18,13 @@ export function TestimonialCard({
   return (
     <div className="items-center text-center">
       <div className="mb-3">
-        <img
+        <Image
           src={img}
           alt={client}
           className="w-24 h-24 rounded-full mb-3"
+          width={96}
+          height={96}
+          priority
         />
       </div>
       <h6 className="text-blue-gray-900">

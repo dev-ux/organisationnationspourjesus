@@ -19,7 +19,7 @@ export default function BlogPostPage({
 
   return (
     <div className="container mx-auto px-4 py-16">
-      <BlogDetailHero actualite={actualite} />
+      <BlogDetailHero post={actualite} />
       
       <div className="max-w-4xl mx-auto">
         <div className="prose prose-lg max-w-none">
