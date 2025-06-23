@@ -4,6 +4,7 @@ import { Roboto } from "next/font/google";
 import { FixedPlugin, Layout } from "@/components";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { Providers } from "@/components/providers";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -35,13 +36,16 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/logos/logo.jpg" type="image/jpg" />
       </head>
       <body className={roboto.className}>
-        <Navbar />
-        <main className="min-h-screen">
-          <Layout>
-            {children}
-          </Layout>
-        </main>
-        <Footer />
+        <Providers>
+          <Navbar />
+          <main className="min-h-screen">
+            <Layout>
+              <FixedPlugin />
+              {children}
+            </Layout>
+          </main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 interface GalleryProps {
@@ -11,10 +11,61 @@ interface GalleryProps {
     title: string;
     description?: string;
   }>;
+  isLoading?: boolean;
 }
 
-export default function Gallery({ images }: GalleryProps) {
+export default function Gallery({ images: initialImages, isLoading: initialIsLoading = false }: GalleryProps) {
+  const [images, setImages] = useState<GalleryProps['images']>(initialImages);
+  const [isLoading, setLoading] = useState(initialIsLoading);
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleDelete = async (id: number) => {
+    if (!window.confirm('Êtes-vous sûr de vouloir supprimer cette image ?')) return;
+
+    try {
+      const response = await fetch(`/api/upload/${id}`, {
+        method: 'DELETE'
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete image');
+      }
+
+      // Mettre à jour la liste des images
+      const updatedImages = images.filter((img) => img.id !== id);
+      setImages(updatedImages);
+      
+      // Si l'image supprimée était celle sélectionnée, déselectionner
+      if (selectedImage === id) {
+        setSelectedImage(null);
+      }
+    } catch (err) {
+      setError('Erreur lors de la suppression de l\'image');
+      console.error('Error deleting image:', err);
+    }
+  }; // Si aucune prop images n'est passée, on doit fetcher les images
+
+  useEffect(() => {
+    // Update images when the prop changes
+    setImages(initialImages);
+  }, [initialImages]);
+
+  const fetchImages = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/upload');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setImages(data);
+    } catch (error) {
+      setImages([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleImageClick = (id: number) => {
     setSelectedImage(id);
@@ -24,6 +75,18 @@ export default function Gallery({ images }: GalleryProps) {
     setSelectedImage(null);
   };
 
+  if (isLoading) {
+    return <div className="gallery-container">Chargement des images...</div>;
+  }
+
+  if (error) {
+    return <div className="gallery-container">Erreur: {error}</div>;
+  }
+
+  if (!images || images.length === 0) {
+    return <div className="gallery-container">Aucune image trouvée</div>;
+  }
+
   return (
     <div className="gallery-container">
       {/* Grid de miniatures */}
@@ -31,18 +94,31 @@ export default function Gallery({ images }: GalleryProps) {
         {images.map((image) => (
           <motion.div
             key={image.id}
-            className="relative rounded-lg overflow-hidden cursor-pointer"
+            className="relative overflow-hidden rounded-lg cursor-pointer"
             onClick={() => handleImageClick(image.id)}
             whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2 }}
           >
+            {/* Bouton de suppression */}
+            {/* <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDelete(image.id);
+              }}
+              className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
+              title="Supprimer"
+            >
+              ✕
+            </button> */}
             <Image
               src={image.url}
               alt={image.title}
               width={300}
               height={200}
-              className="w-full h-full object-cover"
-              priority={image.id === 1}
+              className="object-cover w-full h-full"
+              onError={(e) => {
+                e.currentTarget.src = '/public/images/default-image.jpg';
+              }}
             />
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-white">
               <h3 className="text-sm font-semibold">{image.title}</h3>

@@ -52,7 +52,7 @@ const blogPosts: BlogPost[] = [
   },
   {
     id: "4",
-    title: "GRANDE CAMPAGNE D'ÉVANGÉLISATION",
+    title: "CAMPAGNE D'ÉVANGÉLISATION",
     date: "10 Mai 2025",
     images: [
       "/image/blog/evangelisation.jpg",
@@ -89,6 +89,11 @@ const blogPosts: BlogPost[] = [
 ];
 
 export default function BlogSection() {
+  // Trier les posts par date (du plus récent au plus ancien) et prendre les 3 premiers
+  const latestPosts = blogPosts
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 3);
+
   return (
     <div className="py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -103,7 +108,7 @@ export default function BlogSection() {
 
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
           <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
-            {blogPosts.map((post) => (
+            {latestPosts.map((post) => (
               <div key={post.title} className="flex flex-col h-full relative overflow-hidden rounded-2xl bg-white p-6 sm:p-8">
                 <div className="absolute inset-0 -m-1 bg-gradient-to-r from-gray-900/50 to-gray-800/50 rounded-2xl blur-3xl" />
                 <div className="relative flex flex-col h-full">
@@ -148,6 +153,16 @@ export default function BlogSection() {
                 </div>
               </div>
             ))}
+          </div>
+          
+          {/* Bouton pour voir toutes les actualités */}
+          <div className="mt-8 text-center">
+            <Link
+              href="/blog"
+              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Voir toutes les actualités
+            </Link>
           </div>
         </div>
       </div>

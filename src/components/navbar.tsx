@@ -110,7 +110,7 @@ export function Navbar() {
                 <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM13.5 10.007a4.486 4.486 0 00-3.741 0A4.5 4.5 0 0113.5 2.25a4.5 4.5 0 014.5 4.5c0 1.74-.867 3.27-2.25 4.256.04.047.078.096.114.148.302.444.453 1.155.337 1.75c-.14.735-.694 1.27-1.405 1.27-.886 0-1.64-.627-1.787-1.45a4.5 4.5 0 01-.25-1.265.75.75 0 10-.5-.832 4.5 4.5 0 01-.2-1.265c.14-.736.694-1.27 1.405-1.27.884 0 1.64.627 1.785 1.45a.75.75 0 00.248.525v.025a4.501 4.501 0 01-2.04 1.43c-.48.035-.965.114-1.424.29a4.5 4.5 0 01-1.45-1.81c.534.02.995.315 1.357.62.45.384.616.988.526 1.57l-.02.216a.75.75 0 00.57 1.022c1.12.312 1.933 1.16 1.933 2.428 0 1.74-1.36 3.27-3.12 3.895a4.49 4.49 0 01-1.95-.44 4.49 4.49 0 01-.6 2.996v.05c0 2.076 1.267 3.89 3.04 3.89 3.314 0 5.23-2.904 5.23-6.69 0-3.023-1.95-5.72-5.003-6.64z" clipRule="evenodd" />
               </svg>
             </button>
-            <button
+            {/* <button
               className={`text-sm font-medium ${isScrolling ? 'text-gray-700' : 'text-white'} hidden lg:inline-block`}
             >
               Connexion
@@ -119,7 +119,7 @@ export function Navbar() {
               className={`bg-blue-600 text-white px-4 py-2 rounded-lg hidden lg:inline-block ${isScrolling ? 'hover:bg-blue-700' : ''}`}
             >
               Inscription
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
@@ -147,7 +147,7 @@ export function Navbar() {
             <li><a href="/priere-sans-cesse" className="block py-2" onClick={closeMenu}>Prière sans cesse</a></li>
             <li><a href="/offrandes" className="block py-2" onClick={closeMenu}>Offrandes</a></li>
           </ul>
-          <button
+          {/* <button
             onClick={() => {
               closeMenu();
               // Ajouter ici la logique de navigation vers la page d'inscription
@@ -155,7 +155,7 @@ export function Navbar() {
             className="w-full bg-blue-600 text-white py-3 rounded-lg mt-8 hover:bg-blue-700 transition"
           >
             Inscription
-          </button>
+          </button> */}
         </div>
       </div>
     </nav>
