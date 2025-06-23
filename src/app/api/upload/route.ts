@@ -11,7 +11,7 @@ interface Image {
 }
 
 // Créer un dossier pour stocker les images si nécessaire
-const imagesDir = path.join(process.cwd(), 'public', 'images');
+const imagesDir = path.join(process.cwd(), 'public', 'image');
 if (!fs.existsSync(imagesDir)) {
   fs.mkdirSync(imagesDir, { recursive: true });
 }
@@ -62,7 +62,7 @@ export async function POST(request: Request) {
     }
 
     // Lire les images existantes
-    const imagesFile = path.join(process.cwd(), 'public', 'images.json');
+    const imagesFile = path.join(process.cwd(), 'public', 'image.json');
     
     // Créer le fichier JSON s'il n'existe pas
     if (!fs.existsSync(imagesFile)) {
@@ -89,7 +89,7 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
-    const imagesFile = path.join(process.cwd(), 'public', 'images.json');
+    const imagesFile = path.join(process.cwd(), 'public', 'image.json');
     
     // Vérifier si le fichier existe
     if (!fs.existsSync(imagesFile)) {
@@ -99,12 +99,12 @@ export async function GET() {
     const imagesData = JSON.parse(await fs.promises.readFile(imagesFile, 'utf-8'));
     
     // Vérifier si les images existent réellement
-    const imagesDir = path.join(process.cwd(), 'public', 'images');
+    const imagesDir = path.join(process.cwd(), 'public', 'image');
     const existingImages = await fs.promises.readdir(imagesDir);
     
     // Filtrer les images qui existent réellement
     const validImages = imagesData.filter((image: any) => {
-      const imagePath = path.join(imagesDir, image.url.replace('/images/', ''));
+      const imagePath = path.join(imagesDir, image.url.replace('/image/', ''));
       return existingImages.includes(path.basename(imagePath));
     });
 
