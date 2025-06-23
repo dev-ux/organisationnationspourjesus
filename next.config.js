@@ -27,9 +27,6 @@ const nextConfig = {
     ],
     unoptimized: true, // Désactive l'optimisation des images temporairement
   },
-  experimental: {
-    serverActions: false,
-  },
 }
 
 module.exports = nextConfig;
