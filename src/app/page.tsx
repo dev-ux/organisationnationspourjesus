@@ -26,7 +26,7 @@ export default function Campaign() {
       <VideoIntro />
       <Feature />
       <ChurchSection />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <Faqs />
       <Departments />
       <BlogSection />
