@@ -27,9 +27,10 @@ export default function Campaign() {
       <Feature />
       <ChurchSection />
       {/* <Testimonials /> */}
-      <Faqs />
       <Departments />
       <BlogSection />
+      <Faqs />
+
     </>
   );
 }

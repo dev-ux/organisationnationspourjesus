@@ -17,16 +17,7 @@ export default function ChurchSection() {
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
           <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Image */}
-            <div className="relative aspect-[7/5] rounded-2xl bg-gray-900 overflow-hidden">
-              <Image
-                src="/image/onj3.jpg"
-                alt="Eglise des Disciples Accomplis"
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
+           
             
             {/* Card 1 */}
             <div className="relative overflow-hidden rounded-2xl bg-white p-8 sm:p-10">
