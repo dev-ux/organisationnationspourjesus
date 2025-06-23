@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import Link from "next/link";
 
 interface NavItemProps {
   children: React.ReactNode;
@@ -55,13 +56,15 @@ export function Navbar() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
         <div className="flex items-center">
           <h1 className={`text-xl font-bold ${isScrolling ? 'text-gray-900' : 'text-white'} ml-2`}>
-            <a href="/" className="block">
-              <img 
+            <Link href="/" className="block">
+              <Image 
                 src="/logos/logo.jpg" 
                 alt="Logo EDA" 
+                width={64}
+                height={64}
                 className="h-16 w-auto rounded-full"
               />
-            </a>
+            </Link>
           </h1>
         </div>
         <div className="flex items-center justify-end flex-1">

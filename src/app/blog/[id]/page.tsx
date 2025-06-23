@@ -1,17 +1,55 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import BlogDetailHero from './hero';
-import { blogPosts, BlogPost } from '@/data/blog-data';
+import { BlogPost } from '@/types/blog';
 
 export default function BlogPostPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const actualite = blogPosts.find((post: BlogPost) => post.id === params.id);
+  const [actualite, setActualite] = useState<BlogPost | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchActualite = async () => {
+      try {
+        const response = await fetch('/api/news');
+        const data = await response.json();
+        const newsPost = data.news.find((news: any) => news.id.toString() === params.id);
+        if (newsPost) {
+          setActualite({
+            id: newsPost.id.toString(),
+            titre: newsPost.titre,
+            date: newsPost.date,
+            images: [newsPost.image],
+            description: newsPost.description,
+            contenu: newsPost.contenu
+          });
+        } else {
+          notFound();
+        }
+      } catch (error) {
+        console.error('Erreur lors du chargement de l\'actualité:', error);
+        notFound();
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchActualite();
+  }, [params.id]);
+
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-16">
+        <p className="text-center text-gray-600">Chargement de l\'article...</p>
+      </div>
+    );
+  }
 
   if (!actualite) {
     return notFound();

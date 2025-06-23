@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { BlogPost } from '@/data/blog-data';
+import { BlogPost } from '@/types/blog';
 
 interface BlogDetailHeroProps {
   post: BlogPost;
