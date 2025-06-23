@@ -1,21 +1,68 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { blogPosts, BlogPost } from '@/data/blog-data';
+import type { BlogPost } from '@/types/blog';
+import { notFound } from 'next/navigation';
+import Swal from 'sweetalert2';
 
-interface Actualite {
-  id: string;
-  titre: string;
-  date: string;
-  description: string;
-  images: string[];
-  contenu: string;
-}
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+});
 
 export default function Actualites({ nbActualites = 3 }: { nbActualites?: number }) {
-  const actualites = blogPosts.slice(0, nbActualites);
+  const [actualites, setActualites] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchActualites = async () => {
+      try {
+        const response = await fetch('/api/news');
+        const data = await response.json();
+        
+        // Convertir les données de l'API en format Actualite
+        const formattedActualites = data.news.map((news: any) => ({
+          id: news.id.toString(),
+          titre: news.titre,
+          date: news.date,
+          description: news.description,
+          image: news.image,
+          contenu: news.contenu,
+          images: [news.image]
+        }));
+        
+        setActualites(formattedActualites);
+      } catch (error) {
+        console.error('Erreur lors du chargement des actualités:', error);
+        Toast.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Une erreur est survenue lors du chargement des actualités'
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchActualites();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-gray-600">Chargement des actualités...</p>
+      </div>
+    );
+  }
 
   if (actualites.length === 0) {
     return (
@@ -27,7 +74,7 @@ export default function Actualites({ nbActualites = 3 }: { nbActualites?: number
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {actualites.map((actualite) => (
+      {actualites.slice(0, nbActualites).map((actualite) => (
         <Link
           key={actualite.id}
           href={`/blog/${actualite.id}`}

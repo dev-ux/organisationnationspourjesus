@@ -3,22 +3,37 @@
 import AdminLayout from "../layout";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Swal from 'sweetalert2';
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+});
 
 interface News {
+  id: number;
   titre: string;
+  date: string;
   description: string;
   image: string;
-  date: string;
   contenu: string;
 }
 
 export default function NewsPage() {
   const [news, setNews] = useState<News[]>([]);
   const [newNews, setNewNews] = useState<News>({
+    id: Date.now(),
     titre: "",
+    date: new Date().toISOString().split('T')[0],
     description: "",
     image: "",
-    date: new Date().toISOString().split('T')[0],
     contenu: ""
   });
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -28,10 +43,16 @@ export default function NewsPage() {
     try {
       const response = await fetch('/api/news');
       const data = await response.json();
-      setNews(data);
+      // Vérifier si data est un objet avec une propriété news
+      const newsData = data.news || data;
+      setNews(newsData);
     } catch (error) {
       console.error('Error fetching news:', error);
-      alert('Erreur lors du chargement des actualités');
+      Toast.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'Erreur lors du chargement des actualités'
+      });
     }
   };
 
@@ -54,62 +75,60 @@ export default function NewsPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedImage) {
-      alert('Veuillez sélectionner une image');
+      Toast.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'Veuillez sélectionner une image'
+      });
       return;
     }
 
     try {
-      // D'abord télécharger l'image
+      // Créer un FormData avec toutes les données
       const formData = new FormData();
       formData.append('image', selectedImage);
-      formData.append('title', newNews.titre);
+      formData.append('titre', newNews.titre);
+      formData.append('date', newNews.date);
+      formData.append('contenu', newNews.contenu);
       formData.append('description', newNews.description);
 
-      const imageResponse = await fetch('/api/upload', {
+      // Envoyer directement les données à l'API news
+      const response = await fetch('/api/news', {
         method: 'POST',
         body: formData
       });
 
-      if (!imageResponse.ok) {
-        throw new Error('Erreur lors du téléchargement de l\'image');
+      if (response.ok) {
+        Toast.fire({
+          icon: 'success',
+          title: 'Succès',
+          text: 'L\'actualité a été ajoutée avec succès'
+        });
+        setNewNews({
+          id: Date.now(),
+          titre: "",
+          description: "",
+          image: "",
+          date: new Date().toISOString().split('T')[0],
+          contenu: ""
+        });
+        setSelectedImage(null);
+        setPreviewImage(null);
+        fetchNews();
+      } else {
+        Toast.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Erreur lors de l\'ajout de l\'actualité'
+        });
       }
-
-      const imageData = await imageResponse.json();
-      
-      // Ensuite créer l'actualité avec l'URL de l'image
-      const newsData = {
-        titre: newNews.titre,
-        description: newNews.description,
-        image: imageData.url,
-        date: newNews.date,
-        contenu: newNews.description
-      };
-
-      const response = await fetch('/api/news', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newsData)
-      });
-
-      if (!response.ok) {
-        throw new Error('Erreur lors de l\'ajout de l\'actualité');
-      }
-
-      setNewNews({
-        titre: "",
-        description: "",
-        image: "",
-        date: new Date().toISOString().split('T')[0],
-        contenu: ""
-      });
-      setSelectedImage(null);
-      setPreviewImage(null);
-      fetchNews();
     } catch (error) {
       console.error('Error:', error);
-      alert('Erreur lors de l\'ajout de l\'actualité');
+      Toast.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'Erreur lors de l\'ajout de l\'actualité'
+      });
     }
   };
 
@@ -123,14 +142,27 @@ export default function NewsPage() {
         method: 'DELETE',
       });
 
-      if (!response.ok) {
-        throw new Error('Erreur lors de la suppression');
+      if (response.ok) {
+        Toast.fire({
+          icon: 'success',
+          title: 'Succès',
+          text: 'L\'actualité a été supprimée avec succès'
+        });
+        await fetchNews();
+      } else {
+        Toast.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Erreur lors de la suppression de l\'actualité'
+        });
       }
-
-      await fetchNews();
     } catch (error) {
       console.error('Error:', error);
-      alert('Erreur lors de la suppression de l\'actualité');
+      Toast.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'Erreur lors de la suppression de l\'actualité'
+      });
     }
   };
 
@@ -144,36 +176,35 @@ export default function NewsPage() {
               
               <div className="mb-8">
                 <h3 className="text-lg font-medium mb-4">Ajouter une nouvelle actualité</h3>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
-                    <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="titre" className="block text-sm font-medium text-gray-700">
                       Titre
                     </label>
                     <input
                       type="text"
-                      id="title"
-                      name="title"
+                      id="titre"
+                      name="titre"
                       value={newNews.titre}
                       onChange={(e) => setNewNews({ ...newNews, titre: e.target.value })}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                      placeholder="Titre de l'actualité"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                      required
                     />
                   </div>
-
                   <div>
-                    <label htmlFor="content" className="block text-sm font-medium text-gray-700">
-                      Contenu
+                    <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+                      Description
                     </label>
                     <textarea
-                      id="content"
-                      name="content"
+                      id="description"
+                      name="description"
                       value={newNews.description}
                       onChange={(e) => setNewNews({ ...newNews, description: e.target.value })}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 h-32"
-                      placeholder="Contenu de l'actualité"
-                    ></textarea>
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                      rows={3}
+                      required
+                    />
                   </div>
-
                   <div>
                     <label htmlFor="date" className="block text-sm font-medium text-gray-700">
                       Date
@@ -184,10 +215,24 @@ export default function NewsPage() {
                       name="date"
                       value={newNews.date}
                       onChange={(e) => setNewNews({ ...newNews, date: e.target.value })}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                      required
                     />
                   </div>
-
+                  <div>
+                    <label htmlFor="contenu" className="block text-sm font-medium text-gray-700">
+                      Contenu
+                    </label>
+                    <textarea
+                      id="contenu"
+                      name="contenu"
+                      value={newNews.contenu}
+                      onChange={(e) => setNewNews({ ...newNews, contenu: e.target.value })}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                      rows={5}
+                      required
+                    />
+                  </div>
                   <div>
                     <label htmlFor="image" className="block text-sm font-medium text-gray-700">
                       Image
@@ -195,10 +240,12 @@ export default function NewsPage() {
                     <div className="mt-2">
                       {previewImage && (
                         <div className="mb-4">
-                          <img
+                          <Image
                             src={previewImage}
                             alt="Preview"
                             className="w-64 h-48 object-cover rounded-lg"
+                            width={256}
+                            height={192}
                           />
                         </div>
                       )}
@@ -206,18 +253,17 @@ export default function NewsPage() {
                         type="file"
                         id="image"
                         name="image"
-                        onChange={handleImageChange}
                         accept="image/*"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        onChange={handleImageChange}
+                        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-500 file:text-indigo-700 hover:file:bg-indigo-100"
                       />
                     </div>
                   </div>
-
                   <button
                     type="submit"
                     className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
-                    Ajouter
+                    Ajouter l'actualité
                   </button>
                 </form>
               </div>

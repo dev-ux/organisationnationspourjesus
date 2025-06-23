@@ -22,7 +22,7 @@ declare module "next-auth" {
 }
 
 declare module 'next-auth/jwt' {
-  interface JWT {
+  interface JWT extends DefaultSession {
     id: string;
     email: string;
     name: string;
@@ -35,7 +35,9 @@ export const authOptions: NextAuthOptions = {
     signIn: '/auth/login'
   },
   session: {
-    strategy: 'jwt'
+    strategy: 'jwt',
+    maxAge: 3 * 60, // 3 minutes
+    updateAge: 2 * 60, // 2 minutes
   },
   callbacks: {
     async signIn({ user }) {
@@ -48,43 +50,39 @@ export const authOptions: NextAuthOptions = {
       }
       return url.startsWith(baseUrl) ? url : baseUrl;
     },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id as string;
+        token.email = user.email as string;
+        token.name = user.name as string;
+        token.role = user.role as string;
+      }
+      return token as JWT;
+    },
     async session({ session, token }) {
       if (session.user) {
-        session.user.email = token.email as string;
-        session.user.name = token.name as string;
+        session.user.id = token.id as string;
         session.user.role = token.role as string;
       }
       return session;
-    },
-    async jwt({ token, user }) {
-      if (user && user.email) {
-        token.id = user.id || '';
-        token.email = user.email || '';
-        token.name = user.name || '';
-        token.role = user.email === 'admin@example.com' ? 'admin' : 'user';
-      }
-      return token;
     }
   },
   providers: [
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "email" },
+        email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) {
-          return null;
+          throw new Error('Invalid credentials');
         }
 
-        const user = users.find((u: User) => 
-          u.email === credentials.email
-        );
+        const user = users.find(u => u.email === credentials.email);
         if (!user || credentials.password !== user.password) {
-          return null;
+          throw new Error('Invalid credentials');
         }
-
         return {
           id: user.id,
           email: user.email,
@@ -93,9 +91,12 @@ export const authOptions: NextAuthOptions = {
         };
       }
     })
-  ]
+  ],
+  secret: process.env.NEXTAUTH_SECRET || 'votre-secret-ici',
+  debug: process.env.NODE_ENV === 'development'
 };
 
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
+export default authOptions;
