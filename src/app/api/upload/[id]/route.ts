@@ -2,14 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 import fs from 'fs/promises';
 
-<<<<<<< HEAD
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
-=======
 export async function DELETE(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
->>>>>>> fix-gallery-component
   try {
     const id = params.id;
     
