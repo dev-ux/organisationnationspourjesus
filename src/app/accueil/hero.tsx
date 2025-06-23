@@ -7,7 +7,7 @@ export default function AccueilHero() {
     <div className="relative h-[400px] w-full">
       <div className="absolute inset-0">
         <Image
-          src="/image/onj1.jpg"
+          src="/image/eda.jpg"
           alt="Eglise des Disciples Accomplis"
           fill
           className="object-cover"
