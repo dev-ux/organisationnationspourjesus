@@ -1,97 +1,53 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-interface BlogPost {
-  id: string;
-  title: string;
-  date: string;
-  images: string[];
-  excerpt: string;
-  content: string;
-}
-
-const blogPosts: BlogPost[] = [
-  {
-    id: "1",
-    title: "GRANDE CAMPAGNE D'ÉVANGÉLISATION",
-    date: "22 Mai 2025",
-    images: [
-      "/image/blog/campagne1.jpg",
-      "/image/blog/campagne.jpg",
-      "/image/blog/campagne.jpg"
-    ],
-    excerpt: "ACTIONS SOCIALES - Des canaux de Réveil... C'est ce que nous avons été sur le terrain, hier mercredi.",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-  },
-  {
-    id: "2",
-    title: "INFORMATIONS IMPORTANTES",
-    date: "17 Mai 2025",
-    images: [
-      "/image/blog/info1.jpg",
-      "/image/blog/information.jpg",
-      "/image/blog/information.jpg"
-    ],
-    excerpt: "Programme prophétique de réveil et d'évangélisation en cours.",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-  },
-  {
-    id: "3",
-    title: "CAMPAGNE DE RÉVEIL",
-    date: "15 Mai 2025",
-    images: [
-      "/image/blog/revival.jpg",
-      "/image/blog/revival.jpg",
-      "/image/blog/revival.jpg"
-    ],
-    excerpt: "Campagne de réveil en cours avec des actions sociales et évangélisation.",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-  },
-  {
-    id: "4",
-    title: "CAMPAGNE D'ÉVANGÉLISATION",
-    date: "10 Mai 2025",
-    images: [
-      "/image/blog/evangelisation.jpg",
-      "/image/blog/evangelisation.jpg",
-      "/image/blog/evangelisation.jpg"
-    ],
-    excerpt: "Campagne d'évangélisation et d'actions sociales en cours.",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-  },
-  {
-    id: "5",
-    title: "FORMATION SPIRITUELLE",
-    date: "5 Mai 2025",
-    images: [
-      "/image/blog/formation.jpg",
-      "/image/blog/formation.jpg",
-      "/image/blog/formation.jpg"
-    ],
-    excerpt: "Sessions de formation spirituelle pour les disciples.",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-  },
-  {
-    id: "6",
-    title: "RÉUNIONS DE PRIÈRE",
-    date: "1 Mai 2025",
-    images: [
-      "/image/blog/priere.jpg",
-      "/image/blog/priere.jpg",
-      "/image/blog/priere.jpg"
-    ],
-    excerpt: "Réunions de prière et intercession pour la communauté.",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-  }
-];
+import { BlogPost } from "@/types/blog";
 
 export default function BlogSection() {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch('/api/news');
+        const data = await response.json();
+        const formattedPosts = data.news.map((news: any) => ({
+          id: news.id.toString(),
+          title: news.titre,
+          date: news.date,
+          images: [news.image],
+          excerpt: news.description,
+          content: news.contenu
+        }));
+        setPosts(formattedPosts);
+      } catch (error) {
+        console.error('Erreur lors du chargement des actualités:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-gray-600">Chargement des actualités...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Trier les posts par date (du plus récent au plus ancien) et prendre les 3 premiers
-  const latestPosts = blogPosts
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  const latestPosts = posts
+    .sort((a: BlogPost, b: BlogPost) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 3);
 
   return (
@@ -109,14 +65,14 @@ export default function BlogSection() {
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
           <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
             {latestPosts.map((post) => (
-              <div key={post.title} className="flex flex-col h-full relative overflow-hidden rounded-2xl bg-white p-6 sm:p-8">
+              <div key={post.id} className="flex flex-col h-full relative overflow-hidden rounded-2xl bg-white p-6 sm:p-8">
                 <div className="absolute inset-0 -m-1 bg-gradient-to-r from-gray-900/50 to-gray-800/50 rounded-2xl blur-3xl" />
                 <div className="relative flex flex-col h-full">
                   {post.images && (
                     <div className="w-full h-48 relative rounded-lg overflow-hidden">
                       <Image
                         src={post.images[0]}
-                        alt={post.title}
+                        alt={post.titre}
                         fill
                         className="object-cover"
                         priority
@@ -126,12 +82,12 @@ export default function BlogSection() {
                   <div className="flex-grow flex flex-col">
                     <div className="flex-grow">
                       <p className="mt-2 text-sm leading-6 text-gray-600">
-                        {post.excerpt}
+                        {post.description}
                       </p>
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold leading-8 tracking-tight text-gray-900 mt-4">
-                        {post.title}
+                        {post.titre}
                       </h3>
                       <div className="mt-2 text-xs text-gray-500">
                         {new Date(post.date).toLocaleDateString('fr-FR', {
