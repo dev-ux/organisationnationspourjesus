@@ -3,39 +3,56 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { actualites } from '@/data/actualites';
+import { blogPosts, BlogPost } from '@/data/blog-data';
 
 interface Actualite {
-  id: number;
+  id: string;
   titre: string;
   date: string;
   description: string;
-  image: string;
+  images: string[];
   contenu: string;
 }
 
 export default function Actualites({ nbActualites = 3 }: { nbActualites?: number }) {
+  const actualites = blogPosts.slice(0, nbActualites);
+
+  if (actualites.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-gray-600">Aucune actualité disponible.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {actualites.slice(0, nbActualites).map((actualite: Actualite) => (
-        <div key={actualite.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+      {actualites.map((actualite) => (
+        <Link
+          key={actualite.id}
+          href={`/blog/${actualite.id}`}
+          className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+        >
           <div className="relative h-48">
             <Image
-              src={actualite.image}
+              src={actualite.images[0]}
               alt={actualite.titre}
               fill
               className="object-cover"
             />
           </div>
-          <div className="p-4">
-            <h3 className="text-xl font-semibold mb-2">{actualite.titre}</h3>
-            <p className="text-gray-600 mb-2">{new Date(actualite.date).toLocaleDateString('fr-FR')}</p>
-            <p className="text-gray-600 mb-4">{actualite.description}</p>
-            <Link href={`/blog/${actualite.id}`} className="inline-block text-blue-600 hover:text-blue-800">
-              En savoir plus
-            </Link>
+          <div className="p-6">
+            <h3 className="text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+              {actualite.titre}
+            </h3>
+            <p className="mt-2 text-gray-600">
+              {actualite.description}
+            </p>
+            <p className="mt-2 text-sm text-gray-500">
+              {actualite.date}
+            </p>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

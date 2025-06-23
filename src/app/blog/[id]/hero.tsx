@@ -1,28 +1,27 @@
 "use client";
 
 import Image from "next/image";
+import { BlogPost } from '@/data/blog-data';
 
-export default function BlogDetailHero({ post }: { post: { title: string; image?: string } }) {
+interface BlogDetailHeroProps {
+  actualite: BlogPost;
+}
+
+export default function BlogDetailHero({ actualite }: BlogDetailHeroProps) {
+  const mainImage = actualite.images[0]; // Utilisation de la première image comme image principale
+
   return (
-    <div className="relative h-[400px] w-full">
-      <div className="absolute inset-0">
-        <Image
-          src={post.image || '/image/blog/formation.jpg'}
-          alt={post.title}
-          fill
-          className="object-cover"
-          priority
-        />
-      </div>
-      <div className="absolute inset-0 bg-black/30"></div>
-      <div className="relative">
-        <div className="container mx-auto px-8 py-16">
-          <div className="max-w-4xl">
-            <h1 className="text-3xl font-bold text-white sm:text-4xl">
-              {post.title}
-            </h1>
-          </div>
-        </div>
+    <div className="relative h-[400px]">
+      <Image
+        src={mainImage}
+        alt={actualite.titre}
+        fill
+        className="object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-75" />
+      <div className="absolute inset-0 flex flex-col justify-center items-center text-white">
+        <h1 className="text-4xl md:text-6xl font-bold mb-4">{actualite.titre}</h1>
+        <p className="text-xl">{actualite.date}</p>
       </div>
     </div>
   );
