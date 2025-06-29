@@ -14,28 +14,41 @@ interface NewsItem {
   contenu: string;
 }
 
-const newsFilePath = path.join(process.cwd(), 'src', 'data', 'news.json');
-const imagesDir = path.join(process.cwd(), 'public', 'image');
+const newsFilePath = process.env.NEXT_PUBLIC_NEWS_FILE_PATH || path.join(process.cwd(), 'src', 'data', 'news.json');
+const imagesDir = process.env.NEXT_PUBLIC_IMAGES_DIR || path.join(process.cwd(), 'public', 'image');
 
 // Créer les dossiers nécessaires
 if (!fs.existsSync(imagesDir)) {
-  fs.mkdirSync(imagesDir, { recursive: true });
+  try {
+    fs.mkdirSync(imagesDir, { recursive: true });
+    console.log('Dossier images créé:', imagesDir);
+  } catch (error) {
+    console.error('Erreur lors de la création du dossier images:', error);
+    throw error;
+  }
 }
 
 // Charger les actualités depuis le fichier
 function loadNews(): NewsItem[] {
   try {
+    console.log('Chemin du fichier news:', newsFilePath);
+    if (!fs.existsSync(newsFilePath)) {
+      console.log('Fichier news.json n\'existe pas, création d\'un fichier vide');
+      fs.writeFileSync(newsFilePath, JSON.stringify([], null, 2));
+      return [];
+    }
     const data = fs.readFileSync(newsFilePath, 'utf8');
     return JSON.parse(data);
   } catch (error) {
     console.error('Erreur lors du chargement des actualités:', error);
-    return [];
+    throw error;
   }
 }
 
 // Sauvegarder les actualités dans le fichier
 function saveNews(news: NewsItem[]): void {
   try {
+    console.log('Sauvegarde des actualités dans:', newsFilePath);
     fs.writeFileSync(newsFilePath, JSON.stringify(news, null, 2));
   } catch (error) {
     console.error('Erreur lors de la sauvegarde des actualités:', error);
