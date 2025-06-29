@@ -17,27 +17,30 @@ interface NewsItem {
 const newsFilePath = process.env.NEXT_PUBLIC_NEWS_FILE_PATH || path.join(process.cwd(), 'src', 'data', 'news.json');
 const imagesDir = process.env.NEXT_PUBLIC_IMAGES_DIR || path.join(process.cwd(), 'public', 'image');
 
-// Créer les dossiers nécessaires
-if (!fs.existsSync(imagesDir)) {
+// Créer les dossiers nécessaires asynchrone
+async function createDirectories() {
   try {
-    fs.mkdirSync(imagesDir, { recursive: true });
-    console.log('Dossier images créé:', imagesDir);
+    await fsPromises.access(imagesDir).catch(async () => {
+      await fsPromises.mkdir(imagesDir, { recursive: true });
+      console.log('Dossier images créé:', imagesDir);
+    });
+    
+    // Vérifier et créer le fichier news.json si nécessaire
+    await fsPromises.access(newsFilePath).catch(async () => {
+      await fsPromises.writeFile(newsFilePath, JSON.stringify([], null, 2));
+      console.log('Fichier news.json créé:', newsFilePath);
+    });
   } catch (error) {
-    console.error('Erreur lors de la création du dossier images:', error);
+    console.error('Erreur lors de la création des dossiers:', error);
     throw error;
   }
 }
 
 // Charger les actualités depuis le fichier
-function loadNews(): NewsItem[] {
+async function loadNews(): Promise<NewsItem[]> {
   try {
     console.log('Chemin du fichier news:', newsFilePath);
-    if (!fs.existsSync(newsFilePath)) {
-      console.log('Fichier news.json n\'existe pas, création d\'un fichier vide');
-      fs.writeFileSync(newsFilePath, JSON.stringify([], null, 2));
-      return [];
-    }
-    const data = fs.readFileSync(newsFilePath, 'utf8');
+    const data = await fsPromises.readFile(newsFilePath, 'utf8');
     return JSON.parse(data);
   } catch (error) {
     console.error('Erreur lors du chargement des actualités:', error);
@@ -46,23 +49,50 @@ function loadNews(): NewsItem[] {
 }
 
 // Sauvegarder les actualités dans le fichier
-function saveNews(news: NewsItem[]): void {
+async function saveNews(news: NewsItem[]): Promise<void> {
   try {
     console.log('Sauvegarde des actualités dans:', newsFilePath);
-    fs.writeFileSync(newsFilePath, JSON.stringify(news, null, 2));
+    await fsPromises.writeFile(newsFilePath, JSON.stringify(news, null, 2));
   } catch (error) {
     console.error('Erreur lors de la sauvegarde des actualités:', error);
     throw error;
   }
 }
 
+// Vérifier les permissions du dossier
+async function checkDirectoryPermissions(): Promise<boolean> {
+  try {
+    const stats = await fsPromises.stat(imagesDir);
+    return stats.isDirectory();
+  } catch (error) {
+    console.error('Erreur lors de la vérification des permissions:', error);
+    return false;
+  }
+}
+
 export async function GET() {
-  const news = await loadNews();
-  return NextResponse.json({ news });
+  try {
+    const news = await loadNews();
+    return NextResponse.json({ news });
+  } catch (error) {
+    console.error('Erreur lors de la récupération des actualités:', error);
+    return NextResponse.json(
+      { error: "Erreur lors de la récupération des actualités" },
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(request: NextRequest) {
   try {
+    // Vérifier les permissions avant de continuer
+    if (!await checkDirectoryPermissions()) {
+      return NextResponse.json(
+        { error: "Droits d'accès insuffisants" },
+        { status: 403 }
+      );
+    }
+
     const formData = await request.formData();
     const file = formData.get('image') as File;
     const titre = formData.get('titre') as string;
@@ -161,7 +191,7 @@ export async function DELETE(request: NextRequest) {
   } catch (error) {
     console.error('Erreur lors de la suppression:', error);
     return NextResponse.json(
-      { error: 'Erreur lors de la suppression' },
+      { error: "Erreur lors de la suppression de l\'actualité" },
       { status: 500 }
     );
   }
