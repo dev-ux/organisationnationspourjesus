@@ -27,6 +27,11 @@ const nextConfig = {
     ],
     unoptimized: true, // Désactive l'optimisation des images temporairement
   },
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb', // Augmenter la taille maximale des requêtes
+    },
+  },
 }
 
 module.exports = nextConfig;
