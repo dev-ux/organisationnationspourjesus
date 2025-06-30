@@ -4,6 +4,7 @@ import fs from 'fs';
 import { promises as fsPromises } from 'fs';
 import path from 'path';
 import { createHash } from 'crypto';
+import { exec } from 'child_process';
 
 interface NewsItem {
   id: number;
@@ -14,12 +15,65 @@ interface NewsItem {
   contenu: string;
 }
 
-const newsFilePath = process.env.NEXT_PUBLIC_NEWS_FILE_PATH || path.join(process.cwd(), 'src', 'data', 'news.json');
-const imagesDir = process.env.NEXT_PUBLIC_IMAGES_DIR || path.join(process.cwd(), 'public', 'image');
+const newsFilePath = path.join(process.cwd(), 'src', 'data', 'news.json');
+const imagesDir = path.join(process.cwd(), 'temp', 'nas', 'image');
+
+// Fonction pour monter le NAS
+async function mountNAS(): Promise<boolean> {
+  try {
+    const nasHost = process.env.NEXT_PUBLIC_NAS_HOST;
+    const nasUser = process.env.NEXT_PUBLIC_NAS_USER;
+    const nasPassword = process.env.NEXT_PUBLIC_NAS_PASSWORD;
+    const nasPath = process.env.NEXT_PUBLIC_NAS_PATH;
+    const localPath = path.join(process.cwd(), 'temp', 'nas');
+
+    if (!nasHost || !nasUser || !nasPassword || !nasPath) {
+      console.error('Configuration NAS incomplète');
+      return false;
+    }
+
+    // Vérifier si le montage existe déjà
+    const existingMount = await new Promise((resolve) => {
+      exec(`mount | grep "${localPath}"`, (err, stdout) => {
+        resolve(!err && stdout.trim());
+      });
+    });
+
+    if (!existingMount) {
+      // Créer le dossier local si nécessaire
+      await fsPromises.mkdir(localPath, { recursive: true });
+
+      // Monter le NAS
+      await new Promise((resolve, reject) => {
+        exec(`mount -t cifs -o username=${nasUser},password=${nasPassword} //${nasHost}${nasPath} ${localPath}`, (err) => {
+          if (err) {
+            console.error('Erreur lors du montage du NAS:', err);
+            reject(err);
+          } else {
+            console.log('NAS monté avec succès');
+            resolve(true);
+          }
+        });
+      });
+    }
+
+    return true;
+  } catch (error) {
+    console.error('Erreur lors du montage du NAS:', error);
+    throw error;
+  }
+}
 
 // Créer les dossiers nécessaires asynchrone
 async function createDirectories() {
   try {
+    const localPath = path.join(process.cwd(), 'temp', 'nas');
+    await fsPromises.access(localPath).catch(async () => {
+      await fsPromises.mkdir(localPath, { recursive: true });
+      console.log('Dossier temporaire créé:', localPath);
+    });
+    
+    // Vérifier et créer le dossier images
     await fsPromises.access(imagesDir).catch(async () => {
       await fsPromises.mkdir(imagesDir, { recursive: true });
       console.log('Dossier images créé:', imagesDir);
@@ -72,6 +126,7 @@ async function checkDirectoryPermissions(): Promise<boolean> {
 
 export async function GET() {
   try {
+    await mountNAS();
     const news = await loadNews();
     return NextResponse.json({ news });
   } catch (error) {
@@ -85,7 +140,8 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    // Vérifier les permissions avant de continuer
+    await mountNAS();
+    
     if (!await checkDirectoryPermissions()) {
       return NextResponse.json(
         { error: "Droits d'accès insuffisants" },
@@ -130,7 +186,7 @@ export async function POST(request: NextRequest) {
     hash.update(file.name + Date.now());
     const fileName = `${hash.digest('hex')}-${file.name}`;
 
-    // Sauvegarder le fichier
+    // Sauvegarder le fichier sur le NAS
     const filePath = path.join(imagesDir, fileName);
     const buffer = Buffer.from(await file.arrayBuffer());
     await fsPromises.writeFile(filePath, buffer);
@@ -163,6 +219,7 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
+    await mountNAS();
     const { searchParams } = new URL(request.url);
     const titre = searchParams.get('titre');
 
