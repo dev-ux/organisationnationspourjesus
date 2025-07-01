@@ -249,18 +249,7 @@ export default function OffrandesPage() {
                   allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                 ></iframe>
               </div>
-              <div className="relative aspect-video rounded-lg overflow-hidden">
-                <iframe
-                  src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FElohimMediaProduction%2Fvideos%2F464759727726299&show_text=0&width=560"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 'none', overflow: 'hidden' }}
-                  scrolling="no"
-                  frameBorder="0"
-                  allowFullScreen={true}
-                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                ></iframe>
-              </div>
+             
             </div>
           </div>
           <div className="bg-white rounded-lg shadow-md p-6 overflow-hidden">
