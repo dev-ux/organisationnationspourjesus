@@ -209,7 +209,7 @@ export default function OffrandesPage() {
             <div className="space-y-4">
               <div className="relative aspect-video rounded-lg overflow-hidden">
                 <iframe
-                  src="https://www.facebook.com/watch?ref=search&v=3171488012983187&external_log_id=852e1c31-2e2d-4ea8-845b-aa7ef3f742d5&q=la%20grande%20caravane%20ma%20jeunesse%20pour%20jesus"
+                  src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fnationspourjesus%2Fvideos%2F3171488012983187&show_text=0&width=560"
                   width="100%"
                   height="100%"
                   style={{ border: 'none', overflow: 'hidden' }}
