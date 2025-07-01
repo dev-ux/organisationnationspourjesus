@@ -88,8 +88,8 @@ export function Navbar() {
           >
             <NavItem href="/accueil">Accueil</NavItem>
             <NavItem href="/academie">Académie</NavItem>
-            <NavItem href="/samedi-des-miracles">Montagne de Sion</NavItem>
-            <NavItem href="/priere-sans-cesse">Programme de prière</NavItem>
+            <NavItem href="/montagne-de-sion">Montagne de Sion</NavItem>
+            <NavItem href="/programme-de-priere">Programme de prière</NavItem>
             <NavItem href="/offrandes">Offrandes</NavItem>
           </ul>
           <div className="hidden gap-2 lg:flex lg:items-center">
@@ -147,8 +147,8 @@ export function Navbar() {
           <ul className="space-y-4">
             <li><a href="/accueil" className="block py-2" onClick={closeMenu}>Accueil</a></li>
             <li><a href="/academie" className="block py-2" onClick={closeMenu}>Académie</a></li>
-            <li><a href="/samedi-des-miracles" className="block py-2" onClick={closeMenu}>Montagne de Sion</a></li>
-            <li><a href="/priere-sans-cesse" className="block py-2" onClick={closeMenu}>Programme de prière</a></li>
+            <li><a href="/montagne-de-sion" className="block py-2" onClick={closeMenu}>Montagne de Sion</a></li>
+            <li><a href="/programme-de-priere" className="block py-2" onClick={closeMenu}>Programme de prière</a></li>
             <li><a href="/offrandes" className="block py-2" onClick={closeMenu}>Offrandes</a></li>
           </ul>
           {/* <button

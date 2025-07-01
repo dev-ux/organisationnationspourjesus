@@ -4,13 +4,13 @@ import Image from "next/image";
 
 export default function AccueilHero() {
   return (
-    <div className="relative h-[400px] w-full">
+    <div className="relative h-[800px] w-full">
       <div className="absolute inset-0">
         <Image
           src="/image/eda.jpg"
           alt="Eglise des Disciples Accomplis"
           fill
-          className="object-cover"
+          className="object-cover blur-lg"
           priority
         />
       </div>

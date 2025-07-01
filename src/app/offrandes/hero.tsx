@@ -4,13 +4,13 @@ import Image from "next/image";
 
 export default function OffrandesHero() {
   return (
-    <div className="relative h-[400px] w-full">
+    <div className="relative h-[800px] w-full">
       <div className="absolute inset-0">
         <Image
-          src="/image/onj8.jpg"
+          src="/image/don.jpg"
           alt="Offrandes"
           fill
-          className="object-cover"
+          className="object-cover blur-lg"
           priority
         />
       </div>
