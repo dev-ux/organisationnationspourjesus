@@ -5,56 +5,21 @@ export async function GET() {
   return NextResponse.json({ departments });
 }
 
-import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/route";
-
 export async function POST(request: Request) {
   try {
-    // Vérifier l'authentification
-    const session = await getServerSession(authOptions);
+    // Pour l'instant, on n'utilise pas d'authentification
+    const data = await request.json();
     
-    if (!session) {
-      return NextResponse.json(
-        { error: "Authentication required" },
-        { status: 401 }
-      );
-    }
-
-    // Vérifier si l'utilisateur est admin
-    if (session.user?.email !== "admin@example.com") {
-      return NextResponse.json(
-        { error: "Admin access required" },
-        { status: 403 }
-      );
-    }
-
-    const body = await request.json();
-    console.log('Received department data:', body);
-    
-    // Add validation
-    if (!body.title || !body.description || !body.image) {
-      return NextResponse.json(
-        { error: "Missing required fields. Please provide title, description, and image." },
-        { status: 400 }
-      );
-    }
-
-    // Add new department to the data
+    // Simuler l'ajout d'un département
     const newDepartment = {
-      ...body,
-      icon: "department", // Default icon
+      id: Date.now().toString(),
+      ...data
     };
     
-    // Update the departments data
-    departments.push(newDepartment);
-    console.log('Department added successfully:', newDepartment);
-
-    return NextResponse.json({ department: newDepartment });
+    return NextResponse.json(newDepartment);
   } catch (error) {
-    console.error("Error adding department:", error);
-    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
     return NextResponse.json(
-      { error: "Failed to add department. Error: " + errorMessage },
+      { error: "Erreur lors de l'ajout du département" },
       { status: 500 }
     );
   }
