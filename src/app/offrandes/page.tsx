@@ -129,76 +129,94 @@ export default function OffrandesPage() {
 
       {/* Section galerie d'images */}
       <div className="container mx-auto px-4 py-16">
-        <h2 className="text-2xl font-semibold text-blue-700 mb-8 text-center">Impact de vos dons</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <div className="relative aspect-square rounded-lg overflow-hidden">
-            <Image
-              src="/image/dons/don.jpg"
-              alt="Programmes éducatifs"
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">              <p className="text-white text-center">Programmes éducatifs</p>
-            </div>
-          </div>
-          <div className="relative aspect-square rounded-lg overflow-hidden">
-            <Image
-              src="/image/dons/don2.jpg"
-              alt="Projets missionnaires"
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            </div>
-          </div>
-          <div className="relative aspect-square rounded-lg overflow-hidden">
-            <Image
-              src="/image/dons/don3.jpg"
-              alt="Actions caritatives"
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            </div>
-          </div>
-          <div className="relative aspect-square rounded-lg overflow-hidden">
-            <Image
-              src="/image/dons/don4.jpg"
-              alt="Communauté"
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            </div>
-          </div>
-          <div className="relative aspect-square rounded-lg overflow-hidden">
-            <Image
-              src="/image/dons/don5.jpg"
-              alt="Cultes et activités"
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            </div>
-          </div>
-          <div className="relative aspect-square rounded-lg overflow-hidden">
-            <Image
-              src="/image/dons/don6.jpg"
-              alt="Rénovation"
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            </div>
-          </div>
-        </div>
+  <h2 className="text-2xl font-semibold text-blue-700 mb-8 text-center">Impact de vos dons</h2>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <Image
+        src="/image/dons/don.jpg"
+        alt="Programmes éducatifs"
+        fill
+        className="object-cover"
+        priority
+      />
+      <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+        <p className="text-white text-lg font-medium text-center px-4 py-2 bg-blue-600/20 backdrop-blur-sm rounded-full">
+          Programmes éducatifs
+        </p>
       </div>
+    </div>
+    <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <Image
+        src="/image/dons/don2.jpg"
+        alt="Projets missionnaires"
+        fill
+        className="object-cover"
+        priority
+      />
+      <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+        <p className="text-white text-lg font-medium text-center px-4 py-2 bg-blue-600/20 backdrop-blur-sm rounded-full">
+          Projets missionnaires
+        </p>
+      </div>
+    </div>
+    <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <Image
+        src="/image/dons/don3.jpg"
+        alt="Actions caritatives"
+        fill
+        className="object-cover"
+        priority
+      />
+      <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+        <p className="text-white text-lg font-medium text-center px-4 py-2 bg-blue-600/20 backdrop-blur-sm rounded-full">
+          Actions caritatives
+        </p>
+      </div>
+    </div>
+    <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <Image
+        src="/image/dons/don4.jpg"
+        alt="Communauté"
+        fill
+        className="object-cover"
+        priority
+      />
+      <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+        <p className="text-white text-lg font-medium text-center px-4 py-2 bg-blue-600/20 backdrop-blur-sm rounded-full">
+          Communauté
+        </p>
+      </div>
+    </div>
+    <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <Image
+        src="/image/dons/don5.jpg"
+        alt="Cultes et activités"
+        fill
+        className="object-cover"
+        priority
+      />
+      <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+        <p className="text-white text-lg font-medium text-center px-4 py-2 bg-blue-600/20 backdrop-blur-sm rounded-full">
+          Cultes et activités
+        </p>
+      </div>
+    </div>
+    <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <Image
+        src="/image/dons/don6.jpg"
+        alt="Rénovation"
+        fill
+        className="object-cover"
+        priority
+      />
+      <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+        <p className="text-white text-lg font-medium text-center px-4 py-2 bg-blue-600/20 backdrop-blur-sm rounded-full">
+          Rénovation
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 
       {/* Section vidéos Facebook */}
       <div className="container mx-auto px-4 py-16">
@@ -265,7 +283,7 @@ export default function OffrandesPage() {
               </p>
               <div className="space-y-4">
                 <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
-                  <img src="/images/facebook-icon.png" alt="Facebook" className="h-10 w-10" />
+                  <img src="/image/facebook.png" alt="Facebook" className="h-10 w-10" />
                   <a
                     href="https://www.facebook.com/nationspourjesus"
                     target="_blank"
@@ -276,9 +294,9 @@ export default function OffrandesPage() {
                   </a>
                 </div>
                 <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
-                  <img src="/images/youtube-icon.png" alt="YouTube" className="h-10 w-10" />
+                  <img src="/image/youtube.png" alt="YouTube" className="h-10 w-10" />
                   <a
-                    href="https://www.youtube.com/channel/UCI6ZJZJZJZJZJZJZJZJZJ"
+                    href="https://www.youtube.com/@pasteurhermanntano"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-red-600 hover:text-red-800 font-medium transition-colors"
