@@ -105,7 +105,7 @@ export function Footer() {
         <div className="pt-12 border-t border-gray-200">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-gray-600">
-              &copy; {new Date().getFullYear()} Eglise des Disciples Accomplis. Tous droits réservés.
+              &copy; {new Date().getFullYear()} Organisation Nations pour Jésus. Tous droits réservés.
             </p>
             <div className="flex gap-4">
               <a href="/mentions-legales" className="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-sm">Mentions légales</a>
