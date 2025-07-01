@@ -8,7 +8,7 @@ export function Footer() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4 text-gray-900">Eglise des Disciples Accomplis</h3>
+            <h3 className="text-xl font-bold mb-4 text-gray-900">Organisation Nations pour Jésus</h3>
             <p className="text-gray-600 mb-4">
               Une communauté chrétienne dédiée à l'enseignement biblique et au service.
             </p>

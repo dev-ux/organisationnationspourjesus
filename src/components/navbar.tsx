@@ -130,26 +130,26 @@ export function Navbar() {
 
       {/* Menu mobile */}
       <div 
-        className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} 
+        className={`fixed inset-0 bg-black/80 z-40 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} 
         onClick={toggleMenu}
       ></div>
       
       <div 
-        className={`fixed right-0 top-0 h-full w-full max-w-sm bg-white shadow-lg transform transition-transform duration-300 z-50 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        className={`fixed right-0 top-0 h-full w-full max-w-sm bg-white shadow-xl transform transition-transform duration-300 z-50 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
       >
-        <div className="p-4">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-xl font-bold">Menu</h2>
+        <div className="p-6">
+          <div className="flex justify-between items-center mb-12">
+            <h2 className="text-2xl font-bold text-gray-900">Menu</h2>
             <button onClick={toggleMenu} className="p-2">
               <XMarkIcon className="h-6 w-6 text-gray-600" />
             </button>
           </div>
-          <ul className="space-y-4">
-            <li><a href="/accueil" className="block py-2" onClick={closeMenu}>Accueil</a></li>
-            <li><a href="/academie" className="block py-2" onClick={closeMenu}>Académie</a></li>
-            <li><a href="/montagne-de-sion" className="block py-2" onClick={closeMenu}>Montagne de Sion</a></li>
-            <li><a href="/programme-de-priere" className="block py-2" onClick={closeMenu}>Programme de prière</a></li>
-            <li><a href="/offrandes" className="block py-2" onClick={closeMenu}>Offrandes</a></li>
+          <ul className="space-y-6">
+            <li><a href="/accueil" className="block py-3 text-gray-900 hover:text-blue-600 font-medium" onClick={closeMenu}>Accueil</a></li>
+            <li><a href="/academie" className="block py-3 text-gray-900 hover:text-blue-600 font-medium" onClick={closeMenu}>Académie</a></li>
+            <li><a href="/montagne-de-sion" className="block py-3 text-gray-900 hover:text-blue-600 font-medium" onClick={closeMenu}>Montagne de Sion</a></li>
+            <li><a href="/programme-de-priere" className="block py-3 text-gray-900 hover:text-blue-600 font-medium" onClick={closeMenu}>Programme de prière</a></li>
+            <li><a href="/offrandes" className="block py-3 text-gray-900 hover:text-blue-600 font-medium" onClick={closeMenu}>Offrandes</a></li>
           </ul>
           {/* <button
             onClick={() => {
