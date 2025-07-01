@@ -209,7 +209,7 @@ export default function OffrandesPage() {
             <div className="space-y-4">
               <div className="relative aspect-video rounded-lg overflow-hidden">
                 <iframe
-                  src="https://www.facebook.com/watch/?ref=search&v=379463059625738&external_log_id=60479178-066d-4a57-836a-c7c0513d359d&q=la%20grande%20caravane%20ma%20jeunesse%20pour%20jesus"
+                  src="https://www.facebook.com/watch?ref=search&v=3171488012983187&external_log_id=852e1c31-2e2d-4ea8-845b-aa7ef3f742d5&q=la%20grande%20caravane%20ma%20jeunesse%20pour%20jesus"
                   width="100%"
                   height="100%"
                   style={{ border: 'none', overflow: 'hidden' }}
@@ -221,7 +221,7 @@ export default function OffrandesPage() {
               </div>
               <div className="relative aspect-video rounded-lg overflow-hidden">
                 <iframe
-                  src="https://www.facebook.com/watch?ref=search&v=379463059625738&external_log_id=60479178-066d-4a57-836a-c7c0513d359d&q=la%20grande%20caravane%20ma%20jeunesse%20pour%20jesus"
+                  src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FElohimMediaProduction%2Fvideos%2F464759727726299&show_text=0&width=560"
                   width="100%"
                   height="100%"
                   style={{ border: 'none', overflow: 'hidden' }}
@@ -233,7 +233,7 @@ export default function OffrandesPage() {
               </div>
               <div className="relative aspect-video rounded-lg overflow-hidden">
                 <iframe
-                  src="https://www.facebook.com/pasteurhermanntano/videos/1526937231421182"
+                  src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fpasteurhermanntano%2Fvideos%2F1526937231421182&show_text=0&width=560"
                   width="100%"
                   height="100%"
                   style={{ border: 'none', overflow: 'hidden' }}
@@ -245,7 +245,7 @@ export default function OffrandesPage() {
               </div>
               <div className="relative aspect-video rounded-lg overflow-hidden">
                 <iframe
-                  src="https://www.facebook.com/ElohimMediaProduction/videos/464759727726299"
+                  src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FElohimMediaProduction%2Fvideos%2F464759727726299&show_text=0&width=560"
                   width="100%"
                   height="100%"
                   style={{ border: 'none', overflow: 'hidden' }}
@@ -278,7 +278,7 @@ export default function OffrandesPage() {
                 <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
                   <img src="/images/youtube-icon.png" alt="YouTube" className="h-10 w-10" />
                   <a
-                    href="https://www.youtube.com/channel/UCI6ZJZJZJZJZJZJZJZJZJZJ"
+                    href="https://www.youtube.com/channel/UCI6ZJZJZJZJZJZJZJZJZJ"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-red-600 hover:text-red-800 font-medium transition-colors"
