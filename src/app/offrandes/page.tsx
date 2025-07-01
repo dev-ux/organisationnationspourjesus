@@ -139,10 +139,8 @@ export default function OffrandesPage() {
         className="object-cover"
         priority
       />
-      <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
-        <p className="text-white text-lg font-medium text-center px-4 py-2 bg-blue-600/20 backdrop-blur-sm rounded-full">
-          Programmes éducatifs
-        </p>
+      <div className="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center">
+        
       </div>
     </div>
     <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -153,10 +151,8 @@ export default function OffrandesPage() {
         className="object-cover"
         priority
       />
-      <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
-        <p className="text-white text-lg font-medium text-center px-4 py-2 bg-blue-600/20 backdrop-blur-sm rounded-full">
-          Projets missionnaires
-        </p>
+      <div className="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center">
+        
       </div>
     </div>
     <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -167,10 +163,8 @@ export default function OffrandesPage() {
         className="object-cover"
         priority
       />
-      <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
-        <p className="text-white text-lg font-medium text-center px-4 py-2 bg-blue-600/20 backdrop-blur-sm rounded-full">
-          Actions caritatives
-        </p>
+      <div className="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center">
+        
       </div>
     </div>
     <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -181,10 +175,8 @@ export default function OffrandesPage() {
         className="object-cover"
         priority
       />
-      <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
-        <p className="text-white text-lg font-medium text-center px-4 py-2 bg-blue-600/20 backdrop-blur-sm rounded-full">
-          Communauté
-        </p>
+      <div className="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center">
+        
       </div>
     </div>
     <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -195,10 +187,8 @@ export default function OffrandesPage() {
         className="object-cover"
         priority
       />
-      <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
-        <p className="text-white text-lg font-medium text-center px-4 py-2 bg-blue-600/20 backdrop-blur-sm rounded-full">
-          Cultes et activités
-        </p>
+      <div className="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center">
+       
       </div>
     </div>
     <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -209,10 +199,8 @@ export default function OffrandesPage() {
         className="object-cover"
         priority
       />
-      <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
-        <p className="text-white text-lg font-medium text-center px-4 py-2 bg-blue-600/20 backdrop-blur-sm rounded-full">
-          Rénovation
-        </p>
+      <div className="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center">
+        
       </div>
     </div>
   </div>
