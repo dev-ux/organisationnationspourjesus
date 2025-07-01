@@ -139,7 +139,7 @@ export default function OffrandesPage() {
               className="object-cover"
               priority
             />
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">              <p className="text-white text-center">Programmes éducatifs</p>
             </div>
           </div>
           <div className="relative aspect-square rounded-lg overflow-hidden">
@@ -209,7 +209,7 @@ export default function OffrandesPage() {
             <div className="space-y-4">
               <div className="relative aspect-video rounded-lg overflow-hidden">
                 <iframe
-                  src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fnationspourjesus%2Fvideos%2F379463059625738&show_text=0&width=560"
+                  src="https://www.facebook.com/watch/?ref=search&v=379463059625738&external_log_id=60479178-066d-4a57-836a-c7c0513d359d&q=la%20grande%20caravane%20ma%20jeunesse%20pour%20jesus"
                   width="100%"
                   height="100%"
                   style={{ border: 'none', overflow: 'hidden' }}
@@ -221,7 +221,31 @@ export default function OffrandesPage() {
               </div>
               <div className="relative aspect-video rounded-lg overflow-hidden">
                 <iframe
-                  src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fnationspourjesus%2Fvideos%2F545596376253513&show_text=0&width=560"
+                  src="https://www.facebook.com/watch?ref=search&v=379463059625738&external_log_id=60479178-066d-4a57-836a-c7c0513d359d&q=la%20grande%20caravane%20ma%20jeunesse%20pour%20jesus"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 'none', overflow: 'hidden' }}
+                  scrolling="no"
+                  frameBorder="0"
+                  allowFullScreen={true}
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                ></iframe>
+              </div>
+              <div className="relative aspect-video rounded-lg overflow-hidden">
+                <iframe
+                  src="https://www.facebook.com/pasteurhermanntano/videos/1526937231421182"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 'none', overflow: 'hidden' }}
+                  scrolling="no"
+                  frameBorder="0"
+                  allowFullScreen={true}
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                ></iframe>
+              </div>
+              <div className="relative aspect-video rounded-lg overflow-hidden">
+                <iframe
+                  src="https://www.facebook.com/ElohimMediaProduction/videos/464759727726299"
                   width="100%"
                   height="100%"
                   style={{ border: 'none', overflow: 'hidden' }}
@@ -233,33 +257,35 @@ export default function OffrandesPage() {
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h3 className="text-xl font-semibold text-blue-700 mb-4">À propos des vidéos</h3>
-            <p className="text-gray-600 mb-4">
-              Suivez nos vidéos sur Facebook pour voir l'impact de vos dons et les activités de l'église.
-            </p>
-            <div className="space-y-4">
-              <div className="flex items-center gap-4">
-                <img src="/images/facebook-icon.png" alt="Facebook" className="h-8 w-8" />
-                <a
-                  href="https://www.facebook.com/nationspourjesus"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-800"
-                >
-                  Rejoignez-nous sur Facebook
-                </a>
-              </div>
-              <div className="flex items-center gap-4">
-                <img src="/images/youtube-icon.png" alt="YouTube" className="h-8 w-8" />
-                <a
-                  href="https://www.youtube.com/channel/UCI6ZJZJZJZJZJZJZJZJZJ"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-800"
-                >
-                  Abonnez-vous à notre chaîne YouTube
-                </a>
+          <div className="bg-white rounded-lg shadow-md p-6 overflow-hidden">
+            <div className="bg-gradient-to-r from-blue-50 to-white p-6">
+              <h3 className="text-xl font-semibold text-blue-700 mb-4">À propos des vidéos</h3>
+              <p className="text-gray-600 mb-6 text-lg">
+                Suivez nos vidéos sur Facebook pour voir l'impact de vos dons et les activités de l'église.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+                  <img src="/images/facebook-icon.png" alt="Facebook" className="h-10 w-10" />
+                  <a
+                    href="https://www.facebook.com/nationspourjesus"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                  >
+                    Rejoignez-nous sur Facebook
+                  </a>
+                </div>
+                <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+                  <img src="/images/youtube-icon.png" alt="YouTube" className="h-10 w-10" />
+                  <a
+                    href="https://www.youtube.com/channel/UCI6ZJZJZJZJZJZJZJZJZJZJ"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-red-600 hover:text-red-800 font-medium transition-colors"
+                  >
+                    Abonnez-vous à notre chaîne YouTube
+                  </a>
+                </div>
               </div>
             </div>
           </div>
