@@ -11,17 +11,10 @@ interface AdminLayoutProps {
 export default function AdminLayout({ children }: AdminLayoutProps) {
   const { data: session } = useSession();
 
-  // Vérifier si l'utilisateur est connecté et est admin
+  // Vérifier si l'utilisateur est connecté
   if (!session) {
     return <div className="flex items-center justify-center h-screen">
       <p className="text-red-500">Accès non autorisé</p>
-    </div>;
-  }
-
-  // Check if user has admin role
-  if (session.user?.role !== 'admin') {
-    return <div className="flex items-center justify-center h-screen">
-      <p className="text-red-500">Accès réservé aux administrateurs</p>
     </div>;
   }
 

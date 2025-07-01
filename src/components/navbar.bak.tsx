@@ -1,5 +1,5 @@
 "use client";
-
+import Image from 'next/image';
 import React, { useState, useEffect } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -55,10 +55,13 @@ export function Navbar() {
         <div className="flex items-center gap-4">
           <h1 className={`text-xl font-bold ${isScrolling ? 'text-gray-900' : 'text-white'} ml-2`}>
             <a href="/" className="block">
-              <img 
+              <Image 
                 src="/logos/logo.jpg" 
                 alt="Logo EDA" 
                 className="h-16 w-auto rounded-full"
+                width={64}
+                height={64}
+                priority={true}
               />
             </a>
           </h1>
@@ -92,8 +95,8 @@ export function Navbar() {
           <ul className="space-y-4">
             <li><a href="/accueil" className="block py-2" onClick={closeMenu}>Accueil</a></li>
             <li><a href="/academie" className="block py-2" onClick={closeMenu}>Académie</a></li>
-            <li><a href="/samedi-des-miracles" className="block py-2" onClick={closeMenu}>Samedi des Miracles</a></li>
-            <li><a href="/priere-sans-cesse" className="block py-2" onClick={closeMenu}>Prière sans cesse</a></li>
+            <li><a href="/samedi-des-miracles" className="block py-2" onClick={closeMenu}>Montagne de Sion </a></li>
+            <li><a href="/priere-sans-cesse" className="block py-2" onClick={closeMenu}>Programme de prière </a></li>
             <li><a href="/offrandes" className="block py-2" onClick={closeMenu}>Offrandes</a></li>
           </ul>
           <button
