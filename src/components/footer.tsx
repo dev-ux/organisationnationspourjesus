@@ -61,17 +61,22 @@ export function Footer() {
               </li>
             </ul>
           </div>
-          <div>
+          <div >
             <h3 className="text-xl font-bold mb-4 text-gray-900">Contact</h3>
             <ul className="space-y-2">
               <li>
-                <a href="tel:+33123456789" className="text-gray-600 hover:text-blue-600 transition-colors duration-200 flex items-center">
-                  <i className="fa-solid fa-phone me-2" />+33 1 23 45 67 89
-                </a>
+                <div className="flex flex-col">
+                  <a href="tel:+33123456789" className="text-gray-600 hover:text-blue-600 transition-colors duration-200 flex items-center">
+                    <i className="fa-solid fa-phone me-2" />+33 1 23 45 67 89
+                  </a>
+                  <a href="tel:+22501010707474" className="text-gray-600 hover:text-blue-600 transition-colors duration-200 flex items-center mt-1">
+                    <i className="fa-solid fa-phone me-2" />+225 01 01 07 07 474
+                  </a>
+                </div>
               </li>
               <li>
-                <a href="mailto:contact@eglisedsa.fr" className="text-gray-600 hover:text-blue-600 transition-colors duration-200 flex items-center">
-                  <i className="fa-solid fa-envelope me-2" />contact@eglisedsa.fr
+                <a href="mailto:organisationnationspourjesus@gmail.com" className="text-gray-600 hover:text-blue-600 transition-colors duration-200 flex items-center">
+                  <i className="fa-solid fa-envelope me-2" />organisationnationspourjesus@gmail.com
                 </a>
               </li>
               <li>
