@@ -2,8 +2,11 @@ import React from 'react';
 import Header from '@/components/header';
 import Footer from '@/components/footer';
 import AcademieHero from './hero';
+import FacebookVideo from '@/components/FacebookVideo';
 
 export default function AcademiePage() {
+
+
   return (
     <div className="min-h-screen bg-white">
       <AcademieHero />
@@ -38,7 +41,7 @@ export default function AcademiePage() {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
           <h2 className="text-2xl font-semibold mb-4">Prochaines Sessions</h2>
           <div className="space-y-4">
             <div>
@@ -49,6 +52,14 @@ export default function AcademiePage() {
               <h3 className="font-medium">Formation des Leaders</h3>
               <p className="text-sm text-gray-600">Vendredi 19h00 - 21h00</p>
             </div>
+          </div>
+        </div>
+
+        {/* Section Vidéo Facebook */}
+        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+          <h2 className="text-2xl font-semibold mb-4">Dernière Session en Vidéo</h2>
+          <div className="space-y-4">
+            <FacebookVideo videoId="123456789" />
           </div>
         </div>
       </main>
