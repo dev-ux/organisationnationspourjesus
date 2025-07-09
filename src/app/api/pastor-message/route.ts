@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import path from 'path';
 import { promises as fs } from 'fs';
 
-const DATA_FILE = path.join(process.cwd(), 'data', 'pastor-message.json');
+const DATA_FILE = path.join(__dirname, '..', '..', '..', 'data', 'pastor-message.json');
 
 // Fonction pour initialiser le fichier
 async function initializeDataFile() {
@@ -52,33 +52,9 @@ export async function POST(request: Request) {
     
     // Si une nouvelle image a été fournie, mettre à jour le fichier
     if (data.image) {
-      // Extraire le nom du fichier de l'URL
-      const fileName = data.image.split('/').pop();
-      if (fileName) {
-        // Créer le dossier image s'il n'existe pas
-        const imageDir = path.join(process.cwd(), 'public', 'image');
-        try {
-          await fs.access(imageDir);
-        } catch {
-          await fs.mkdir(imageDir, { recursive: true });
-        }
-
-        // Copier le fichier de l'upload vers le dossier images
-        const sourcePath = path.join(process.cwd(), 'public', 'image', fileName);
-        const destPath = path.join(process.cwd(), 'public', 'image', 'past.jpg');
-        
-        try {
-          // Vérifier si le fichier source existe
-          await fs.access(sourcePath);
-
-          // Copier le fichier
-          await fs.copyFile(sourcePath, destPath);
-          console.log('Image mise à jour avec succès');
-        } catch (error) {
-          console.error('Erreur lors de la copie de l\'image:', error);
-          throw error; // Propager l'erreur pour que l'utilisateur soit informé
-        }
-      }
+      // En production, nous utilisons l'URL directe de l'image
+      // Au lieu de copier le fichier, nous stockons simplement l'URL
+      console.log('Image mise à jour avec succès');
     }
     
     return NextResponse.json({
