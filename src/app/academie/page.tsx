@@ -3,12 +3,14 @@ import Header from '@/components/header';
 import Footer from '@/components/footer';
 import AcademieHero from './hero';
 import FacebookVideo from '@/components/FacebookVideo';
+import FacebookSDK from '@/components/FacebookSDK';
 
 export default function AcademiePage() {
 
 
   return (
     <div className="min-h-screen bg-white">
+      <FacebookSDK />
       <AcademieHero />
       <main className="container mx-auto px-4 py-16">
         <h1 className="text-4xl font-bold mb-8">L'Académie</h1>
@@ -57,9 +59,8 @@ export default function AcademiePage() {
 
         {/* Section Vidéo Facebook */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <h2 className="text-2xl font-semibold mb-4">Dernière Session en Vidéo</h2>
           <div className="space-y-4">
-            <FacebookVideo videoId="123456789" />
+            <FacebookVideo videoId="1294477868897506" />
           </div>
         </div>
       </main>
