@@ -65,8 +65,8 @@ export const authOptions: NextAuthOptions = {
       }
     })
   ],
-  secret: process.env.NEXTAUTH_SECRET || 'votre-secret-ici',
-  debug: process.env.NODE_ENV === 'development'
+  secret: 'your-secure-secret-key-here', // Remplacez par un secret réel en production
+  debug: false
 };
 
 export default NextAuth(authOptions);
