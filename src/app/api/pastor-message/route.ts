@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import path from 'path';
 import { promises as fs } from 'fs';
 
-const DATA_FILE = path.join(__dirname, '..', '..', '..', 'data', 'pastor-message.json');
+const DATA_FILE = path.join(process.cwd(), 'data', 'pastor-message.json');
 
 // Fonction pour initialiser le fichier
 async function initializeDataFile() {
@@ -23,13 +23,23 @@ initializeDataFile().catch(console.error);
 
 export async function GET() {
   try {
+    console.log('Chemin du fichier:', DATA_FILE);
+    console.log('Contenu du répertoire:', await fs.readdir(path.dirname(DATA_FILE)));
+    
     const data = await fs.readFile(DATA_FILE, 'utf-8');
     const messageData = JSON.parse(data);
     return NextResponse.json(messageData);
   } catch (error) {
     console.error('Erreur lors de la lecture du message:', error);
+    if (error instanceof Error) {
+      console.error('Message d\'erreur:', error.message);
+      console.error('Stack trace:', error.stack);
+    }
     return NextResponse.json(
-      { error: "Erreur lors de la récupération du message" },
+      { 
+        error: "Erreur lors de la récupération du message",
+        details: error instanceof Error ? error.message : 'Erreur inconnue'
+      },
       { status: 500 }
     );
   }
