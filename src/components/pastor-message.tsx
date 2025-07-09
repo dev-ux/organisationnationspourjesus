@@ -7,8 +7,6 @@ interface PastorMessage {
   title: string;
   content: string;
   image: string;
-  author: string;
-  role: string;
 }
 
 const PastorMessage = () => {
@@ -19,9 +17,7 @@ const PastorMessage = () => {
   const defaultMessage: PastorMessage = {
     title: "Un Message de notre Pasteur",
     content: "Chers frères et sœurs, que la paix de Dieu soit avec vous.\nNous sommes ici pour vous accueillir et vous accompagner dans votre parcours spirituel. Notre mission est de vous aider à grandir dans votre foi et à vivre selon les enseignements de notre Seigneur Jésus-Christ.\n\nRejoignez-nous pour partager des moments de prière, d'enseignement biblique et de communion fraternelle. Nous sommes là pour vous soutenir et vous guider dans votre cheminement spirituel.",
-    image: '/image/past.jpg',
-    author: "Pasteur Herman Tano",
-    role: "Pasteur Principal"
+    image: '/image/past.jpg'
   };
 
   useEffect(() => {
@@ -34,14 +30,11 @@ const PastorMessage = () => {
           throw new Error('Erreur lors de la récupération du message');
         }
         const data = await response.json();
-        if (data.message) {
-          setMessage(data.message);
-        } else {
-          throw new Error('Format de réponse invalide');
-        }
+        setMessage(data);
       } catch (error) {
         console.error('Erreur lors de la récupération du message:', error);
         setError(error instanceof Error ? error.message : 'Une erreur est survenue');
+        setMessage(defaultMessage);
       } finally {
         setLoading(false);
       }
@@ -92,7 +85,7 @@ const PastorMessage = () => {
             <div className="relative h-[400px] md:h-[500px]">
               <Image
                 src={message?.image || '/image/past.jpg'}
-                alt={message?.author || defaultMessage.author}
+alt="Message du Pasteur"
                 fill
                 className="object-cover rounded-lg"
                 priority
@@ -116,8 +109,7 @@ const PastorMessage = () => {
                 ))}
               </div>
               <div className="pt-8">
-                <h3 className="text-2xl font-bold text-gray-900">{message?.author || defaultMessage.author}</h3>
-                <p className="text-gray-600">{message?.role || defaultMessage.role}</p>
+    
               </div>
             </div>
           </div>

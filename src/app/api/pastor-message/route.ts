@@ -25,7 +25,7 @@ export async function GET() {
   try {
     const data = await fs.readFile(DATA_FILE, 'utf-8');
     const messageData = JSON.parse(data);
-    return NextResponse.json({ message: messageData });
+    return NextResponse.json(messageData);
   } catch (error) {
     console.error('Erreur lors de la lecture du message:', error);
     return NextResponse.json(
