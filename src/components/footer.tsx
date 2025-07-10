@@ -66,8 +66,8 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <div className="flex flex-col">
-                  <a href="tel:+33123456789" className="text-gray-600 hover:text-blue-600 transition-colors duration-200 flex items-center">
-                    <i className="fa-solid fa-phone me-2" />+33 1 23 45 67 89
+                  <a href="tel:+33774799426" className="text-gray-600 hover:text-blue-600 transition-colors duration-200 flex items-center">
+                    <i className="fa-solid fa-phone me-2" />+33 7 74 79 94 26
                   </a>
                   <a href="tel:+22501010707474" className="text-gray-600 hover:text-blue-600 transition-colors duration-200 flex items-center mt-1">
                     <i className="fa-solid fa-phone me-2" />+225 01 01 07 07 474
@@ -91,17 +91,17 @@ export function Footer() {
             <ul className="space-y-2">
               <li>
                 <p className="text-gray-600">
-                  <i className="fa-solid fa-clock me-2" />Culte du Dimanche : 10h00 - 12h00
+                  <i className="fa-solid fa-clock me-2" />Culte du Dimanche : 09h00 - 13h00
                 </p>
               </li>
               <li>
                 <p className="text-gray-600">
-                  <i className="fa-solid fa-clock me-2" />Groupe de Prière : 19h00 - 21h00
+                  <i className="fa-solid fa-clock me-2" />Intercession : 19h00 - 22h00
                 </p>
               </li>
               <li>
                 <p className="text-gray-600">
-                  <i className="fa-solid fa-clock me-2" />Samedi des Miracles : 14h00 - 20h00
+                  <i className="fa-solid fa-clock me-2" />Rencontres de prière : 19h00 - 21h00
                 </p>
               </li>
             </ul>
