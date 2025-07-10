@@ -32,7 +32,6 @@ export default function Campaign() {
         <EventCard
           title="Ouverture de l'Église Prophétique l'Armée Divine"
           description="Nous sommes heureux de vous inviter à l'inauguration de notre nouvelle église. Une cérémonie spéciale qui marquera le début d'une nouvelle ère de louange et de prière."
-          imageUrl="/images/church-opening.jpg"
           eventDate={new Date('2025-07-20T15:00:00')}
         />
       </div>
