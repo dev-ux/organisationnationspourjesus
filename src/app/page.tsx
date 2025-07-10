@@ -1,6 +1,9 @@
+'use client';
+
 // components
 import { Navbar, Footer } from "@/components";
 import { ClientFirstVisitModal } from "./client-components";
+import EventCard from "@/components/EventCard";
 
 // sections
 import Hero from "./hero";
@@ -23,6 +26,17 @@ export default function Campaign() {
 
       <Hero />
       <ClientPastorMessage />
+
+      {/* Nouvel événement - Ouverture de l'église */}
+      <div className="max-w-4xl mx-auto my-8">
+        <EventCard
+          title="Ouverture de l'Église Prophétique l'Armée Divine"
+          description="Nous sommes heureux de vous inviter à l'inauguration de notre nouvelle église. Une cérémonie spéciale qui marquera le début d'une nouvelle ère de louange et de prière."
+          imageUrl="/images/church-opening.jpg"
+          eventDate={new Date('2025-07-20T15:00:00')}
+        />
+      </div>
+
       <VideoIntro />
       <Feature />
       <ChurchSection />
