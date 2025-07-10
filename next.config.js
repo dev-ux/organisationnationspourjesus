@@ -8,6 +8,16 @@ const nextConfig = {
     domains: ['localhost', '127.0.0.1'],
     remotePatterns: [
       {
+        protocol: 'http',
+        hostname: 'localhost',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**',
+        pathname: '/**',
+      },
+      {
         protocol: 'https',
         hostname: 'www.material-tailwind.com',
         pathname: '/**',

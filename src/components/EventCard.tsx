@@ -6,12 +6,11 @@ import { useState, useEffect } from 'react';
 interface EventCardProps {
   title: string;
   description: string;
-  imageUrl: string;
   eventDate: Date;
   facebookLink?: string;
 }
 
-export default function EventCard({ title, description, imageUrl, eventDate, facebookLink = 'https://www.facebook.com/profile.php?id=61577717287026' }: EventCardProps) {
+export default function EventCard({ title, description, eventDate, facebookLink = 'https://www.facebook.com/profile.php?id=61577717287026' }: EventCardProps) {
   const [timeRemaining, setTimeRemaining] = useState({
     days: 0,
     hours: 0,
@@ -52,7 +51,7 @@ export default function EventCard({ title, description, imageUrl, eventDate, fac
     <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
       <div className="relative h-64">
         <Image
-          src={imageUrl}
+          src="images/church-opening.jpg"
           alt={title}
           fill
           className="object-cover"
