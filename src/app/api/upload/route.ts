@@ -1,89 +1,80 @@
 import { NextResponse } from 'next/server';
-import * as fs from 'fs';
-import path from 'path';
+import { v2 as cloudinary } from 'cloudinary';
 import { createHash } from 'crypto';
+import path from 'path';
+import * as fs from 'fs';
 
-interface Image {
-  id: number;
-  url: string;
-  title: string;
-  description: string;
-}
-
-// Créer un dossier pour stocker les images si nécessaire
-const imagesDir = path.join(process.cwd(), 'public', 'image');
-if (!fs.existsSync(imagesDir)) {
-  fs.mkdirSync(imagesDir, { recursive: true });
-}
+// Configuration de Cloudinary avec tes variables d'environnement
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
-    const files = formData.getAll('image') as File[];
+    const file = formData.get('file') as File;
     const title = formData.get('title') as string;
     const description = formData.get('description') as string;
 
-    if (!files || files.length === 0) {
-      return NextResponse.json({ error: 'No files uploaded' }, { status: 400 });
+    if (!file) {
+      return NextResponse.json({ error: 'No file provided' }, { status: 400 });
     }
 
-    const uploadedImages = [];
+    if (typeof title !== 'string' || typeof description !== 'string') {
+      return NextResponse.json({ error: 'Invalid title or description' }, { status: 400 });
+    }
+
+    // Vérifier la taille du fichier
+    if (file.size > 5 * 1024 * 1024) {
+      return NextResponse.json({ error: 'File too large (max 5MB)' }, { status: 400 });
+    }
+
+    // Générer un nom unique pour le fichier
+    const fileName = createHash('md5').update(file.name + Date.now()).digest('hex') + path.extname(file.name);
+
+    // Convertir le fichier en buffer
+    const buffer = Buffer.from(await file.arrayBuffer());
     
-    for (const file of files) {
-      // Créer un hash unique pour le nom du fichier
-      const hash = createHash('md5');
-      hash.update(file.name + Date.now());
-      const fileName = `${hash.digest('hex')}-${file.name}`;
+    // Télécharger l'image vers Cloudinary
+    const cloudinaryResponse = await cloudinary.uploader.upload(buffer.toString('base64'), {
+      public_id: fileName,
+      resource_type: 'auto',
+      folder: 'organisationnationspourjesus', // Ajouter un dossier spécifique
+      use_filename: true,
+      unique_filename: true
+    });
 
-      // Vérifier le type MIME de l'image
-      const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
-      if (!validTypes.includes(file.type)) {
-        return NextResponse.json({ error: 'Invalid file type' }, { status: 400 });
-      }
+    const image = {
+      url: cloudinaryResponse.secure_url,
+      title,
+      description,
+      id: Date.now(),
+      type: cloudinaryResponse.resource_type
+    };
 
-      // Vérifier la taille du fichier (max 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        return NextResponse.json({ error: 'File too large (max 5MB)' }, { status: 400 });
-      }
-
-      // Sauvegarder le fichier
-      const filePath = path.join(imagesDir, fileName);
-      const buffer = Buffer.from(await file.arrayBuffer());
-      await fs.promises.writeFile(filePath, buffer);
-
-      // Ajouter les informations de l'image à la liste
-      uploadedImages.push({
-        url: `/image/${fileName}`,
-        title,
-        description,
-        id: Date.now(),
-        type: file.type
-      });
-    }
-
-    // Lire les images existantes
+    // Ajouter l'image à la liste
     const imagesFile = path.join(process.cwd(), 'public', 'image.json');
-    
-    // Créer le fichier JSON s'il n'existe pas
-    if (!fs.existsSync(imagesFile)) {
-      await fs.promises.writeFile(imagesFile, JSON.stringify([], null, 2));
+    let imagesData = [];
+
+    if (fs.existsSync(imagesFile)) {
+      imagesData = JSON.parse(await fs.promises.readFile(imagesFile, 'utf-8'));
     }
 
-    const existingImages = JSON.parse(await fs.promises.readFile(imagesFile, 'utf-8'));
-
-    // Ajouter les nouvelles images
-    const allImages = [...existingImages, ...uploadedImages];
-
-    // Sauvegarder les images mises à jour
-    await fs.promises.writeFile(imagesFile, JSON.stringify(allImages, null, 2));
+    imagesData.push(image);
+    await fs.promises.writeFile(imagesFile, JSON.stringify(imagesData, null, 2), 'utf-8');
 
     return NextResponse.json({
       success: true,
-      data: uploadedImages
+      data: image
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error uploading image:', error);
-    return NextResponse.json({ error: 'Failed to upload image' }, { status: 500 });
+    return NextResponse.json({ 
+      error: error.message || 'Failed to upload image',
+      details: error.error?.message || undefined
+    }, { status: 500 });
   }
 }
 
@@ -91,26 +82,17 @@ export async function GET() {
   try {
     const imagesFile = path.join(process.cwd(), 'public', 'image.json');
     
-    // Vérifier si le fichier existe
     if (!fs.existsSync(imagesFile)) {
-      return NextResponse.json([], { status: 200 }); // Retourner un tableau vide si le fichier n'existe pas
+      return NextResponse.json([], { status: 200 });
     }
 
     const imagesData = JSON.parse(await fs.promises.readFile(imagesFile, 'utf-8'));
-    
-    // Vérifier si les images existent réellement
-    const imagesDir = path.join(process.cwd(), 'public', 'image');
-    const existingImages = await fs.promises.readdir(imagesDir);
-    
-    // Filtrer les images qui existent réellement
-    const validImages = imagesData.filter((image: any) => {
-      const imagePath = path.join(imagesDir, image.url.replace('/image/', ''));
-      return existingImages.includes(path.basename(imagePath));
-    });
-
-    return NextResponse.json(validImages);
-  } catch (error) {
+    return NextResponse.json(imagesData);
+  } catch (error: any) {
     console.error('Error fetching images:', error);
-    return NextResponse.json({ error: 'Failed to fetch images' }, { status: 500 });
+    return NextResponse.json({ 
+      error: error.message || 'Failed to fetch images',
+      details: error.error?.message || undefined
+    }, { status: 500 });
   }
 }
