@@ -1,45 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server';
-import path from 'path';
-import fs from 'fs/promises';
+import { v2 as cloudinary } from 'cloudinary';
 
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
+  api_key: process.env.CLOUDINARY_API_KEY!,
+  api_secret: process.env.CLOUDINARY_API_SECRET!,
+});
+
+let images: any[] = []; // ⛔ remplace ceci par une base de données ou stockage persistant
+
+export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const id = params.id;
-    
-    if (!id) {
-      return NextResponse.json({ error: 'ID is required' }, { status: 400 });
-    }
+    const id = parseInt(params.id, 10);
+    const imageToDelete = images.find((img) => img.id === id);
 
-    // Lire le fichier JSON
-    const imagesFile = path.join(process.cwd(), 'src/app/api/upload/images.json');
-    const imagesData = JSON.parse(await fs.readFile(imagesFile, 'utf-8'));
-
-    // Trouver l'image à supprimer
-    const imageIndex = imagesData.findIndex((img: any) => img.id === parseInt(id));
-    
-    if (imageIndex === -1) {
+    if (!imageToDelete) {
       return NextResponse.json({ error: 'Image not found' }, { status: 404 });
     }
 
-    // Supprimer le fichier image
-    const imagePath = path.join(process.cwd(), 'public', imagesData[imageIndex].url.replace('/images/', ''));
-    try {
-      await fs.access(imagePath);
-      await fs.unlink(imagePath);
-    } catch (error) {
-      console.log('File does not exist:', imagePath);
-    }
+    // Supprimer de Cloudinary
+    await cloudinary.uploader.destroy(imageToDelete.public_id);
 
-    // Mettre à jour le fichier JSON
-    imagesData.splice(imageIndex, 1);
-    await fs.writeFile(imagesFile, JSON.stringify(imagesData, null, 2));
+    // Supprimer de la liste locale (mock)
+    images = images.filter((img) => img.id !== id);
 
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error('Error deleting image:', error);
+  } catch (err) {
+    console.error('Error deleting image:', err);
     return NextResponse.json({ error: 'Failed to delete image' }, { status: 500 });
   }
 }

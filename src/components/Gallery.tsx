@@ -146,8 +146,10 @@ export default function Gallery({ images: initialImages, isLoading: initialIsLoa
             />
           </div>
         </div>
+        
       )}
     </div>
+    
   );
 }
 
