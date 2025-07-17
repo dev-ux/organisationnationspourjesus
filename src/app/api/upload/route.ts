@@ -9,7 +9,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET!,
 });
 
-// Stockage temporaire en mémoire (à remplacer par une base de données en production)
+// Mémoire temporaire (à remplacer par DB)
 let images: any[] = [];
 
 export async function POST(request: Request) {
@@ -25,20 +25,28 @@ export async function POST(request: Request) {
 
     const buffer = Buffer.from(await file.arrayBuffer());
 
+    // Générer nom unique
     const hash = createHash('md5');
     hash.update(file.name + Date.now());
     const fileName = `${hash.digest('hex')}-${file.name}`;
 
-    const uploadResult = await cloudinary.uploader.upload(
-      buffer.toString('base64'),
-      {
-        public_id: fileName,
-        folder: 'organisationnationspourjesus',
-        use_filename: true,
-        unique_filename: false,
-        resource_type: 'image',
-      }
-    );
+    // ✅ upload via streamifier
+    const uploadResult: any = await new Promise((resolve, reject) => {
+      const stream = cloudinary.uploader.upload_stream(
+        {
+          public_id: fileName,
+          folder: 'organisationnationspourjesus',
+          use_filename: true,
+          unique_filename: false,
+          resource_type: 'image',
+        },
+        (error, result) => {
+          if (error) return reject(error);
+          resolve(result);
+        }
+      );
+      streamifier.createReadStream(buffer).pipe(stream);
+    });
 
     const newImage = {
       id: Date.now(),
@@ -49,7 +57,8 @@ export async function POST(request: Request) {
     };
 
     images.push(newImage);
-    return NextResponse.json(newImage);
+
+    return NextResponse.json(newImage); // retourne l'image seule (plus simple à gérer)
   } catch (error) {
     console.error('Error uploading image:', error);
     return NextResponse.json({ error: 'Failed to upload image' }, { status: 500 });
