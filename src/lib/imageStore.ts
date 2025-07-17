@@ -1,4 +1,4 @@
-import { v2 as cloudinary } from 'cloudinary';
+import * as cloudinary from 'cloudinary';
 
 // Stockage temporaire des images
 let images: Array<{
@@ -12,26 +12,30 @@ let images: Array<{
 // Fonction pour initialiser le stockage
 export function initializeImageStore() {
   // Vérifier si des images existent déjà dans Cloudinary
-  cloudinary.config({
+  const cloudinaryConfig = {
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
     api_key: process.env.CLOUDINARY_API_KEY!,
     api_secret: process.env.CLOUDINARY_API_SECRET!,
-  });
+    secure: true
+  };
+
+  cloudinary.config(cloudinaryConfig);
 
   // Récupérer les images existantes
-  cloudinary.v2.api.resources(
+  cloudinary.api.resources(
     {
       type: 'upload',
       prefix: 'organisationnationspourjesus',
+      max_results: 500
     },
-    (error, result) => {
+    (error: Error | null, result: any) => {
       if (error) {
         console.error('Error fetching existing images:', error);
         return;
       }
 
       if (result && result.resources) {
-        images = result.resources.map((resource) => ({
+        images = result.resources.map((resource: any) => ({
           id: Date.now(),
           url: resource.secure_url,
           title: resource.original_filename || 'Image',
