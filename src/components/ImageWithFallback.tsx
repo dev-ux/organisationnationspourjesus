@@ -9,6 +9,7 @@ interface ImageWithFallbackProps {
   width: number;
   height: number;
   fallbackSrc?: string;
+  className?: string;
 }
 
 export default function ImageWithFallback({
@@ -16,20 +17,27 @@ export default function ImageWithFallback({
   alt,
   width,
   height,
-  fallbackSrc = '/fallback-image.png',
+  fallbackSrc = '/images/default-image.jpg',
+  className = '',
 }: ImageWithFallbackProps) {
   const [hasError, setHasError] = useState(false);
 
+  const handleError = () => {
+    // Évite boucle infinie si fallback échoue aussi
+    if (!hasError) {
+      setHasError(true);
+    }
+  };
+
   return (
-    <div className="relative w-full h-full">
-      <Image
-        src={hasError ? fallbackSrc : src}
-        alt={alt}
-        width={width}
-        height={height}
-        onError={() => setHasError(true)}
-        className="object-cover w-full h-full"
-      />
-    </div>
+    <Image
+      key={hasError ? 'fallback' : 'main'} // Forcer un rerender
+      src={hasError ? fallbackSrc : src}
+      alt={alt}
+      width={width}
+      height={height}
+      onError={handleError}
+      className={`object-cover w-full h-full ${className}`}
+    />
   );
 }
