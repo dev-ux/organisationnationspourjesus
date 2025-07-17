@@ -12,6 +12,7 @@ interface GalleryProps {
     url: string;
     title: string;
     description?: string;
+    public_id: string;
   }>;
   isLoading?: boolean;
 }
@@ -115,11 +116,6 @@ export default function Gallery({ images: initialImages, isLoading: initialIsLoa
                   onError={(e) => {
                     console.error(`Error loading image ${image.url}:`, e);
                     setError(`Erreur lors du chargement de l'image ${image.title}`);
-                    console.log('Image details:', {
-                      url: image.url,
-                      title: image.title,
-                      public_id: image.public_id
-                    });
                   }}
                 />
               ) : (

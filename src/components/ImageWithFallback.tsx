@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { SyntheticEvent } from 'react';
 
 interface ImageWithFallbackProps {
   src: string;
@@ -10,6 +11,7 @@ interface ImageWithFallbackProps {
   height: number;
   fallbackSrc?: string;
   className?: string;
+  onError?: (event: SyntheticEvent<HTMLImageElement, Event>) => void;
 }
 
 export default function ImageWithFallback({
@@ -22,11 +24,9 @@ export default function ImageWithFallback({
 }: ImageWithFallbackProps) {
   const [hasError, setHasError] = useState(false);
 
-  const handleError = () => {
-    // Évite boucle infinie si fallback échoue aussi
-    if (!hasError) {
-      setHasError(true);
-    }
+  const handleError = (event: React.SyntheticEvent) => {
+    console.error(`Error loading image ${src}:`, event);
+    setHasError(true);
   };
 
   return (
