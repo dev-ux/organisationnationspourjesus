@@ -117,8 +117,8 @@ export default function Gallery({ images: initialImages, isLoading: initialIsLoa
               height={200}
               className="object-cover w-full h-full"
               onError={(e) => {
-                e.currentTarget.src = '/public/images/default-image.jpg';
-              }}
+                e.currentTarget.src = '/images/default-image.jpg';
+              }}              
             />
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-white">
               <h3 className="text-sm font-semibold">{image.title}</h3>
