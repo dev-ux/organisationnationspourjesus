@@ -51,7 +51,7 @@ export default function AddPictureForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 p-6 max-w-md mx-auto bg-white shadow-lg rounded-xl">
+    <form onSubmit={handleSubmit} className="space-y-4 p-6 mt-64 max-w-md mx-auto bg-white shadow-lg rounded-xl">
       <h2 className="text-xl font-bold">Ajouter une image</h2>
 
       {error && <p className="text-red-500">{error}</p>}
