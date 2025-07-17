@@ -40,7 +40,7 @@ const PastorMessage = () => {
       }
     };
     fetchMessage();
-  }, []);
+  }, [defaultMessage]);
 
   if (loading) {
     return (

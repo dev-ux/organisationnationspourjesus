@@ -10,17 +10,15 @@ const nextConfig = {
   },
   reactStrictMode: true,
   images: {
-    domains: ['res.cloudinary.com'],
-    unsafeAllow: ['res.cloudinary.com'],
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'localhost',
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
         pathname: '/**',
       },
       {
-        protocol: 'https',
-        hostname: '**',
+        protocol: 'http',
+        hostname: 'localhost',
         pathname: '/**',
       },
       {

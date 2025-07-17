@@ -23,6 +23,7 @@
     "auth-client": "^0.4.11",
     "buffer": "^6.0.3",
     "cloudinary": "^2.7.0",
+    "cloudinary-core": "^2.14.0",
     "framer-motion": "^12.20.1",
     "mongodb": "^6.17.0",
     "mongoose": "^8.16.1",
