@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import image from 'next/image';
+import ImageWithFallback from './ImageWithFallback';
 
 interface GalleryProps {
   images: Array<{
@@ -20,7 +20,6 @@ export default function Gallery({ images: initialImages, isLoading: initialIsLoa
   const [isLoading, setLoading] = useState(initialIsLoading);
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [imgSrc, setImgSrc] = useState('');
 
   const handleDelete = async (id: number) => {
     if (!window.confirm('Êtes-vous sûr de vouloir supprimer cette image ?')) return;
@@ -34,11 +33,9 @@ export default function Gallery({ images: initialImages, isLoading: initialIsLoa
         throw new Error('Failed to delete image');
       }
 
-      // Mettre à jour la liste des images
       const updatedImages = images.filter((img) => img.id !== id);
       setImages(updatedImages);
-      
-      // Si l'image supprimée était celle sélectionnée, déselectionner
+
       if (selectedImage === id) {
         setSelectedImage(null);
       }
@@ -46,7 +43,7 @@ export default function Gallery({ images: initialImages, isLoading: initialIsLoa
       setError('Erreur lors de la suppression de l\'image');
       console.error('Error deleting image:', err);
     }
-  }; // Si aucune prop images n'est passée, on doit fetcher les images
+  };
 
   useEffect(() => {
     if (!initialImages || initialImages.length === 0) {
@@ -55,7 +52,6 @@ export default function Gallery({ images: initialImages, isLoading: initialIsLoa
       setImages(initialImages);
     }
   }, [initialImages]);
-  
 
   const fetchImages = async () => {
     try {
@@ -105,27 +101,13 @@ export default function Gallery({ images: initialImages, isLoading: initialIsLoa
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
-            {/* Bouton de suppression */}
-            {/* <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleDelete(image.id);
-              }}
-              className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
-              title="Supprimer"
-            >
-              ✕
-            </button> */}
-
-<Image
-  src={imgSrc}
-  alt={image.title}
-  width={300}
-  height={200}
-  className="object-cover w-full h-full"
-  onError={() => setImgSrc('/images/default-image.jpg')}
-/>
-
+            {/* Image avec fallback */}
+            <ImageWithFallback
+              src={image.url}
+              alt={image.title}
+              width={300}
+              height={200}
+            />
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-white">
               <h3 className="text-sm font-semibold">{image.title}</h3>
             </div>
@@ -156,5 +138,3 @@ export default function Gallery({ images: initialImages, isLoading: initialIsLoa
     </div>
   );
 }
-
-// Styles are now included in the component's className attributes directly
