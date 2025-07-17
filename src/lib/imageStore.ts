@@ -2,7 +2,7 @@ import * as cloudinary from 'cloudinary';
 
 // Stockage temporaire des images
 let images: Array<{
-  id: number;
+  id: string;
   url: string;
   title: string;
   description?: string;
@@ -36,7 +36,7 @@ export function initializeImageStore() {
 
       if (result && result.resources) {
         images = result.resources.map((resource: any) => ({
-          id: Date.now(),
+          id: resource.public_id,
           url: resource.secure_url,
           title: resource.original_filename || 'Image',
           public_id: resource.public_id,
@@ -48,13 +48,15 @@ export function initializeImageStore() {
 
 // Fonction pour ajouter une image
 export function addImage(image: {
-  id: number;
   url: string;
   title: string;
   description?: string;
   public_id: string;
 }) {
-  images.push(image);
+  images.push({
+    ...image,
+    id: image.public_id
+  });
 }
 
 // Fonction pour récupérer toutes les images
@@ -63,8 +65,8 @@ export function getImages() {
 }
 
 // Fonction pour supprimer une image
-export function removeImage(id: number) {
-  images = images.filter((img) => img.id !== id);
+export function removeImage(id: string) {
+  images = images.filter((image) => image.id !== id);
 }
 
 // Initialiser le stockage au démarrage
