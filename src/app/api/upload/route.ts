@@ -3,14 +3,27 @@ import { v2 as cloudinary } from 'cloudinary';
 import streamifier from 'streamifier';
 import { createHash } from 'crypto';
 
+const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+const apiKey = process.env.CLOUDINARY_API_KEY;
+const apiSecret = process.env.CLOUDINARY_API_SECRET;
+
+if (!cloudName || !apiKey || !apiSecret) {
+  throw new Error('Cloudinary credentials are missing');
+}
+
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
-  api_key: process.env.CLOUDINARY_API_KEY!,
-  api_secret: process.env.CLOUDINARY_API_SECRET!,
+  cloud_name: cloudName,
+  api_key: apiKey,
+  api_secret: apiSecret,
 });
 
-// Mémoire temporaire (à remplacer par DB)
-let images: any[] = [];
+console.log('Cloudinary configuration:', {
+  cloud_name: cloudName,
+  api_key: '***', // Masqué pour la sécurité
+  api_secret: '***' // Masqué pour la sécurité
+});
+
+import { addImage, getImages, removeImage } from '@/lib/imageStore';
 
 export async function POST(request: Request) {
   try {
@@ -48,6 +61,12 @@ export async function POST(request: Request) {
       streamifier.createReadStream(buffer).pipe(stream);
     });
 
+    console.log('Upload result:', {
+      secure_url: uploadResult.secure_url,
+      public_id: uploadResult.public_id,
+      cloud_name: cloudName
+    });
+
     const newImage = {
       id: Date.now(),
       url: uploadResult.secure_url,
@@ -56,7 +75,7 @@ export async function POST(request: Request) {
       public_id: uploadResult.public_id,
     };
 
-    images.push(newImage);
+    addImage(newImage);
 
     return NextResponse.json(newImage); // retourne l'image seule (plus simple à gérer)
   } catch (error) {
@@ -67,9 +86,27 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
+    const images = getImages();
     return NextResponse.json(images);
   } catch (error) {
     console.error('Error fetching images:', error);
     return NextResponse.json({ error: 'Failed to fetch images' }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: Request) {
+  try {
+    const { id, public_id } = await request.json();
+    
+    // Supprimer de Cloudinary
+    await cloudinary.uploader.destroy(public_id);
+    
+    // Supprimer de notre stockage
+    removeImage(id);
+    
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Error deleting image:', error);
+    return NextResponse.json({ error: 'Failed to delete image' }, { status: 500 });
   }
 }
