@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ImageWithFallback from './ImageWithFallback';
+import { ImageProps } from 'next/image';
 
 interface GalleryProps {
   images: Array<{
@@ -102,12 +103,31 @@ export default function Gallery({ images: initialImages, isLoading: initialIsLoa
             transition={{ duration: 0.2 }}
           >
             {/* Image avec fallback */}
-            <ImageWithFallback
-              src={image.url}
-              alt={image.title}
-              width={300}
-              height={200}
-            />
+            <div className="relative w-full h-full">
+              {image.url && image.url.startsWith('https://') && image.url.includes('res.cloudinary.com') ? (
+                <Image
+                  src={image.url}
+                  alt={image.title}
+                  width={300}
+                  height={200}
+                  className="rounded-lg hover:opacity-90 transition-opacity"
+                  loading="lazy"
+                  onError={(e) => {
+                    console.error(`Error loading image ${image.url}:`, e);
+                    setError(`Erreur lors du chargement de l'image ${image.title}`);
+                    console.log('Image details:', {
+                      url: image.url,
+                      title: image.title,
+                      public_id: image.public_id
+                    });
+                  }}
+                />
+              ) : (
+                <div className="flex items-center justify-center h-full text-red-500">
+                  URL invalide
+                </div>
+              )}
+            </div>
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-white">
               <h3 className="text-sm font-semibold">{image.title}</h3>
             </div>
