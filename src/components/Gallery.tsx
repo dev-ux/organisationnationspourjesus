@@ -116,22 +116,34 @@ export default function Gallery({ images: initialImages, isLoading: initialIsLoa
       {/* Lightbox */}
       {selectedImage !== null && (
         <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
-          <div className="relative">
+          <div className="relative max-w-4xl max-h-[90vh] w-full h-full">
+            {/* Bouton de fermeture */}
             <button
               onClick={handleClose}
-              className="absolute top-4 right-4 text-white text-2xl"
+              className="absolute top-4 right-4 text-white text-4xl bg-black/50 rounded-full p-2 hover:bg-black/70 transition-colors w-10 h-10 flex items-center justify-center"
+              aria-label="Fermer l'image"
             >
-              &times;
+              <span className="text-2xl">×</span>
             </button>
-            <div className="relative">
+            
+            {/* Image */}
+            <div className="relative w-full h-full overflow-hidden">
               <ImageWithFallback
                 src={galleryImages.find(img => img.id === selectedImage)?.url || ''}
                 alt={galleryImages.find(img => img.id === selectedImage)?.title || ''}
                 width={800}
                 height={600}
-                className="rounded-lg"
+                className="rounded-lg object-contain"
                 onError={() => handleError('Erreur lors du chargement de l\'image')}
               />
+              
+              {/* Titre et description */}
+              <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white p-4">
+                <h3 className="text-lg font-semibold mb-1">{galleryImages.find(img => img.id === selectedImage)?.title}</h3>
+                {galleryImages.find(img => img.id === selectedImage)?.description && (
+                  <p className="text-sm">{galleryImages.find(img => img.id === selectedImage)?.description}</p>
+                )}
+              </div>
             </div>
           </div>
         </div>
