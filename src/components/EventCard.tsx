@@ -51,10 +51,12 @@ export default function EventCard({ title, description, eventDate, facebookLink 
     <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
       <div className="relative h-64">
         <Image
-          src="images/church-opening.jpg"
-          alt={title}
+          src="/images/church-opening.jpg"
+          alt={`Événement : ${title}`}
           fill
           className="object-cover"
+          priority
+          sizes="(max-width: 768px) 100vw, 50vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
         <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -108,8 +110,8 @@ export default function EventCard({ title, description, eventDate, facebookLink 
             className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors inline-flex items-center gap-2"
           >
             En savoir plus
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-5 h-5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
           </a>
         </div>

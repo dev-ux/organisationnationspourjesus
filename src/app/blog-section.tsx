@@ -71,11 +71,12 @@ export default function BlogSection() {
                   {post.images && (
                     <div className="w-full h-48 relative rounded-lg overflow-hidden">
                       <Image
-                        src={post.images[0]}
-                        alt={post.titre}
+                        src={post.images[0] || '/images/placeholder-news.jpg'}
+                        alt={post.titre || 'Image d\'actualité'}
                         fill
                         className="object-cover"
                         priority
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     </div>
                   )}

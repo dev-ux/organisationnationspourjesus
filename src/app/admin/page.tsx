@@ -1,5 +1,4 @@
 "use client";
-
 import AdminLayout from "./layout";
 import { useSession } from "next-auth/react";
 
@@ -27,6 +26,11 @@ export default function AdminDashboard() {
                 title="Départements"
                 description="Gérez les différents départements"
                 href="/admin/departments"
+              />
+              <AdminSection
+                title="Galerie Photos"
+                description="Ajoutez et gérez les photos de la galerie"
+                href="/addpicture"
               />
             </div>
           </div>
