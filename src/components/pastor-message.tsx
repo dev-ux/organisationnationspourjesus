@@ -25,12 +25,29 @@ const PastorMessage = () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch('/api/pastor-message');
+        
+        // Add a cache-busting parameter to prevent caching issues
+        const timestamp = new Date().getTime();
+        const response = await fetch(`/api/pastor-message?t=${timestamp}`, {
+          headers: {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache',
+          }
+        });
+        
         if (!response.ok) {
-          throw new Error('Erreur lors de la récupération du message');
+          throw new Error(`Erreur HTTP: ${response.status}`);
         }
+        
         const data = await response.json();
-        setMessage(data);
+        
+        // If the API returns an error property, use the default message
+        if (data.error) {
+          console.warn('API returned an error, using default message');
+          setMessage(defaultMessage);
+        } else {
+          setMessage(data);
+        }
       } catch (error) {
         console.error('Erreur lors de la récupération du message:', error);
         setError(error instanceof Error ? error.message : 'Une erreur est survenue');
@@ -39,8 +56,14 @@ const PastorMessage = () => {
         setLoading(false);
       }
     };
-    fetchMessage();
-  }, [defaultMessage]);
+    
+    // Add a small delay to prevent rapid consecutive calls
+    const timer = setTimeout(() => {
+      fetchMessage();
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   if (loading) {
     return (

@@ -4,44 +4,44 @@ import { promises as fs } from 'fs';
 
 const DATA_FILE = path.join(process.cwd(), 'data', 'pastor-message.json');
 
-// Fonction pour initialiser le fichier
-async function initializeDataFile() {
+// Default message data
+const DEFAULT_MESSAGE = {
+  title: "Un Message de notre Pasteur",
+  content: "Chers frères et sœurs, que la paix de Dieu soit avec vous.\nNous sommes ici pour vous accueillir et vous accompagner dans votre parcours spirituel. Notre mission est de vous aider à grandir dans votre foi et à vivre selon les enseignements de notre Seigneur Jésus-Christ.\n\nRejoignez-nous pour partager des moments de prière, d'enseignement biblique et de communion fraternelle. Nous sommes là pour vous soutenir et vous guider dans votre cheminement spirituel.",
+  image: '/image/past.jpg'
+};
+
+// Helper function to read message data
+async function readMessageData() {
   try {
     await fs.access(DATA_FILE);
-  } catch {
-    await fs.mkdir(path.dirname(DATA_FILE), { recursive: true });
-    await fs.writeFile(DATA_FILE, JSON.stringify({
-      title: "",
-      content: "",
-      image: ""
-    }, null, 2));
+    const data = await fs.readFile(DATA_FILE, 'utf-8');
+    return JSON.parse(data);
+  } catch (error: any) {
+    // If file doesn't exist, create it with default data
+    if (error.code === 'ENOENT') {
+      try {
+        await fs.mkdir(path.dirname(DATA_FILE), { recursive: true });
+        await fs.writeFile(DATA_FILE, JSON.stringify(DEFAULT_MESSAGE, null, 2));
+        return DEFAULT_MESSAGE;
+      } catch (writeError) {
+        console.error('Error creating message file:', writeError);
+        return DEFAULT_MESSAGE;
+      }
+    }
+    console.error('Error reading message file:', error);
+    return DEFAULT_MESSAGE;
   }
 }
 
-// Initialiser le fichier lors du démarrage
-initializeDataFile().catch(console.error);
-
 export async function GET() {
   try {
-    console.log('Chemin du fichier:', DATA_FILE);
-    console.log('Contenu du répertoire:', await fs.readdir(path.dirname(DATA_FILE)));
-    
-    const data = await fs.readFile(DATA_FILE, 'utf-8');
-    const messageData = JSON.parse(data);
+    const messageData = await readMessageData();
     return NextResponse.json(messageData);
   } catch (error) {
-    console.error('Erreur lors de la lecture du message:', error);
-    if (error instanceof Error) {
-      console.error('Message d\'erreur:', error.message);
-      console.error('Stack trace:', error.stack);
-    }
-    return NextResponse.json(
-      { 
-        error: "Erreur lors de la récupération du message",
-        details: error instanceof Error ? error.message : 'Erreur inconnue'
-      },
-      { status: 500 }
-    );
+    console.error('Error in GET /api/pastor-message:', error);
+    // Return default data if there's an error
+    return NextResponse.json(DEFAULT_MESSAGE);
   }
 }
 
