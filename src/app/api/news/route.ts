@@ -1,6 +1,21 @@
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
-import { prisma } from '@/lib/db';
+import { PrismaClient } from '@prisma/client';
+import prisma from '@/lib/db';
+
+// Type personnalisé pour le client Prisma avec le modèle News
+type PrismaWithNews = Omit<PrismaClient, '$connect' | '$disconnect' | '$on' | '$transaction' | '$use'> & {
+  news: {
+    findMany: (args?: any) => Promise<any[]>;
+    create: (args: any) => Promise<any>;
+    delete: (args: any) => Promise<any>;
+  };
+};
+
+const prismaWithNews = prisma as unknown as PrismaWithNews;
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 interface NewsItem {
   id: number;
@@ -15,7 +30,7 @@ interface NewsItem {
 
 export async function GET() {
   try {
-    const news = await prisma.news.findMany({
+    const news = await prismaWithNews.news.findMany({
       orderBy: {
         date: 'desc',
       },
@@ -67,7 +82,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Créer une nouvelle actualité dans la base de données
-    const newNews = await prisma.news.create({
+    const newNews = await prismaWithNews.news.create({
       data: {
         titre,
         date: new Date(date),
@@ -101,7 +116,7 @@ export async function DELETE(request: NextRequest) {
     }
 
     // Supprimer l'actualité de la base de données
-    await prisma.news.delete({
+    await prismaWithNews.news.delete({
       where: {
         id: parseInt(id, 10),
       },
