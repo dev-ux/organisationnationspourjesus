@@ -4,6 +4,13 @@
 import { Navbar, Footer } from "@/components";
 import { ClientFirstVisitModal } from "./client-components";
 import EventCard from "@/components/EventCard";
+import dynamic from 'next/dynamic';
+
+// Import dynamique pour éviter les problèmes de SSR avec les modaux
+const WorshipInfoModal = dynamic(
+  () => import('@/components/WorshipInfoModal'),
+  { ssr: false }
+);
 
 // sections
 import Hero from "./hero";
@@ -15,11 +22,13 @@ import Faqs from "./faqs";
 import Departments from "./departments";
 import BlogSection from "./blog-section";
 import { ClientPastorMessage } from "./client-components";
+import FacebookVideoEmbed from "@/components/FacebookVideoEmbed";
 
 export default function Campaign() {
   return (
     <>
       <ClientFirstVisitModal />
+      <WorshipInfoModal />
       <Navbar />
 
       <Navbar />
@@ -27,17 +36,14 @@ export default function Campaign() {
       <Hero />
       <ClientPastorMessage />
 
-      {/* Nouvel événement - Ouverture de l'église */}
+      {/* Événement - Ouverture de l'église */}
       <div className="max-w-4xl mx-auto my-8">
-        <EventCard
-          title="Ouverture de l'Église Prophétique l'Armée Divine"
-          description="Nous sommes heureux de vous inviter à l'inauguration de notre nouvelle église. Une cérémonie spéciale qui marquera le début d'une nouvelle ère de louange et de prière."
-          eventDate={new Date('2025-07-20T15:00:00')}
-        />
+       
       </div>
 
       <VideoIntro />
       <Feature />
+      <FacebookVideoEmbed />
       <ChurchSection />
       {/* <Testimonials /> */}
       <Departments />

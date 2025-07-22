@@ -8,9 +8,10 @@ interface EventCardProps {
   description: string;
   eventDate: Date;
   facebookLink?: string;
+  isPastEvent?: boolean;
 }
 
-export default function EventCard({ title, description, eventDate, facebookLink = 'https://www.facebook.com/profile.php?id=61577717287026' }: EventCardProps) {
+export default function EventCard({ title, description, eventDate, isPastEvent = false, facebookLink = 'https://www.facebook.com/profile.php?id=61577717287026' }: EventCardProps) {
   const [timeRemaining, setTimeRemaining] = useState({
     days: 0,
     hours: 0,
@@ -72,34 +73,31 @@ export default function EventCard({ title, description, eventDate, facebookLink 
         </div>
       </div>
       <div className="p-8">
-        <div className="text-center mb-8">
-          <h4 className="text-xl font-semibold text-gray-700 mb-4">Compte à rebours</h4>
-          <div className="flex justify-center gap-6">
-            <div className="text-center">
-              <div className="bg-blue-100 rounded-lg p-4 text-3xl font-bold text-blue-600">
-                {timeRemaining.days}
+        <div className="text-center mb-8 space-y-8">
+          {/* Section Informations de culte */}
+          <div className="bg-blue-50 border border-blue-100 rounded-xl p-6 text-left">
+            <h4 className="text-xl font-semibold text-blue-800 mb-4 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Horaires des Cultes
+            </h4>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <p className="font-medium text-blue-900">Culte Dominical</p>
+                <p className="text-blue-800">Tous les dimanches</p>
+                <p className="text-blue-700 font-semibold">15h00 - 19h00</p>
               </div>
-              <p className="text-sm text-gray-600">Jours</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-blue-100 rounded-lg p-4 text-3xl font-bold text-blue-600">
-                {timeRemaining.hours}
+              <div>
+                <p className="font-medium text-blue-900">Lieu</p>
+                <p className="text-blue-800">Temple "YAHWEH SABAOTH"</p>
+                <p className="text-blue-700">Abobo Belle Ville</p>
+                <p className="text-sm text-blue-600 mt-1">Vers L'École Primaire Sainte Marie, à 500 mètres du Commissariat du 40ème Arrondissement</p>
               </div>
-              <p className="text-sm text-gray-600">Heures</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-blue-100 rounded-lg p-4 text-3xl font-bold text-blue-600">
-                {timeRemaining.minutes}
-              </div>
-              <p className="text-sm text-gray-600">Minutes</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-blue-100 rounded-lg p-4 text-3xl font-bold text-blue-600">
-                {timeRemaining.seconds}
-              </div>
-              <p className="text-sm text-gray-600">Secondes</p>
             </div>
           </div>
+
+         
         </div>
         <p className="text-gray-700 leading-relaxed mb-8">{description}</p>
         <div className="flex justify-center">
