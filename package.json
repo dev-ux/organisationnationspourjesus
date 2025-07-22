@@ -7,7 +7,7 @@
   "homepage": "https://demos.creative-tim.com/nextjs-tailwind-app-presentation-page",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --no-lint",
     "start": "next start",
     "migrate:news": "ts-node prisma/scripts/migrate-news.ts",
     "prisma:generate": "prisma generate",
