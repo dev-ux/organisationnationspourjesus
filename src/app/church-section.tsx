@@ -19,23 +19,42 @@ export default function ChurchSection() {
           <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
            
             
-            {/* Card 1 */}
+            {/* Card 1 - Célébrations */}
             <div className="relative overflow-hidden rounded-2xl bg-white p-8 sm:p-10">
-              <div className="absolute inset-0 -m-1 bg-gradient-to-r from-gray-900/50 to-gray-800/50 rounded-2xl blur-3xl" />
+              <div className="absolute inset-0 -m-1 bg-gradient-to-r from-indigo-900/50 to-indigo-800/50 rounded-2xl blur-3xl" />
               <div className="relative">
-                <div className="flex items-center gap-x-4 mb-8">
-                  <div className="flex-none rounded-lg bg-indigo-50 p-3">
+                <div className="flex items-center gap-x-4 mb-6">
+                  <div className="flex-none rounded-lg bg-indigo-100 p-3">
                     <svg className="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
                   <h3 className="text-lg font-semibold leading-8 tracking-tight text-gray-900">
-                    Célébrations
+                    Horaires des Cultes
                   </h3>
                 </div>
-                <p className="text-sm leading-6 text-gray-600">
-                  Participez à nos célébrations hebdomadaires et spéciales pour nourrir votre foi et votre communauté spirituelle.
-                </p>
+                <div className="space-y-4">
+                  <div className="bg-indigo-50 p-4 rounded-lg">
+                    <p className="font-medium text-indigo-900">Culte Dominical</p>
+                    <p className="text-sm text-indigo-800">Tous les dimanches</p>
+                    <p className="text-sm text-indigo-700">15h00 - 19h00</p>
+                  </div>
+                  <div className="mt-4">
+                    <p className="font-medium text-gray-900">Lieu</p>
+                    <p className="text-sm text-gray-700">Temple "YAHWEH SABAOTH"</p>
+                    <p className="text-sm text-gray-600">Abobo Belle Ville</p>
+                    <p className="text-xs text-gray-500 mt-1">Vers L'École Primaire Sainte Marie, à 500 mètres du Commissariat du 40ème Arrondissement</p>
+                  </div>
+                  <div className="mt-3">
+                    <button className="inline-flex items-center justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                      <svg className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      Voir sur la carte
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
