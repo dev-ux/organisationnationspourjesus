@@ -1,105 +1,80 @@
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 import { PrismaClient } from '@prisma/client';
-import prisma from '@/lib/db';
 
-// Type personnalisé pour le client Prisma avec le modèle News
-type PrismaWithNews = Omit<PrismaClient, '$connect' | '$disconnect' | '$on' | '$transaction' | '$use'> & {
-  news: {
-    findMany: (args?: any) => Promise<any[]>;
-    create: (args: any) => Promise<any>;
-    delete: (args: any) => Promise<any>;
-  };
-};
-
-const prismaWithNews = prisma as unknown as PrismaWithNews;
-
+// Désactive la mise en cache pour cette route
 export const dynamic = 'force-dynamic';
-export const revalidate = 0;
 
+// Type pour les données de l'actualité
 interface NewsItem {
   id: number;
   titre: string;
-  date: string;
+  date: Date;
   description: string;
-  image: string | null;
   contenu: string;
+  image: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
 
+// Type pour la réponse de l'API
+interface ApiResponse<T> {
+  data?: T;
+  error?: string;
+}
+
+// Création d'une instance Prisma avec un type personnalisé
+const prisma = new PrismaClient() as any;
+
 export async function GET() {
   try {
-    const news = await prismaWithNews.news.findMany({
-      orderBy: {
-        date: 'desc',
-      },
+    const news: NewsItem[] = await prisma.news.findMany({
+      orderBy: { date: 'desc' },
     });
     
-    return NextResponse.json({ news });
+    const response: ApiResponse<{ news: NewsItem[] }> = { data: { news } };
+    return NextResponse.json(response);
   } catch (error) {
     console.error('Erreur lors de la récupération des actualités:', error);
-    return NextResponse.json(
-      { error: 'Erreur lors de la récupération des actualités' },
-      { status: 500 }
-    );
+    const response: ApiResponse<null> = { error: 'Erreur lors de la récupération des actualités' };
+    return NextResponse.json(response, { status: 500 });
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
-    const file = formData.get('image') as File | null;
     const titre = formData.get('titre') as string;
     const date = formData.get('date') as string;
     const contenu = formData.get('contenu') as string;
     const description = formData.get('description') as string;
-
-    // Vérifier que tous les champs requis sont présents
-    if (!titre || !date || !contenu || !description) {
-      return NextResponse.json(
-        { error: "Tous les champs sont requis" },
-        { status: 400 }
-      );
-    }
+    const file = formData.get('image') as File | null;
 
     let imagePath: string | null = null;
-
-    // Traitement de l'image si elle est fournie
+    
     if (file) {
-      // Vérifier le type MIME de l'image
-      const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
-      if (!validTypes.includes(file.type)) {
-        return NextResponse.json(
-          { error: "Type de fichier non valide. Seules les images (jpeg, png, webp) sont autorisées" },
-          { status: 400 }
-        );
-      }
-      
-      // Pour l'instant, on stocke juste le nom du fichier
-      // Dans une version complète, vous voudrez peut-être télécharger l'image sur un service comme Cloudinary
+      // Pour simplifier, on stocke juste le nom du fichier
+      // En production, il faudrait téléverser le fichier vers un stockage externe
       imagePath = `/uploads/${file.name}`;
     }
 
-    // Créer une nouvelle actualité dans la base de données
-    const newNews = await prismaWithNews.news.create({
+    const newNews = await prisma.news.create({
       data: {
         titre,
         date: new Date(date),
         description,
-        image: imagePath,
         contenu,
+        image: imagePath,
       },
     });
     
-    return NextResponse.json(newNews, { status: 201 });
+    const response: ApiResponse<NewsItem> = { data: newNews };
+    return NextResponse.json(response, { status: 201 });
     
   } catch (error) {
     console.error('Erreur lors de la création de l\'actualité:', error);
-    return NextResponse.json(
-      { error: 'Erreur lors de la création de l\'actualité' },
-      { status: 500 }
-    );
+    const response: ApiResponse<null> = { error: 'Erreur lors de la création de l\'actualité' };
+    return NextResponse.json(response, { status: 500 });
   }
 }
 
@@ -109,26 +84,20 @@ export async function DELETE(request: NextRequest) {
     const id = searchParams.get('id');
 
     if (!id) {
-      return NextResponse.json(
-        { error: 'ID requis' },
-        { status: 400 }
-      );
+      const response: ApiResponse<null> = { error: 'ID requis' };
+      return NextResponse.json(response, { status: 400 });
     }
 
-    // Supprimer l'actualité de la base de données
-    await prismaWithNews.news.delete({
-      where: {
-        id: parseInt(id, 10),
-      },
+    await prisma.news.delete({
+      where: { id: parseInt(id, 10) },
     });
 
-    return NextResponse.json({ message: 'Actualité supprimée avec succès' });
+    const response: ApiResponse<{ message: string }> = { data: { message: 'Actualité supprimée avec succès' } };
+    return NextResponse.json(response);
     
   } catch (error) {
     console.error('Erreur lors de la suppression de l\'actualité:', error);
-    return NextResponse.json(
-      { error: 'Erreur lors de la suppression de l\'actualité' },
-      { status: 500 }
-    );
+    const response: ApiResponse<null> = { error: 'Erreur lors de la suppression de l\'actualité' };
+    return NextResponse.json(response, { status: 500 });
   }
 }
