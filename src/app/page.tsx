@@ -12,6 +12,12 @@ const WorshipInfoModal = dynamic(
   { ssr: false }
 );
 
+// Import dynamique pour le composant serveur
+const BlogSectionServer = dynamic(
+  () => import('@/components/server/BlogSectionServer'),
+  { ssr: true, loading: () => <div className="py-24 text-center">Chargement des actualités...</div> }
+);
+
 // sections
 import Hero from "./hero";
 import VideoIntro from "./video-intro";
@@ -20,7 +26,6 @@ import ChurchSection from "./church-section";
 import Testimonials from "./testimonials";
 import Faqs from "./faqs";
 import Departments from "./departments";
-import BlogSection from "./blog-section";
 import { ClientPastorMessage } from "./client-components";
 import FacebookVideoEmbed from "@/components/FacebookVideoEmbed";
 
@@ -47,7 +52,7 @@ export default function Campaign() {
       <ChurchSection />
       {/* <Testimonials /> */}
       <Departments />
-      <BlogSection />
+      <BlogSectionServer />
       <Faqs />
 
     </>

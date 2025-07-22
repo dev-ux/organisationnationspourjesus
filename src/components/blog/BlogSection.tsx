@@ -1,37 +1,17 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BlogPost } from "@/types/blog";
 
-export default function BlogSection() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
+interface BlogSectionProps {
+  initialPosts: BlogPost[];
+}
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch('/api/news');
-        const data = await response.json();
-        const formattedPosts = data.news.map((news: any) => ({
-          id: news.id.toString(),
-          title: news.titre,
-          date: news.date,
-          images: [news.image],
-          excerpt: news.description,
-          content: news.contenu
-        }));
-        setPosts(formattedPosts);
-      } catch (error) {
-        console.error('Erreur lors du chargement des actualités:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, []);
+export default function BlogSectionClient({ initialPosts }: BlogSectionProps) {
+  const [posts, setPosts] = useState<BlogPost[]>(initialPosts);
+  const loading = posts.length === 0;
 
   if (loading) {
     return (
