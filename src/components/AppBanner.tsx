@@ -35,10 +35,9 @@ export default function AppBanner() {
               <Image
                 src="/images/onjapp.png"
                 alt="Application mobile de l'église"
-                width={300}
-                height={600}
-                className="rounded-2xl shadow-2xl"
-                style={{ maxHeight: '400px', width: 'auto' }}
+                width={600}
+                height={1200}
+                style={{ maxHeight: '600px', width: 'auto' }}
               />
               
             </div>

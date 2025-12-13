@@ -23,7 +23,7 @@ import Hero from "./hero";
 import VideoIntro from "./video-intro";
 import Feature from "./feature";
 import ChurchSection from "./church-section";
-import Testimonials from "./testimonials";
+// import Testimonials from "./testimonials";
 import Faqs from "./faqs";
 import Departments from "./departments";
 import { ClientPastorMessage } from "./client-components";
@@ -37,11 +37,10 @@ export default function Campaign() {
       <Navbar />
       <Hero />
       <ClientPastorMessage />
-      <AppBanner />
       <VideoIntro />
       <Feature />
       <ChurchSection />
-      <Testimonials /> 
+      {/* <Testimonials />  */}
       <Departments />
       <BlogSectionServer />
       <AppBanner />
