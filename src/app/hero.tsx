@@ -34,7 +34,7 @@ const slides = [
 
 export default function Hero() {
   return (
-    <div className="relative min-h-screen w-full" style={{ backgroundImage: `url('/image/hero/home1.jpg')` }}>
+    <div className="relative min-h-[60vh] sm:min-h-[70vh] lg:min-h-screen w-full" style={{ backgroundImage: `url('/image/hero/home1.jpg')` }}>
       <div className="absolute inset-0">
         <Carousel
           images={slides.map(slide => slide.image)}

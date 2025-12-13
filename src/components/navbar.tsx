@@ -130,7 +130,7 @@ export function Navbar() {
 
       {/* Menu mobile */}
       <div 
-        className={`fixed inset-0 bg-black/80 z-40 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} 
+        className={`fixed inset-0 bg-white z-40 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} 
         onClick={toggleMenu}
       ></div>
       

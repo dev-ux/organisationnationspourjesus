@@ -44,44 +44,52 @@ const departments = [
 
 export default function Departments() {
   return (
-    <div className="py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+    <div className="py-16 sm:py-24 lg:hidden">
+      <div className="px-6">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-900">
             Nos Départements
           </h2>
-          <p className="mt-2 text-lg leading-8 text-gray-600">
+          <p className="mt-2 text-sm leading-6 text-gray-600">
             Découvrez les différents services qui font fonctionner notre église
           </p>
         </div>
-        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-          <div className="grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+        
+        <div className="overflow-x-auto">
+          <div className="flex gap-4 pb-4" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            <style jsx>{`
+              div::-webkit-scrollbar {
+                display: none;
+              }
+            `}</style>
             {departments.map((department) => (
-              <div key={department.title} className="relative overflow-hidden rounded-2xl bg-white p-8 sm:p-10">
-                <div className="absolute inset-0 -m-1 bg-gradient-to-r from-gray-900/50 to-gray-800/50 rounded-2xl blur-3xl" />
-                <div className="relative">
-                  <div className="flex items-center gap-x-4 mb-8">
-                    <div className="flex-none rounded-lg bg-indigo-50 p-3">
-                      <svg className="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
+              <div key={department.title} className="flex-shrink-0 w-80">
+                <div className="relative overflow-hidden rounded-2xl bg-white p-6 h-full">
+                  <div className="absolute inset-0 -m-1 bg-gradient-to-r from-gray-900/50 to-gray-800/50 rounded-2xl blur-3xl" />
+                  <div className="relative">
+                    <div className="flex items-center gap-x-3 mb-6">
+                      <div className="flex-none rounded-lg bg-indigo-50 p-2">
+                        <svg className="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">
+                        {department.title}
+                      </h3>
                     </div>
-                    <h3 className="text-lg font-semibold leading-8 tracking-tight text-gray-900">
-                      {department.title}
-                    </h3>
-                  </div>
-                  <p className="text-sm leading-6 text-gray-600">
-                    {department.description}
-                  </p>
-                  <div className="mt-6">
-                    <Image
-                      src={department.image}
-                      alt={department.title}
-                      width={300}
-                      height={200}
-                      className="object-cover rounded-lg"
-                      priority
-                    />
+                    <p className="text-xs leading-5 text-gray-600 mb-4">
+                      {department.description}
+                    </p>
+                    <div>
+                      <Image
+                        src={department.image}
+                        alt={department.title}
+                        width={280}
+                        height={180}
+                        className="object-cover rounded-lg w-full"
+                        priority
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

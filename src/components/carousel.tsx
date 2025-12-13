@@ -41,21 +41,21 @@ export default function Carousel({ images, texts, interval = 5000, noBlurImages 
           />
           <div className="absolute inset-0 bg-black/50"></div>
           {texts && (
-            <div className="absolute inset-0 flex flex-col justify-center items-center text-white h-full px-8">
-              <h1 className="text-7xl font-bold mb-4">{texts[index].title}</h1>
-              <p className="text-xl text-white/90 mb-8 max-w-2xl text-center">{texts[index].description}</p>
+            <div className="absolute inset-0 flex flex-col justify-center items-center text-white h-full px-4 sm:px-6 lg:px-8">
+              <h1 className="text-2xl sm:text-4xl lg:text-7xl font-bold mb-2 sm:mb-4 text-center">{texts[index].title}</h1>
+              <p className="text-sm sm:text-base lg:text-xl text-white/90 mb-4 sm:mb-8 max-w-xs sm:max-w-md lg:max-w-2xl text-center">{texts[index].description}</p>
             </div>
           )}
         </div>
       ))}
       
       {/* Navigation dots */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2">
+      <div className="absolute bottom-4 sm:bottom-6 lg:bottom-8 left-1/2 transform -translate-x-1/2 flex gap-1 sm:gap-2">
         {images.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`w-3 h-3 rounded-full transition-colors ${
+            className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-colors ${
               index === currentIndex ? 'bg-white' : 'bg-white/50'
             }`}
           />
