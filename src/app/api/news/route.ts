@@ -33,11 +33,24 @@ export async function GET() {
     });
     
     const response: ApiResponse<{ news: NewsItem[] }> = { data: { news } };
-    return NextResponse.json(response);
+    return NextResponse.json(response, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      }
+    });
   } catch (error) {
     console.error('Erreur lors de la récupération des actualités:', error);
     const response: ApiResponse<null> = { error: 'Erreur lors de la récupération des actualités' };
-    return NextResponse.json(response, { status: 500 });
+    return NextResponse.json(response, { 
+      status: 500,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      }
+    });
   }
 }
 
@@ -69,12 +82,26 @@ export async function POST(request: NextRequest) {
     });
     
     const response: ApiResponse<NewsItem> = { data: newNews };
-    return NextResponse.json(response, { status: 201 });
+    return NextResponse.json(response, { 
+      status: 201,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      }
+    });
     
   } catch (error) {
     console.error('Erreur lors de la création de l\'actualité:', error);
     const response: ApiResponse<null> = { error: 'Erreur lors de la création de l\'actualité' };
-    return NextResponse.json(response, { status: 500 });
+    return NextResponse.json(response, { 
+      status: 500,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      }
+    });
   }
 }
 
@@ -85,7 +112,14 @@ export async function DELETE(request: NextRequest) {
 
     if (!id) {
       const response: ApiResponse<null> = { error: 'ID requis' };
-      return NextResponse.json(response, { status: 400 });
+      return NextResponse.json(response, { 
+        status: 400,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        }
+      });
     }
 
     await prisma.news.delete({
@@ -93,11 +127,36 @@ export async function DELETE(request: NextRequest) {
     });
 
     const response: ApiResponse<{ message: string }> = { data: { message: 'Actualité supprimée avec succès' } };
-    return NextResponse.json(response);
+    return NextResponse.json(response, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      }
+    });
     
   } catch (error) {
     console.error('Erreur lors de la suppression de l\'actualité:', error);
     const response: ApiResponse<null> = { error: 'Erreur lors de la suppression de l\'actualité' };
-    return NextResponse.json(response, { status: 500 });
+    return NextResponse.json(response, { 
+      status: 500,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      }
+    });
   }
+}
+
+// Gérer les requêtes OPTIONS pour CORS
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    },
+  });
 }
