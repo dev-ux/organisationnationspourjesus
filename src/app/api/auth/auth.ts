@@ -65,7 +65,7 @@ export const authOptions: NextAuthOptions = {
       }
     })
   ],
-  secret: 'your-secure-secret-key-here', // Remplacez par un secret réel en production
+  secret: process.env.NEXTAUTH_SECRET || 'your-secure-secret-key-here',
   debug: false
 };
 

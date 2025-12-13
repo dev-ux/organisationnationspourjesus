@@ -1,27 +1,29 @@
-import { PrismaClient } from '@prisma/client';
 import BlogSectionClient from '../blog/BlogSection';
-
-const prisma = new PrismaClient();
 
 export default async function BlogSectionServer() {
   try {
-    // Récupération directe des données depuis Prisma en utilisant le type généré
-    type NewsItem = {
-      id: number;
-      titre: string;
-      date: string;
-      description: string;
-      contenu: string;
-      image: string | null;
-    };
+    // Récupérer les données depuis l'API route
+    const response = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/api/news`, {
+      cache: 'no-store', // Désactiver le cache pour avoir les données fraîches
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-    const news: NewsItem[] = await prisma.$queryRaw`
-      SELECT id, titre, date, description, contenu, image FROM "News"
-      ORDER BY date DESC
-    `;
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération des actualités');
+    }
+
+    const result = await response.json();
+    
+    if (result.error) {
+      throw new Error(result.error);
+    }
+
+    const news = result.data?.news || [];
 
     // Formatage des données pour le composant client
-    const formattedPosts = news.map((item) => ({
+    const formattedPosts = news.map((item: any) => ({
       id: item.id.toString(),
       title: item.titre,
       date: item.date,
@@ -38,11 +40,13 @@ export default async function BlogSectionServer() {
     return <BlogSectionClient initialPosts={formattedPosts} />;
   } catch (error) {
     console.error('Erreur lors du chargement des actualités:', error);
+    // Retourner un composant avec un message d'erreur plus convivial
     return (
       <div className="py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center">
-            <p className="text-red-600">Erreur lors du chargement des actualités</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Actualités</h2>
+            <p className="text-gray-600">Les actualités seront bientôt disponibles.</p>
           </div>
         </div>
       </div>
