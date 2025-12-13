@@ -8,9 +8,10 @@ interface CarouselProps {
     description: string;
   }>;
   interval?: number;
-};;
+  noBlurImages?: string[];
+};
 
-export default function Carousel({ images, texts, interval = 5000 }: CarouselProps) {
+export default function Carousel({ images, texts, interval = 5000, noBlurImages = [] }: CarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function Carousel({ images, texts, interval = 5000 }: CarouselPro
             alt={`Slide ${index + 1}`}
             width={1920}
             height={1080}
-            className="object-cover w-full h-full blur-lg"
+            className={`object-cover w-full h-full ${noBlurImages.includes(image) ? '' : 'blur-lg'}`}
             priority={index === 0}
           />
           <div className="absolute inset-0 bg-black/50"></div>

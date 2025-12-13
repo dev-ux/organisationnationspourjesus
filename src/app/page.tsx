@@ -27,34 +27,25 @@ import Testimonials from "./testimonials";
 import Faqs from "./faqs";
 import Departments from "./departments";
 import { ClientPastorMessage } from "./client-components";
-import FacebookVideoEmbed from "@/components/FacebookVideoEmbed";
+import AppBanner from "@/components/AppBanner";
 
 export default function Campaign() {
   return (
     <>
       <ClientFirstVisitModal />
-      <WorshipInfoModal />
       <Navbar />
-
       <Navbar />
-
       <Hero />
       <ClientPastorMessage />
-
-      {/* Événement - Ouverture de l'église */}
-      <div className="max-w-4xl mx-auto my-8">
-       
-      </div>
-
+      <AppBanner />
       <VideoIntro />
       <Feature />
-      <FacebookVideoEmbed />
       <ChurchSection />
       {/* <Testimonials /> */}
       <Departments />
       <BlogSectionServer />
+      <AppBanner />
       <Faqs />
-
     </>
   );
 }
