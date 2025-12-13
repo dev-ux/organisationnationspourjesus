@@ -41,7 +41,7 @@ export default function Campaign() {
       <VideoIntro />
       <Feature />
       <ChurchSection />
-      {/* <Testimonials /> */}
+      <Testimonials /> 
       <Departments />
       <BlogSectionServer />
       <AppBanner />
