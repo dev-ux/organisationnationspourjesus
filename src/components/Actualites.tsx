@@ -4,20 +4,6 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { BlogPost } from '@/types/blog';
-import { notFound } from 'next/navigation';
-import Swal from 'sweetalert2';
-
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top-end',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
-});
 
 export default function Actualites({ nbActualites = 3 }: { nbActualites?: number }) {
   const [actualites, setActualites] = useState<BlogPost[]>([]);
@@ -53,11 +39,6 @@ export default function Actualites({ nbActualites = 3 }: { nbActualites?: number
         setActualites(formattedActualites);
       } catch (error) {
         console.error('Erreur lors du chargement des actualités:', error);
-        Toast.fire({
-          icon: 'error',
-          title: 'Erreur',
-          text: 'Une erreur est survenue lors du chargement des actualités'
-        });
       } finally {
         setLoading(false);
       }
