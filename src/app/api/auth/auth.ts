@@ -5,12 +5,12 @@ import type { NextAuthOptions } from "next-auth";
 
 export const authOptions: NextAuthOptions = {
   pages: {
-    signIn: '/auth/login'
+    signIn: '/login'
   },
   session: {
     strategy: 'jwt',
-    maxAge: 3 * 60, // 3 minutes
-    updateAge: 2 * 60, // 2 minutes,
+    maxAge: 24 * 60 * 60, // 24 heures
+    updateAge: 60 * 60, // 1 heure
   },
   callbacks: {
     async signIn({ user }) {
@@ -18,7 +18,7 @@ export const authOptions: NextAuthOptions = {
     },
     async redirect({ url, baseUrl }) {
       // Redirect to admin page after successful login
-      if (url === '/auth/login') {
+      if (url === '/login') {
         return '/admin';
       }
       return url.startsWith(baseUrl) ? url : baseUrl;
@@ -66,7 +66,7 @@ export const authOptions: NextAuthOptions = {
     })
   ],
   secret: process.env.NEXTAUTH_SECRET || 'your-secure-secret-key-here',
-  debug: false
+  debug: true
 };
 
 export default NextAuth(authOptions);

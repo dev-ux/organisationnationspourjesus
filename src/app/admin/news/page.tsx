@@ -45,13 +45,14 @@ export default function NewsPage() {
       const data = await response.json();
       // Vérifier si data est un objet avec une propriété news
       const newsData = data.news || data;
-      setNews(newsData);
+      // S'assurer que newsData est un tableau
+      setNews(Array.isArray(newsData) ? newsData : []);
     } catch (error) {
       console.error('Error fetching news:', error);
+      setNews([]); // S'assurer que news est toujours un tableau
       Toast.fire({
         icon: 'error',
-        title: 'Erreur',
-        text: 'Erreur lors du chargement des actualités'
+        title: 'Erreur lors du chargement des actualités'
       });
     }
   };
@@ -271,7 +272,7 @@ export default function NewsPage() {
               <div>
                 <h3 className="text-lg font-medium mb-4">Liste des actualités</h3>
                 <div className="space-y-4">
-                  {news.map((item) => (
+                  {Array.isArray(news) && news.map((item) => (
                     <div key={item.titre} className="bg-gray-50 p-4 rounded-lg">
                       <div className="flex justify-between items-start">
                         <div>

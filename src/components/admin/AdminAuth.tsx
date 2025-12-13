@@ -1,4 +1,4 @@
-import { SessionProvider, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
 export default function AdminAuth({ children }: { children: React.ReactNode }) {
@@ -12,9 +12,5 @@ export default function AdminAuth({ children }: { children: React.ReactNode }) {
     redirect("/login");
   }
 
-  return (
-    <SessionProvider session={session}>
-      {children}
-    </SessionProvider>
-  );
+  return <>{children}</>;
 }

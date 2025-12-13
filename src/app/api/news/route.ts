@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 import { PrismaClient } from '@prisma/client';
+import { writeFile, mkdir } from 'fs/promises';
+import path from 'path';
 
 // Désactive la mise en cache pour cette route
 export const dynamic = 'force-dynamic';
@@ -66,9 +68,27 @@ export async function POST(request: NextRequest) {
     let imagePath: string | null = null;
     
     if (file) {
-      // Pour simplifier, on stocke juste le nom du fichier
-      // En production, il faudrait téléverser le fichier vers un stockage externe
-      imagePath = `/uploads/${file.name}`;
+      try {
+        // Créer le dossier public/image s'il n'existe pas
+        const uploadDir = path.join(process.cwd(), 'public', 'image');
+        await mkdir(uploadDir, { recursive: true });
+        
+        // Générer un nom de fichier unique pour éviter les conflits
+        const timestamp = Date.now();
+        const fileName = `${timestamp}_${file.name}`;
+        const filePath = path.join(uploadDir, fileName);
+        
+        // Convertir le fichier en buffer et l'écrire sur le disque
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+        await writeFile(filePath, buffer);
+        
+        // Stocker le chemin relatif pour l'accès web
+        imagePath = `/image/${fileName}`;
+      } catch (error) {
+        console.error('Erreur lors de l\'upload de l\'image:', error);
+        // Continuer sans image si l'upload échoue
+      }
     }
 
     const newNews = await prisma.news.create({
