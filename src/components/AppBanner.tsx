@@ -37,7 +37,7 @@ export default function AppBanner() {
                 alt="Application mobile de l'église"
                 width={600}
                 height={1200}
-                style={{ maxHeight: '600px', width: 'auto' }}
+                className="w-full h-auto max-h-[400px] sm:max-h-[500px] md:max-h-[600px] object-contain"
               />
               
             </div>

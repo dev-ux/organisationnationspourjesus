@@ -17,8 +17,8 @@ export function VideoIntro() {
   const [player, setPlayer] = useState<YT.Player | null>(null);
 
   const opts = {
-    height: '400',
-    width: '768',
+    height: '250',
+    width: '100%',
     playerVars: {
       autoplay: 1,
     },
@@ -33,15 +33,17 @@ export function VideoIntro() {
   };
 
   return (
-    <div className="p-8">
-      <div className="w-full container px-5 overflow-hidden rounded-xl relative mx-auto mt-20 max-w-6xl ">
+    <div className="p-4 sm:p-8">
+      <div className="w-full container px-4 sm:px-5 overflow-hidden rounded-xl relative mx-auto mt-8 sm:mt-20 max-w-6xl">
         {isPlaying ? (
-          <YouTube
-            videoId="_bAMXfF3oCU"
-            opts={opts}
-            onReady={onReady}
-            onPlay={onPlay}
-          />
+          <div className="flex justify-center">
+            <YouTube
+              videoId="_bAMXfF3oCU"
+              opts={opts}
+              onReady={onReady}
+              onPlay={onPlay}
+            />
+          </div>
         ) : (
           <>
             <div className="bg-black/25 z-10 absolute w-full h-full inset-0 rounded-xl" />
