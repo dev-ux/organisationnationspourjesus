@@ -27,10 +27,20 @@ export default function Actualites({ nbActualites = 3 }: { nbActualites?: number
     const fetchActualites = async () => {
       try {
         const response = await fetch('/api/news');
+        
+        if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des actualités');
+        }
+        
         const data = await response.json();
         
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        
         // Convertir les données de l'API en format Actualite
-        const formattedActualites = data.news.map((news: any) => ({
+        const newsData = data.data?.news || [];
+        const formattedActualites = newsData.map((news: any) => ({
           id: news.id.toString(),
           titre: news.titre,
           date: news.date,
