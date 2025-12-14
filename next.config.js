@@ -76,6 +76,8 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
+    // Ajouter les domaines locaux pour les images statiques
+    domains: ['localhost'],
     // Désactive l'optimisation des images en développement
     unoptimized: process.env.NODE_ENV !== 'production',
   },
