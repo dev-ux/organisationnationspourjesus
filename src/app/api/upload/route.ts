@@ -62,6 +62,16 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
+    // Vérifier la configuration Cloudinary
+    if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
+      console.error('❌ Cloudinary configuration missing:', {
+        cloud_name: !!process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: !!process.env.CLOUDINARY_API_KEY,
+        api_secret: !!process.env.CLOUDINARY_API_SECRET
+      });
+      return NextResponse.json({ error: 'Cloudinary configuration missing' }, { status: 500 });
+    }
+
     const result = await cloudinary.api.resources({
       type: 'upload',
       prefix: 'organisationnationspourjesus',
@@ -79,6 +89,13 @@ export async function GET() {
     return NextResponse.json(images);
   } catch (error) {
     console.error('❌ Error fetching images from Cloudinary:', error);
-    return NextResponse.json({ error: 'Failed to fetch images' }, { status: 500 });
+    console.error('❌ Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined
+    });
+    return NextResponse.json({ 
+      error: 'Failed to fetch images',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 });
   }
 }
