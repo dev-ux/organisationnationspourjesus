@@ -87,6 +87,10 @@ export default function Gallery({ images: initialImages, isLoading: initialIsLoa
     return <div className="gallery-container">Aucune image trouvée</div>;
   }
 
+  if (!Array.isArray(images)) {
+    return <div className="gallery-container">Erreur: format de données invalide</div>;
+  }
+
   return (
     <div className="gallery-container">
       {/* Grid de miniatures */}
