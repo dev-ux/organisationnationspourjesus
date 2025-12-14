@@ -7,11 +7,10 @@ import Link from 'next/link';
 import Header from '@/components/header';
 
 interface Image {
-  id: string;
+  id: number;
   url: string;
   title: string;
   description: string;
-  public_id: string;
 }
 
 export default function GalleryPage() {
@@ -31,32 +30,28 @@ export default function GalleryPage() {
         // En cas d'erreur, on affiche quand même les images par défaut
         const defaultImages = [
           {
-            id: '1',
+            id: 1,
             url: '/image/onj1.jpg',
             title: 'Activité Missionnaire',
-            description: 'Une journée de mission dans la communauté',
-            public_id: 'default-onj1'
+            description: 'Une journée de mission dans la communauté'
           },
           {
-            id: '2',
+            id: 2,
             url: '/image/onj2.jpg',
             title: 'Formation Biblique',
-            description: 'Séance de formation biblique',
-            public_id: 'default-onj2'
+            description: 'Séance de formation biblique'
           },
           {
-            id: '3',
+            id: 3,
             url: '/image/onj3.jpg',
             title: 'Célébration',
-            description: 'Moment de louange et de célébration',
-            public_id: 'default-onj3'
+            description: 'Moment de louange et de célébration'
           },
           {
-            id: '4',
+            id: 4,
             url: '/image/onj4.jpg',
             title: 'Service Communautaire',
-            description: 'Service rendu à la communauté',
-            public_id: 'default-onj4'
+            description: 'Service rendu à la communauté'
           }
         ];
         setImages(defaultImages);
