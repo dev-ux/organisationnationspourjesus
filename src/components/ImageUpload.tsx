@@ -27,7 +27,7 @@ export default function ImageUpload({ onImageUpload }: ImageUploadProps) {
 
       // Préparer les données à envoyer
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('image', file);
 
       // Envoyer l'image au serveur
       const response = await fetch('/api/upload', {

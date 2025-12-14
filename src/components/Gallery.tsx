@@ -1,41 +1,57 @@
 'use client'
+
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import ImageWithFallback from './ImageWithFallback';
 
 interface GalleryProps {
-  images: {
-    id: string;
+  images: Array<{
+    id: number;
     url: string;
     title: string;
     description?: string;
-    public_id: string;
-  }[];
+  }>;
   isLoading?: boolean;
 }
 
 export default function Gallery({ images: initialImages, isLoading: initialIsLoading = false }: GalleryProps) {
-  const [galleryImages, setGalleryImages] = useState<GalleryProps['images']>(initialImages);
+  const [images, setImages] = useState<GalleryProps['images']>(initialImages);
   const [isLoading, setLoading] = useState(initialIsLoading);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // Gestion des erreurs
-  const handleError = (message: string): void => {
-    setError(message);
-  };
+  const handleDelete = async (id: number) => {
+    if (!window.confirm('Êtes-vous sûr de vouloir supprimer cette image ?')) return;
 
-  // Chargement initial
-  useEffect(() => {
-    if (!initialImages || initialImages.length === 0) {
-      fetchImages();
-    } else {
-      setGalleryImages(initialImages);
+    try {
+      const response = await fetch(`/api/upload/${id}`, {
+        method: 'DELETE'
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete image');
+      }
+
+      // Mettre à jour la liste des images
+      const updatedImages = images.filter((img) => img.id !== id);
+      setImages(updatedImages);
+      
+      // Si l'image supprimée était celle sélectionnée, déselectionner
+      if (selectedImage === id) {
+        setSelectedImage(null);
+      }
+    } catch (err) {
+      setError('Erreur lors de la suppression de l\'image');
+      console.error('Error deleting image:', err);
     }
+  }; // Si aucune prop images n'est passée, on doit fetcher les images
+
+  useEffect(() => {
+    // Update images when the prop changes
+    setImages(initialImages);
   }, [initialImages]);
 
-  // Récupération des images
-  const fetchImages = async (): Promise<void> => {
+  const fetchImages = async () => {
     try {
       setLoading(true);
       const response = await fetch('/api/upload');
@@ -43,25 +59,22 @@ export default function Gallery({ images: initialImages, isLoading: initialIsLoa
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      setGalleryImages(data);
+      setImages(data);
     } catch (error) {
-      setGalleryImages([]);
+      setImages([]);
     } finally {
       setLoading(false);
     }
   };
 
-  // Sélection d'image
-  const handleImageClick = (id: string): void => {
+  const handleImageClick = (id: number) => {
     setSelectedImage(id);
   };
 
-  // Fermeture de la lightbox
-  const handleClose = (): void => {
+  const handleClose = () => {
     setSelectedImage(null);
   };
 
-  // Gestion des états
   if (isLoading) {
     return <div className="gallery-container">Chargement des images...</div>;
   }
@@ -70,81 +83,67 @@ export default function Gallery({ images: initialImages, isLoading: initialIsLoa
     return <div className="gallery-container">Erreur: {error}</div>;
   }
 
-  if (!galleryImages || galleryImages.length === 0) {
+  if (!images || images.length === 0) {
     return <div className="gallery-container">Aucune image trouvée</div>;
   }
 
-  // Rendu
   return (
     <div className="gallery-container">
       {/* Grid de miniatures */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-        {galleryImages.map((image) => {
-          return (
-            <motion.div
-              key={image.id}
-              className="relative overflow-hidden rounded-lg cursor-pointer"
-              onClick={() => handleImageClick(image.id)}
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
+        {images.map((image) => (
+          <motion.div
+            key={image.id}
+            className="relative overflow-hidden rounded-lg cursor-pointer"
+            onClick={() => handleImageClick(image.id)}
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.2 }}
+          >
+            {/* Bouton de suppression */}
+            {/* <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDelete(image.id);
+              }}
+              className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
+              title="Supprimer"
             >
-              {/* Image avec fallback */}
-              <div className="relative w-full h-full">
-                {image.url && image.url.startsWith('https://') && image.url.includes('res.cloudinary.com') ? (
-                  <ImageWithFallback
-                    src={image.url}
-                    alt={image.title}
-                    width={300}
-                    height={200}
-                    className="rounded-lg hover:opacity-90 transition-opacity"
-                    onError={() => handleError('Erreur lors du chargement de l\'image')}
-                  />
-                ) : (
-                  <div className="flex items-center justify-center h-full text-red-500">
-                    URL invalide
-                  </div>
-                )}
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-white">
-                <h3 className="text-sm font-semibold">{image.title}</h3>
-              </div>
-            </motion.div>
-          );
-        })}
+              ✕
+            </button> */}
+            <Image
+              src={image.url}
+              alt={image.title}
+              width={300}
+              height={200}
+              className="object-cover w-full h-full"
+              onError={(e) => {
+                e.currentTarget.src = '/public/images/default-image.jpg';
+              }}
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 text-white">
+              <h3 className="text-sm font-semibold">{image.title}</h3>
+            </div>
+          </motion.div>
+        ))}
       </div>
 
       {/* Lightbox */}
       {selectedImage !== null && (
         <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">
-          <div className="relative max-w-4xl max-h-[90vh] w-full h-full">
-            {/* Bouton de fermeture */}
+          <div className="relative">
             <button
               onClick={handleClose}
-              className="absolute top-4 right-4 text-white text-4xl bg-black/50 rounded-full p-2 hover:bg-black/70 transition-colors w-10 h-10 flex items-center justify-center"
-              aria-label="Fermer l'image"
+              className="absolute top-4 right-4 text-white text-2xl"
             >
-              <span className="text-2xl">×</span>
+              &times;
             </button>
-            
-            {/* Image */}
-            <div className="relative w-full h-full overflow-hidden">
-              <ImageWithFallback
-                src={galleryImages.find(img => img.id === selectedImage)?.url || ''}
-                alt={galleryImages.find(img => img.id === selectedImage)?.title || ''}
-                width={800}
-                height={600}
-                className="rounded-lg object-contain"
-                onError={() => handleError('Erreur lors du chargement de l\'image')}
-              />
-              
-              {/* Titre et description */}
-              <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 text-white p-4">
-                <h3 className="text-lg font-semibold mb-1">{galleryImages.find(img => img.id === selectedImage)?.title}</h3>
-                {galleryImages.find(img => img.id === selectedImage)?.description && (
-                  <p className="text-sm">{galleryImages.find(img => img.id === selectedImage)?.description}</p>
-                )}
-              </div>
-            </div>
+            <Image
+              src={images.find(img => img.id === selectedImage)!.url}
+              alt={images.find(img => img.id === selectedImage)!.title}
+              width={800}
+              height={600}
+              className="max-w-screen-lg max-h-screen object-contain"
+            />
           </div>
         </div>
       )}
@@ -152,3 +151,4 @@ export default function Gallery({ images: initialImages, isLoading: initialIsLoa
   );
 }
 
+// Styles are now included in the component's className attributes directly
